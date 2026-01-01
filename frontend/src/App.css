@@ -1,0 +1,629 @@
+.app {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.game-container {
+    max-width: 600px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Header */
+.header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+    letter-spacing: -1px;
+}
+
+.subtitle {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+}
+
+/* Band Display */
+.band-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 16px 32px;
+    border-radius: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    margin-top: 20px;
+    backdrop-filter: blur(10px);
+}
+
+.band-icon {
+    font-size: 2.5rem;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.band-info {
+    text-align: left;
+}
+
+.band-label {
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 1px;
+    text-shadow: 0 0 20px currentColor;
+}
+
+.band-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Health Bar */
+.health-container {
+    background: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.health-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.health-value {
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.health-bar-bg {
+    width: 100%;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+}
+
+.health-bar-fill {
+    height: 100%;
+    border-radius: 12px;
+    transition: width 0.5s ease, background 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.health-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    animation: shimmer 2s infinite;
+}
+
+.damage-label {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Game Area */
+.game-area {
+    background: var(--secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    min-height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.game-active {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+/* Speak Button */
+.speak-button {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: none;
+    background: var(--gradient-primary);
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 30px rgba(99, 102, 241, 0.4);
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.speak-button:hover:not(:disabled) {
+    box-shadow: 0 12px 40px rgba(99, 102, 241, 0.6);
+}
+
+.speak-button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.speak-button.recording {
+    background: var(--gradient-danger);
+    animation: pulse 1s ease-in-out infinite;
+    box-shadow: 0 8px 30px rgba(239, 68, 68, 0.6);
+}
+
+.speak-button.processing {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    animation: rotate 2s linear infinite;
+}
+
+.button-icon {
+    font-size: 3rem;
+}
+
+.button-text {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.recording-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border: 4px solid rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Result Card */
+.result-card {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.result-title {
+    font-size: 1.2rem;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.result-content {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.result-label {
+    color: var(--text-secondary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-width: 120px;
+}
+
+.result-value {
+    color: var(--text-primary);
+    font-weight: 500;
+    text-align: right;
+    flex: 1;
+}
+
+.result-value.damage {
+    color: var(--accent-danger);
+    font-weight: 700;
+}
+
+.result-value.success {
+    color: var(--accent-success);
+    font-weight: 700;
+}
+
+.feedback {
+    margin-top: 8px;
+    padding: 12px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.feedback.warning {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--accent-danger);
+    border: 1px solid var(--accent-danger);
+}
+
+.feedback.success {
+    background: rgba(16, 185, 129, 0.2);
+    color: var(--accent-success);
+    border: 1px solid var(--accent-success);
+}
+
+/* Damage Popup */
+.damage-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--accent-danger);
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.8);
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* Game Over Screen */
+.game-over {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    padding: 40px;
+}
+
+.game-over-icon {
+    font-size: 6rem;
+}
+
+.game-over-title {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--accent-danger);
+    text-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+}
+
+.band-score {
+    font-size: 3rem;
+    font-weight: 900;
+    padding: 16px 32px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    text-shadow: 0 0 30px currentColor;
+    letter-spacing: 2px;
+}
+
+.band-label-large {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+}
+
+.game-over-text {
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.retry-button {
+    padding: 16px 48px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    background: var(--gradient-primary);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+.retry-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
+}
+
+/* Skill Domains */
+.skill-domains {
+    margin-top: 48px;
+    margin-bottom: 32px;
+}
+
+.skills-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 24px;
+    color: var(--text-primary);
+  padding: 0 16px;}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.skill-card {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 24px;
+    border-radius: 16px;
+    border: 2px solid;
+    text-align: center;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.skill-card.active {
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0 0 30px currentColor;
+}
+
+.skill-card.locked {
+    opacity: 0.5;
+    filter: grayscale(0.5);
+}
+
+.skill-card:hover.active {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px currentColor;
+}
+
+.skill-icon {
+    font-size: 3rem;
+    margin-bottom: 12px;
+    filter: drop-shadow(0 0 10px currentColor);
+}
+
+.skill-name {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.skill-description {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.coming-soon {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+/* Instructions */
+.instructions {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.instructions p {
+    margin: 8px 0;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+}
+
+/* Animations */
+@keyframes pulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .speak-button {
+        width: 160px;
+        height: 160px;
+    }
+
+    .button-icon {
+        font-size: 2.5rem;
+    }
+
+    .game-area {
+        padding: 24px;
+        min-height: 350px;
+    }
+
+    .game-over-title {
+        font-size: 2rem;
+    }
+
+    .band-score {
+        font-size: 2rem;
+    }
+
+    .damage-popup {
+        font-size: 3rem;
+    }
+}
+/* Telegram User Header */
+.user-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.user-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid var(--accent-primary);
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.user-username {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.invite-btn {
+    padding: 10px 20px;
+    background: var(--gradient-primary);
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.invite-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+}
+
+/* Game Over Actions */
+.game-over-actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.share-button {
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.4);
+}
+
+.share-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 30px rgba(16, 185, 129, 0.6);
+}
+
+/* Mobile responsive for Telegram buttons */
+@media (max-width: 500px) {
+    .game-over-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .share-button,
+    .retry-button {
+        width: 100%;
+        padding: 14px 24px;
+        font-size: 1rem;
+    }
+    
+    .user-header {
+        padding: 12px;
+    }
+    
+    .user-avatar {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .invite-btn {
+        padding: 8px 16px;
+        font-size: 0.8rem;
+    }
+}

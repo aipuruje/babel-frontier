@@ -1,0 +1,25 @@
+node_modules/
+dist/
+.env
+.env.local
+*.log
+.DS_Store
+.wrangler/
+__pycache__/
+*.pyc
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.cache/
+coverage/
+.turbo/
+build/
+.vercel/
+.next/
+out/
+
+# Keep example env
+!.env.example
+!.env.template

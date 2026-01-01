@@ -1,0 +1,28 @@
+name = "babel-frontier"
+main = "backend/api/index.js"
+compatibility_date = "2025-11-01"
+
+[env.production]
+name = "babel-frontier-prod"
+
+# KV namespace binding (ID will be automatically detected from your Cloudflare account)
+[[kv_namespaces]]
+binding = "ASSETS"
+id = "YOUR_KV_NAMESPACE_ID"
+preview_id = "YOUR_KV_PREVIEW_ID"
+
+# D1 database binding (ID will be automatically detected)
+[[d1_databases]]
+binding = "DB"
+database_name = "babel-frontier-db"
+database_id = "YOUR_D1_DATABASE_ID"
+
+# Environment variables (non-sensitive)
+[vars]
+REGION = "eu-central"
+TARGET_LATENCY_MS = 15
+
+# Secrets (set via GitHub Actions or wrangler secret put)
+# OPENAI_API_KEY - Set in GitHub Secrets
+# TELEGRAM_BOT_TOKEN - Set in GitHub Secrets
+# WEBHOOK_SECRET - Set in GitHub Secrets
