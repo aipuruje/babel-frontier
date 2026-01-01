@@ -1,10 +1,10 @@
 name = "babel-frontier"
 main = "backend/api/index.js"
 compatibility_date = "2025-11-01"
-pages_build_output_dir = "dist"
 
 [env.production]
 name = "babel-frontier-prod"
+
 
 # KV and D1 bindings are created automatically by the GitHub Actions workflow
 # They will be injected at deployment time
