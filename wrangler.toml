@@ -6,10 +6,7 @@ compatibility_date = "2025-11-01"
 name = "babel-frontier-prod"
 
 # KV and D1 bindings are created automatically by the GitHub Actions workflow
-# No need to specify them here - Wrangler will detect them from your account
-
-# Cloudflare Pages configuration
-pages_build_output_dir = "telegram-mini-app/dist"
+# They will be injected at deployment time
 
 # Environment variables (non-sensitive)
 [vars]
