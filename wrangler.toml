@@ -5,17 +5,8 @@ compatibility_date = "2025-11-01"
 [env.production]
 name = "babel-frontier-prod"
 
-# KV namespace binding (ID will be automatically detected from your Cloudflare account)
-[[kv_namespaces]]
-binding = "ASSETS"
-id = "YOUR_KV_NAMESPACE_ID"
-preview_id = "YOUR_KV_PREVIEW_ID"
-
-# D1 database binding (ID will be automatically detected)
-[[d1_databases]]
-binding = "DB"
-database_name = "babel-frontier-db"
-database_id = "YOUR_D1_DATABASE_ID"
+# KV and D1 bindings are created automatically by the GitHub Actions workflow
+# No need to specify them here - Wrangler will detect them from your account
 
 # Environment variables (non-sensitive)
 [vars]
