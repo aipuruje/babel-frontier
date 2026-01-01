@@ -76,7 +76,7 @@ jobs:
       - name: Deploy Telegram Mini App to Pages
         run: |
           cd telegram-mini-app
-          npx wrangler pages deploy dist --project-name=babel-frontier-app
+          npx wrangler pages deploy dist --project-name=babel-frontier
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
