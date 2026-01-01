@@ -1,6 +1,7 @@
 name = "babel-frontier"
 main = "backend/api/index.js"
 compatibility_date = "2025-11-01"
+pages_build_output_dir = "dist"
 
 [env.production]
 name = "babel-frontier-prod"
