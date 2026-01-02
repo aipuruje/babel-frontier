@@ -28,6 +28,7 @@ jobs:
         run: |
           cd telegram-mini-app
           npm ci
+          npm install -D wrangler
           cd ../scripts
           npm ci
 
@@ -71,7 +72,7 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: deploy
+          command: deploy --config ../wrangler.toml
           workingDirectory: 'telegram-mini-app'
           secrets: |
             GEMINI_API_KEY
