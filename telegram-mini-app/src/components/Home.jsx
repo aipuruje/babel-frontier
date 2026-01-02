@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import UzbekPattern from './UzbekPattern';
 
 function Home() {
     const navigate = useNavigate();
@@ -22,10 +23,13 @@ function Home() {
 
     return (
         <div className="min-h-screen bg-cyber-black hex-pattern relative overflow-hidden">
+            {/* Uzbek Geometric Pattern */}
+            <UzbekPattern variant="samarkand" opacity={0.08} />
+
             {/* Animated background elements */}
             <div className="absolute inset-0 opacity-20">
-                <div className="absolute top-10 left-10 w-64 h-64 bg-cyber-gold rounded-full filter blur-[100px] animate-pulse-slow"></div>
-                <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyber-cyan rounded-full filter blur-[120px] animate-pulse-slow"></div>
+                <div className="absolute top-10 left-10 w-64 h-64 bg-uzbek-saffron rounded-full filter blur-[100px] animate-pulse-slow"></div>
+                <div className="absolute bottom-10 right-10 w-96 h-96 bg-uzbek-lapis rounded-full filter blur-[120px] animate-pulse-slow"></div>
             </div>
 
             {/* Scan line effect */}
@@ -50,40 +54,143 @@ function Home() {
 
                     {/* Description */}
                     <p className="font-rajdhani text-gray-300 text-lg md:text-xl max-w-md mx-auto leading-relaxed">
-                        Enter the cyberpunk realm. Track your progress, level up your skills, and dominate the leaderboard.
+                        Master all 4 IELTS skills through epic Uzbek-themed missions
                     </p>
 
-                    {/* Start Button */}
-                    <div className="flex flex-col gap-4 w-full max-w-sm">
+                    {/* 4 Skills Grid */}
+                    <div className="grid grid-cols-2 gap-3 w-full max-w-md">
+                        {/* Speaking */}
                         <button
-                            onClick={handleStart}
-                            className="group relative px-12 py-4 bg-gradient-to-r from-cyber-gold via-cyber-gold-light to-cyber-gold-dark 
-                         font-orbitron font-bold text-cyber-black text-lg uppercase tracking-wider
-                         cyber-border cyber-glow rounded-none
-                         transition-all duration-300 ease-out
-                         hover:scale-105 hover:shadow-2xl
-                         active:scale-95
-                         animate-glow"
+                            onClick={() => navigate('/battle')}
+                            className="group relative p-4 bg-gradient-to-br from-purple-900/40 to-purple-700/40
+                                border-2 border-purple-500
+                                rounded-xl transition-all duration-300
+                                hover:scale-105 hover:shadow-xl hover:shadow-purple-500/30
+                                active:scale-95"
                         >
-                            <span className="relative z-10">Start Battle</span>
+                            <div className="text-4xl mb-2">🎤</div>
+                            <div className="font-bold text-white text-sm">Speaking</div>
+                            <div className="text-[10px] text-purple-300">Battle Arena (Gapirish)</div>
+                        </button>
 
-                            {/* Button corner accents */}
-                            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-cyber-cyan"></div>
-                            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-cyber-cyan"></div>
-                            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-cyber-cyan"></div>
-                            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyber-cyan"></div>
+                        {/* Listening */}
+                        <button
+                            onClick={() => navigate('/listening')}
+                            className="group relative p-4 bg-gradient-to-br from-cyan-900/40 to-cyan-700/40
+                                border-2 border-cyan-500
+                                rounded-xl transition-all duration-300
+                                hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/30
+                                active:scale-95"
+                        >
+                            <div className="text-4xl mb-2">👂</div>
+                            <div className="font-bold text-white text-sm">Listening</div>
+                            <div className="text-[10px] text-cyan-300">Spy Wiretap (Tinglash)</div>
+                        </button>
+
+                        {/* Reading */}
+                        <button
+                            onClick={() => navigate('/reading')}
+                            className="group relative p-4 bg-gradient-to-br from-green-900/40 to-green-700/40
+                                border-2 border-green-500
+                                rounded-xl transition-all duration-300
+                                hover:scale-105 hover:shadow-xl hover:shadow-green-500/30
+                                active:scale-95"
+                        >
+                            <div className="text-4xl mb-2">📖</div>
+                            <div className="font-bold text-white text-sm">Reading</div>
+                            <div className="text-[10px] text-green-300">The Archive (O'qish)</div>
+                        </button>
+
+                        {/* Writing */}
+                        <button
+                            onClick={() => navigate('/writing')}
+                            className="group relative p-4 bg-gradient-to-br from-orange-900/40 to-orange-700/40
+                                border-2 border-orange-500
+                                rounded-xl transition-all duration-300
+                                hover:scale-105 hover:shadow-xl hover:shadow-orange-500/30
+                                active:scale-95"
+                        >
+                            <div className="text-4xl mb-2">✍️</div>
+                            <div className="font-bold text-white text-sm">Writing</div>
+                            <div className="text-[10px] text-orange-300">Citadel (Yozish)</div>
+                        </button>
+                    </div>
+
+                    {/* Secondary Actions */}
+                    <div className="flex flex-col gap-3 w-full max-w-md">
+                        <button
+                            onClick={handleProfile}
+                            className="group relative px-8 py-3 bg-gradient-to-r from-cyber-gold via-uzbek-saffron to-cyber-gold-dark
+                                 font-orbitron font-bold text-cyber-black text-sm uppercase tracking-wider
+                                 cyber-border cyber-glow rounded-lg
+                                 transition-all duration-300 ease-out
+                                 hover:scale-105 hover:shadow-2xl
+                                 active:scale-95"
+                        >
+                            <span className="relative z-10">🧠 Brain State</span>
                         </button>
 
                         <button
-                            onClick={handleProfile}
-                            className="group relative px-12 py-3 bg-transparent
-                         font-orbitron font-semibold text-cyber-gold text-base uppercase tracking-wider
-                         cyber-border
-                         transition-all duration-300 ease-out
-                         hover:bg-cyber-gold/10 hover:scale-105
-                         active:scale-95"
+                            onClick={() => navigate('/equipment')}
+                            className="group relative px-8 py-3 bg-transparent
+                                 font-orbitron font-semibold text-uzbek-terracotta text-sm uppercase tracking-wider
+                                 border-2 border-uzbek-terracotta
+                                 transition-all duration-300 ease-out
+                                 hover:bg-uzbek-terracotta/10 hover:scale-105
+                                 active:scale-95 rounded-lg"
                         >
-                            <span className="relative z-10">Brain State</span>
+                            <span className="relative z-10">⚔️ Equipment Vault</span>
+                        </button>
+
+                        <button
+                            onClick={() => navigate('/boss')}
+                            className="group relative px-8 py-3 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600
+                                 font-orbitron font-bold text-white text-sm uppercase tracking-wider
+                                 border-2 border-purple-400
+                                 transition-all duration-300 ease-out
+                                 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/50
+                                 active:scale-95 rounded-lg animate-pulse"
+                        >
+                            <span className="relative z-10">👻 BOSS BATTLE</span>
+                        </button>
+
+                        {/* Week 2: Marketplace */}
+                        <button
+                            onClick={() => navigate('/marketplace')}
+                            className="group relative px-8 py-3 bg-gradient-to-r from-emerald-600 via-green-600 to-emerald-600
+                                 font-orbitron font-bold text-white text-sm uppercase tracking-wider
+                                 border-2 border-emerald-400
+                                 transition-all duration-300 ease-out
+                                 hover:scale-105 hover:shadow-2xl hover:shadow-emerald-500/50
+                                 active:scale-95 rounded-lg"
+                        >
+                            <span className="relative z-10">🏪 Grand Bazaar</span>
+                        </button>
+
+                        {/* Week 2: Writing Foundry */}
+                        <button
+                            onClick={() => navigate('/writing-foundry')}
+                            className="group relative px-8 py-3 bg-gradient-to-r from-yellow-600 via-orange-600 to-yellow-600
+                                 font-orbitron font-bold text-white text-sm uppercase tracking-wider
+                                 border-2 border-yellow-400
+                                 transition-all duration-300 ease-out
+                                 hover:scale-105 hover:shadow-2xl hover:shadow-yellow-500/50
+                                 active:scale-95 rounded-lg"
+                        >
+                            <span className="relative z-10">✍️ Writing Foundry</span>
+                        </button>
+
+                        {/* Week 2: Regional Map */}
+                        <button
+                            onClick={() => navigate('/regional-map')}
+                            className="group relative px-8 py-3 bg-gradient-to-r from-teal-600 via-cyan-600 to-teal-600
+                                 font-orbitron font-bold text-white text-sm uppercase tracking-wider
+                                 border-2 border-teal-400
+                                 transition-all duration-300 ease-out
+                                 hover:scale-105 hover:shadow-2xl hover:shadow-teal-500/50
+                                 active:scale-95 rounded-lg"
+                        >
+                            <span className="relative z-10">🗺️ Neo-Uzbekistan Map</span>
                         </button>
                     </div>
 
@@ -95,7 +202,7 @@ function Home() {
                         </div>
                         <div className="flex items-center gap-2">
                             <div className="w-2 h-2 bg-cyber-gold animate-pulse"></div>
-                            <span>SYSTEM ONLINE</span>
+                            <span>VOICE COMBAT READY</span>
                         </div>
                     </div>
                 </div>

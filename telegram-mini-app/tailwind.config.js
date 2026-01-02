@@ -17,10 +17,23 @@ export default {
           cyan: '#00ffff',
           'cyan-dark': '#00d4d4',
         },
+        uzbek: {
+          terracotta: '#D2691E',
+          'terracotta-light': '#E88643',
+          'terracotta-dark': '#B8551A',
+          lapis: '#1E40AF',
+          'lapis-light': '#3B82F6',
+          'lapis-dark': '#1E3A8A',
+          saffron: '#F59E0B',
+          'saffron-light': '#FBBF24',
+          turquoise: '#14B8A6',
+          'silk-cream': '#FAF8F3',
+        },
       },
       fontFamily: {
         orbitron: ['Orbitron', 'sans-serif'],
         rajdhani: ['Rajdhani', 'sans-serif'],
+        arabic: ['Amiri', 'serif'],
       },
       animation: {
         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
@@ -29,10 +42,10 @@ export default {
       },
       keyframes: {
         glow: {
-          '0%': { 
+          '0%': {
             boxShadow: '0 0 5px #FFD700, 0 0 10px #FFD700, 0 0 15px #FFD700',
           },
-          '100%': { 
+          '100%': {
             boxShadow: '0 0 10px #FFD700, 0 0 20px #FFD700, 0 0 30px #FFD700, 0 0 40px #FFA500',
           },
         },

@@ -66,37 +66,35 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
-      - name: Deploy Workers
-        run: |
-          npx wrangler deploy
+      - name: Deploy Unified Worker
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+          secrets: |
+            GEMINI_API_KEY
+            TELEGRAM_BOT_TOKEN
+            CLOUDFLARE_Account_ID
         env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-
-      - name: Deploy Telegram Mini App to Pages
-        run: |
-          cd telegram-mini-app
-          npx wrangler pages deploy dist --project-name=babel-frontier
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Set Telegram Webhook
         run: |
-          WORKER_URL="${{ secrets.WORKER_URL }}"
-          if [ -z "$WORKER_URL" ]; then
-            echo "⚠️  WORKER_URL secret not set. Please set it manually after first deployment."
-          else
-            curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/setWebhook" \
-              -d "url=${WORKER_URL}/webhook"
-          fi
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-
+          # Wait for deployment propagation
+          sleep 10
+          
+          # Get Worker URL (assuming standard format)
+          WORKER_URL="https://babel-frontier.rahrus1977.workers.dev"
+          
+          echo "Setting webhook to: $WORKER_URL/webhook"
+          
+          curl -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/setWebhook" \
+            -d "url=${WORKER_URL}/webhook"
+            
       - name: Deployment Summary
         run: |
           echo "🎉 Deployment Complete!"
-          echo "📦 Workers deployed"
-          echo "🌐 Telegram Mini App deployed to Pages"
-          echo "🗄️ D1 database configured"
-          echo "🔑 KV namespace configured"
+          echo "🌐 App URL: https://babel-frontier.rahrus1977.workers.dev"

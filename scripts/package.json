@@ -9,9 +9,10 @@
         "deploy:edge": "node deploy_to_edge.js"
     },
     "dependencies": {
-        "dotenv": "^16.3.1",
-        "node-fetch": "^3.3.2",
         "chalk": "^5.3.0",
+        "dotenv": "^16.3.1",
+        "libsodium-wrappers": "^0.7.16",
+        "node-fetch": "^3.3.2",
         "ora": "^8.0.1",
         "prompts": "^2.4.2"
     }

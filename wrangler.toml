@@ -5,6 +5,9 @@ compatibility_date = "2025-11-01"
 [env.production]
 name = "babel-frontier-prod"
 
+# Workers Sites - serve static frontend assets
+[site]
+bucket = "./telegram-mini-app/dist"
 
 # KV and D1 bindings are created automatically by the GitHub Actions workflow
 # They will be injected at deployment time
@@ -15,6 +18,7 @@ REGION = "eu-central"
 TARGET_LATENCY_MS = 15
 
 # Secrets (set via GitHub Actions or wrangler secret put)
-# OPENAI_API_KEY - Set in GitHub Secrets
+# GEMINI_API_KEY - Set in GitHub Secrets (Gemini 2.5 Flash for AI analysis)
+# OPENAI_API_KEY - DEPRECATED: Migrated to Gemini
 # TELEGRAM_BOT_TOKEN - Set in GitHub Secrets
 # WEBHOOK_SECRET - Set in GitHub Secrets

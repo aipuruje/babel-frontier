@@ -1,13 +1,19 @@
-import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { useState, useRef } from 'react';
+// eslint-disable-next-line no-unused-vars
+import { AnimatePresence, motion } from 'framer-motion';
 import WebApp from '@twa-dev/sdk';
+import RankBadge from './RankBadge';
+import audioManager from '../utils/audioManager';
+import { ParticleEffect, ScreenFlash } from './ParticleEffects';
+import notificationManager from '../utils/notificationManager';
 
 export default function BattleArena() {
     const [isRecording, setIsRecording] = useState(false);
     const [isProcessing, setIsProcessing] = useState(false);
     const [result, setResult] = useState(null);
-    const [mediaRecorder, setMediaRecorder] = useState(null);
-    const [audioChunks, setAudioChunks] = useState([]);
+    const [showParticles, setShowParticles] = useState(false);
+    const [showFlash, setShowFlash] = useState(false);
+    const mediaRecorderRef = useRef(null);
 
     const startRecording = async () => {
         try {
@@ -27,15 +33,15 @@ export default function BattleArena() {
                 stream.getTracks().forEach(track => track.stop());
             };
 
+            mediaRecorderRef.current = recorder;
             recorder.start();
-            setMediaRecorder(recorder);
             setIsRecording(true);
-            setAudioChunks(chunks);
 
             // Auto-stop after 30 seconds
             setTimeout(() => {
                 if (recorder.state === 'recording') {
-                    stopRecording();
+                    recorder.stop();
+                    setIsRecording(false);
                 }
             }, 30000);
 
@@ -46,8 +52,8 @@ export default function BattleArena() {
     };
 
     const stopRecording = () => {
-        if (mediaRecorder && mediaRecorder.state === 'recording') {
-            mediaRecorder.stop();
+        if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+            mediaRecorderRef.current.stop();
             setIsRecording(false);
         }
     };
@@ -82,6 +88,41 @@ export default function BattleArena() {
                 WebApp.HapticFeedback.notificationOccurred('warning');
             }
 
+            // Dopamine loop triggers
+            const bandValue = parseFloat(data.band_score.replace('band_', ''));
+
+            // Audio feedback
+            if (bandValue >= 7.0) {
+                audioManager.playSuccess();
+                notificationManager.triggerHaptic('success');
+            } else if (bandValue >= 5.0) {
+                audioManager.playXPGain();
+            } else {
+                audioManager.playFailure();
+                notificationManager.triggerHaptic('warning');
+            }
+
+            // Particle effects for high scores
+            if (bandValue >= 7.0) {
+                setShowParticles(true);
+                setShowFlash(true);
+                setTimeout(() => setShowFlash(false), 500);
+
+                // Achievement notification
+                if (bandValue >= 8.5) {
+                    notificationManager.notifyAchievement(
+                        'Elite Performance!',
+                        `Band ${bandValue} - You're speaking like a Sultan!`,
+                        100
+                    );
+                }
+            }
+
+            // XP notification
+            if (data.word_count >= 20) {
+                notificationManager.triggerHaptic('success');
+            }
+
         } catch (error) {
             console.error('Analysis error:', error);
             WebApp.showAlert('Failed to analyze speech. Please try again.');
@@ -90,26 +131,23 @@ export default function BattleArena() {
         }
     };
 
-    const getBandColor = (bandScore) => {
-        const colors = {
-            'band_9.0': '#00ff00',
-            'band_8.5': '#10b981',
-            'band_8.0': '#22c55e',
-            'band_7.5': '#84cc16',
-            'band_7.0': '#eab308',
-            'band_6.5': '#f59e0b',
-            'band_6.0': '#f97316',
-            'band_5.5': '#ef4444',
-            'band_5.0': '#dc2626',
-            'band_4.5': '#b91c1c',
-            'band_4.0': '#991b1b',
-            'band_3.5': '#7f1d1d'
-        };
-        return colors[bandScore] || '#6b7280';
-    };
+
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-zinc-900 to-black text-white p-4">
+            {/* Particle effects */}
+            <AnimatePresence>
+                {showParticles && (
+                    <ParticleEffect
+                        type="victory"
+                        value={result?.word_count}
+                        x={window.innerWidth / 2}
+                        y={window.innerHeight / 3}
+                        onComplete={() => setShowParticles(false)}
+                    />
+                )}
+                {showFlash && <ScreenFlash color="#00FF00" duration={0.5} />}
+            </AnimatePresence>
             {/* Header */}
             <div className="max-w-2xl mx-auto">
                 <motion.div
@@ -133,8 +171,8 @@ export default function BattleArena() {
                                 onClick={isRecording ? stopRecording : startRecording}
                                 disabled={isProcessing}
                                 className={`w-32 h-32 rounded-full flex items-center justify-center text-6xl transition-all duration-300 ${isRecording
-                                        ? 'bg-red-500 shadow-lg shadow-red-500/50 animate-pulse'
-                                        : 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg shadow-yellow-500/50'
+                                    ? 'bg-red-500 shadow-lg shadow-red-500/50 animate-pulse'
+                                    : 'bg-gradient-to-br from-yellow-400 to-orange-500 shadow-lg shadow-yellow-500/50'
                                     } ${isProcessing ? 'opacity-50 cursor-not-allowed' : ''}`}
                             >
                                 {isRecording ? '⏹️' : '🎤'}
@@ -165,20 +203,21 @@ export default function BattleArena() {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="space-y-4"
+                            className="space-y-6"
                         >
-                            {/* Band Score */}
-                            <div
-                                className="p-6 rounded-xl text-center border-2"
-                                style={{
-                                    borderColor: getBandColor(result.band_score),
-                                    backgroundColor: `${getBandColor(result.band_score)}10`
-                                }}
-                            >
-                                <div className="text-5xl font-bold" style={{ color: getBandColor(result.band_score) }}>
-                                    {result.band_score?.replace('band_', '')} Band
-                                </div>
-                                <p className="text-zinc-400 mt-2">{result.feedback}</p>
+                            {/* Rank Badge */}
+                            <div className="flex justify-center">
+                                <RankBadge
+                                    bandScore={result.band_score}
+                                    size="large"
+                                    showTitle={true}
+                                    animated={true}
+                                />
+                            </div>
+
+                            {/* Feedback */}
+                            <div className="text-center">
+                                <p className="text-xl font-bold text-white mb-2">{result.feedback}</p>
                             </div>
 
                             {/* Transcription */}
@@ -198,6 +237,70 @@ export default function BattleArena() {
                                     <div className="text-sm text-zinc-500">Damage</div>
                                 </div>
                             </div>
+
+                            {/* Gemini AI Analysis */}
+                            {result.gemini_analysis && (
+                                <div className="bg-gradient-to-br from-purple-900/30 to-blue-900/30 border-2 border-purple-500/30 rounded-xl p-4">
+                                    <h3 className="text-sm font-bold text-purple-300 mb-3 flex items-center gap-2">
+                                        <span>✨</span> AI-Powered IELTS Analysis
+                                    </h3>
+
+                                    {/* Skill Scores Grid */}
+                                    <div className="grid grid-cols-2 gap-2 mb-4">
+                                        {result.gemini_analysis.fluency_score > 0 && (
+                                            <div className="bg-black/30 p-2 rounded">
+                                                <div className="text-xs text-zinc-400">Fluency</div>
+                                                <div className="text-lg font-bold text-cyan-400">{result.gemini_analysis.fluency_score}/9</div>
+                                            </div>
+                                        )}
+                                        {result.gemini_analysis.pronunciation_score > 0 && (
+                                            <div className="bg-black/30 p-2 rounded">
+                                                <div className="text-xs text-zinc-400">Pronunciation</div>
+                                                <div className="text-lg font-bold text-green-400">{result.gemini_analysis.pronunciation_score}/9</div>
+                                            </div>
+                                        )}
+                                        {result.gemini_analysis.grammar_score > 0 && (
+                                            <div className="bg-black/30 p-2 rounded">
+                                                <div className="text-xs text-zinc-400">Grammar</div>
+                                                <div className="text-lg font-bold text-yellow-400">{result.gemini_analysis.grammar_score}/9</div>
+                                            </div>
+                                        )}
+                                        {result.gemini_analysis.vocabulary_score > 0 && (
+                                            <div className="bg-black/30 p-2 rounded">
+                                                <div className="text-xs text-zinc-400">Vocabulary</div>
+                                                <div className="text-lg font-bold text-orange-400">{result.gemini_analysis.vocabulary_score}/9</div>
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Errors & Strengths */}
+                                    {result.gemini_analysis.common_errors?.length > 0 && (
+                                        <div className="mb-3">
+                                            <div className="text-xs font-bold text-red-400 mb-1">⚠️ Areas to Improve:</div>
+                                            <div className="space-y-1">
+                                                {result.gemini_analysis.common_errors.map((error, i) => (
+                                                    <div key={i} className="text-xs text-zinc-300 bg-red-900/20 px-2 py-1 rounded">
+                                                        • {error}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {result.gemini_analysis.strengths?.length > 0 && (
+                                        <div>
+                                            <div className="text-xs font-bold text-green-400 mb-1">✅ Strengths:</div>
+                                            <div className="space-y-1">
+                                                {result.gemini_analysis.strengths.map((strength, i) => (
+                                                    <div key={i} className="text-xs text-zinc-300 bg-green-900/20 px-2 py-1 rounded">
+                                                        • {strength}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
 
                             {/* Action Buttons */}
                             <div className="flex gap-4">

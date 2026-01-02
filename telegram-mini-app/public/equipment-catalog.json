@@ -1,0 +1,111 @@
+{
+  "equipment_catalog": [
+    {
+      "id": "basic_doppa",
+      "name": "Merchant's Doppa",
+      "type": "headwear",
+      "band_required": 4.5,
+      "description": "Traditional Uzbek cap embroidered with basic vocabulary",
+      "stat_bonus": { "speaking_band": 0.2 },
+      "icon": "🎩",
+      "rarity": "common",
+      "visual_effect": "subtle_glow"
+    },
+    {
+      "id": "silk_chapan",
+      "name": "Silk Road Chapan",
+      "type": "robe",
+      "band_required": 5.5,
+      "description": "Flowing robe woven with intermediate collocations",
+      "stat_bonus": { "speaking_band": 0.3, "listening_band": 0.2 },
+      "icon": "👘",
+      "rarity": "uncommon",
+      "visual_effect": "shimmer"
+    },
+    {
+      "id": "samarkand_boots",
+      "name": "Boots of the Registan",
+      "type": "footwear",
+      "band_required": 6.0,
+      "description": "Swift boots that reduce hesitation penalties",
+      "stat_bonus": { "speaking_band": 0.4 },
+      "icon": "👢",
+      "rarity": "uncommon",
+      "visual_effect": "speed_trail"
+    },
+    {
+      "id": "golden_plov_amulet",
+      "name": "Golden Plov Amulet",
+      "type": "accessory",
+      "band_required": 6.5,
+      "description": "Legendary talisman forged from perfect pronunciation",
+      "stat_bonus": { "speaking_band": 0.5, "all_skills": 0.1 },
+      "icon": "🔱",
+      "rarity": "rare",
+      "visual_effect": "particle_burst"
+    },
+    {
+      "id": "vizier_turban",
+      "name": "Turban of the Grand Vizier",
+      "type": "headwear",
+      "band_required": 7.0,
+      "description": "Royal headwear that grants master-level vocabulary",
+      "stat_bonus": { "speaking_band": 0.6, "reading_band": 0.4 },
+      "icon": "👳",
+      "rarity": "rare",
+      "visual_effect": "royal_aura"
+    },
+    {
+      "id": "lexical_scimitar",
+      "name": "Scimitar of Lexical Resource",
+      "type": "weapon",
+      "band_required": 7.5,
+      "description": "Curved blade that cuts through communication barriers",
+      "stat_bonus": { "speaking_band": 0.7, "writing_band": 0.5 },
+      "icon": "⚔️",
+      "rarity": "epic",
+      "visual_effect": "slash_animation"
+    },
+    {
+      "id": "bukhara_manuscript",
+      "name": "Ancient Manuscript of Bukhara",
+      "type": "tome",
+      "band_required": 8.0,
+      "description": "Sacred text containing all IELTS band 9 expressions",
+      "stat_bonus": { "all_skills": 0.3 },
+      "icon": "📜",
+      "rarity": "epic",
+      "visual_effect": "floating_glyphs"
+    },
+    {
+      "id": "sultan_crown",
+      "name": "Crown of the Syntax Sultan",
+      "type": "headwear",
+      "band_required": 8.5,
+      "description": "Ultimate symbol of linguistic mastery",
+      "stat_bonus": { "speaking_band": 1.0, "all_skills": 0.5 },
+      "icon": "👑",
+      "rarity": "legendary",
+      "visual_effect": "diamond_particles"
+    },
+    {
+      "id": "samarkand_scepter",
+      "name": "Scepter of Samarkand",
+      "type": "weapon",
+      "band_required": 9.0,
+      "description": "The ultimate artifact - wielded only by true language champions",
+      "stat_bonus": { "all_skills": 1.0 },
+      "icon": "🔮",
+      "rarity": "mythic",
+      "visual_effect": "cosmic_vortex"
+    }
+  ],
+  "rarity_colors": {
+    "common": "#9CA3AF",
+    "uncommon": "#10B981",
+    "rare": "#3B82F6",
+    "epic": "#9333EA",
+    "legendary": "#F59E0B",
+    "mythic": "#EC4899"
+  }
+}
