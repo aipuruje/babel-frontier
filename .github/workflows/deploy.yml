@@ -72,6 +72,7 @@ jobs:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: deploy
+          workingDirectory: 'telegram-mini-app'
           secrets: |
             GEMINI_API_KEY
             TELEGRAM_BOT_TOKEN
