@@ -77,7 +77,7 @@ jobs:
           secrets: |
             GEMINI_API_KEY
             TELEGRAM_BOT_TOKEN
-            CLOUDFLARE_Account_ID
+            CLOUDFLARE_ACCOUNT_ID
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
