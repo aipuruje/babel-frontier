@@ -15,6 +15,7 @@ import RegionalMap from './components/RegionalMap';
 import LiveBossRaid from './components/LiveBossRaid';
 import ZenGarden from './components/ZenGarden';
 import OraclesSeal from './components/OraclesSeal';
+import GrammarBoss from './components/GrammarBoss';
 import { LiteModeProvider } from './components/LiteModeContext';
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
           {/* Audit Mitigations */}
           <Route path="/zen-garden" element={<ZenGarden />} />
           <Route path="/oracle" element={<OraclesSeal />} />
+          <Route path="/grammar-boss" element={<GrammarBoss />} />
         </Routes>
       </BrowserRouter>
     </LiteModeProvider>
