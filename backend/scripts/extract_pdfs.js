@@ -1,60 +1,58 @@
-/**
- * PDF Extraction Script for IELTS Resources
- * Parses 8 PDF books and chunks them into D1 database
- */
+import { readFile, writeFile } from 'fs/promises';
+import { join } from 'path';
+import { createRequire } from 'module';
 
-// Note: This requires pdf-parse npm package
-// Run: npm install pdf-parse --save (in backend directory)
+const require = createRequire(import.meta.url);
+const pdfParse = require('pdf-parse');
 
-import fs from 'fs/promises';
-import path from 'path';
-import pdf from 'pdf-parse'; // Will need to install
+// Absolute paths from project root
+const PROJECT_ROOT = 'D:/apps/game';
 
 const PDF_BOOKS = [
     {
-        path: '../Cambridge_Grammar_for_IELTS_with_answers_Hopkins_Diane_Cullen_Pauline_2008_-272p.pdf',
+        path: join(PROJECT_ROOT, 'Cambridge_Grammar_for_IELTS_with_answers_Hopkins_Diane_Cullen_Pauline_2008_-272p.pdf'),
         name: 'Cambridge Grammar for IELTS',
-        type: 'grammar',
+        type: 'grammar_rule',
         difficulty: 'intermediate',
         skillArea: 'grammar'
     },
     {
-        path: '../Cambridge_Vocabulary_for_IELTS.pdf',
+        path: join(PROJECT_ROOT, 'Cambridge_Vocabulary_for_IELTS.pdf'),
         name: 'Cambridge Vocabulary for IELTS',
         type: 'vocabulary',
         difficulty: 'intermediate',
         skillArea: 'vocabulary'
     },
     {
-        path: '../The_Key_to_IELTS_Academic_Writing_Task_1.pdf',
+        path: join(PROJECT_ROOT, 'The_Key_to_IELTS_Academic_Writing_Task_1.pdf'),
         name: 'The Key to IELTS Academic Writing Task 1',
         type: 'writing_template',
         difficulty: 'advanced',
         skillArea: 'writing'
     },
     {
-        path: '../THE_KEY_TO_IELTS_WRITING_-_PAULINE_CULLEN.pdf',
+        path: join(PROJECT_ROOT, 'THE_KEY_TO_IELTS_WRITING_-_PAULINE_CULLEN.pdf'),
         name: 'The Key to IELTS Writing',
         type: 'writing_template',
         difficulty: 'advanced',
         skillArea: 'writing'
     },
     {
-        path: '../Key-to-IELTS-Success-2021.pdf',
+        path: join(PROJECT_ROOT, 'Key-to-IELTS-Success-2021.pdf'),
         name: 'Key to IELTS Success 2021',
         type: 'strategy',
         difficulty: 'intermediate',
         skillArea: 'general'
     },
     {
-        path: '../Common_Mistakes_at_IELTS_Advanced.pdf',
+        path: join(PROJECT_ROOT, 'Common_Mistakes_at_IELTS_Advanced.pdf'),
         name: 'Common Mistakes at IELTS Advanced',
         type: 'common_mistake',
         difficulty: 'advanced',
         skillArea: 'grammar'
     },
     {
-        path: '../Common_Mistakes_at_IELTS_Intermediate.pdf',
+        path: join(PROJECT_ROOT, 'Common_Mistakes_at_IELTS_Intermediate.pdf'),
         name: 'Common Mistakes at IELTS Intermediate',
         type: 'common_mistake',
         difficulty: 'intermediate',
@@ -62,55 +60,45 @@ const PDF_BOOKS = [
     }
 ];
 
-/**
- * Extract text from PDF
- */
 async function extractPDF(filePath) {
     try {
-        const dataBuffer = await fs.readFile(path.resolve(__dirname, filePath));
-        const data = await pdf(dataBuffer);
+        console.log(`   Reading: ${filePath}`);
+        const dataBuffer = await readFile(filePath);
+        const data = await pdfParse(dataBuffer);
         return {
             text: data.text,
-            numPages: data.numpages,
-            info: data.info
+            numPages: data.numpages
         };
     } catch (error) {
-        console.error(`Error extracting ${filePath}:`, error.message);
+        console.error(`   ❌ Error: ${error.message}`);
         return null;
     }
 }
 
-/**
- * Intelligent chunking algorithm
- * Splits text by pedagogical units (headings, sections, examples)
- */
 function intelligentChunk(text, bookMeta) {
     const chunks = [];
 
-    // Split by common heading patterns in IELTS books
+    // Split by common heading patterns
     const sections = text.split(/(?:Unit \d+|Chapter \d+|Section \d+|Exercise \d+|Task \d+)/i);
 
     for (let i = 0; i < sections.length; i++) {
         const section = sections[i].trim();
-        if (section.length < 50) continue; // Skip very short sections
+        if (section.length < 50) continue;
 
-        // Extract title (first line)
-        const lines = section.split('\n');
-        const title = lines[0].trim().substring(0, 200);
-
-        // Get content (rest of lines, max 2000 chars for efficient retrieval)
-        const content = lines.slice(1).join('\n').substring(0, 2000).trim();
+        const lines = section.split('\n').filter(l => l.trim());
+        const title = lines[0] ? lines[0].trim().substring(0, 200) : `Section ${i + 1}`;
+        const content = lines.slice(1).join(' ').substring(0, 1500).trim();
 
         if (content.length > 100) {
             chunks.push({
                 source_book: bookMeta.name,
                 chunk_type: bookMeta.type,
-                title: title || `Section ${i + 1}`,
+                title: title,
                 content: content,
                 difficulty: bookMeta.difficulty,
                 skill_area: bookMeta.skillArea,
-                page_reference: `Approx page ${Math.floor(i / 2)}`, // Rough estimate
-                metadata: JSON.stringify({ sectionIndex: i })
+                page_reference: `Approx page ${Math.floor((i * 2) + 1)}`,
+                metadata: JSON.stringify({ sectionIndex: i, bookType: bookMeta.type })
             });
         }
     }
@@ -118,67 +106,50 @@ function intelligentChunk(text, bookMeta) {
     return chunks;
 }
 
-/**
- * Save chunks to D1 database
- */
-async function saveChunksToD1(chunks, db) {
-    const stmt = db.prepare(`
-    INSERT INTO ielts_knowledge_chunks 
-    (source_book, chunk_type, title, content, difficulty, skill_area, page_reference, metadata)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-  `);
-
-    for (const chunk of chunks) {
-        await stmt.bind(
-            chunk.source_book,
-            chunk.chunk_type,
-            chunk.title,
-            chunk.content,
-            chunk.difficulty,
-            chunk.skill_area,
-            chunk.page_reference,
-            chunk.metadata
-        ).run();
-    }
-
-    console.log(`✅ Saved ${chunks.length} chunks from ${chunks[0].source_book}`);
-}
-
-/**
- * Main extraction function
- */
-export async function extractAllPDFs(db) {
-    console.log('🚀 Starting PDF extraction...');
+async function extractAllPDFs() {
+    console.log('🚀 PDF Extraction Started\n');
     let totalChunks = 0;
+    const allChunks = [];
 
     for (const book of PDF_BOOKS) {
-        console.log(`\n📖 Processing: ${book.name}`);
+        console.log(`\n📖 ${book.name}`);
 
         const pdfData = await extractPDF(book.path);
         if (!pdfData) {
-            console.log(`❌ Skipping ${book.name} - extraction failed`);
+            console.log(`   ⏭️  Skipped\n`);
             continue;
         }
 
-        console.log(`   Pages: ${pdfData.numPages}`);
-        console.log(`   Text length: ${pdfData.text.length} characters`);
+        console.log(`   ✓ Pages: ${pdfData.numPages}`);
+        console.log(`   ✓ Text: ${pdfData.text.length} chars`);
 
         const chunks = intelligentChunk(pdfData.text, book);
-        console.log(`   Chunks created: ${chunks.length}`);
+        console.log(`   ✓ Chunks: ${chunks.length}`);
 
-        await saveChunksToD1(chunks, db);
+        allChunks.push(...chunks);
         totalChunks += chunks.length;
     }
 
-    console.log(`\n✅ Extraction complete! Total chunks: ${totalChunks}`);
-    return totalChunks;
+    // Save all chunks
+    const jsonPath = join(PROJECT_ROOT, 'backend', 'extracted_chunks_ALL.json');
+    await writeFile(jsonPath, JSON.stringify(allChunks, null, 2), 'utf-8');
+    console.log(`\n\n💾 Saved ${totalChunks} chunks → extracted_chunks_ALL.json`);
+
+    // Generate SQL
+    const sqlStatements = allChunks.map(chunk => {
+        const esc = (str) => str.replace(/'/g, "''").substring(0, 1500);
+        return `INSERT INTO ielt s_knowledge_chunks (source_book, chunk_type, title, content, difficulty, skill_area, page_reference, metadata) VALUES ('${esc(chunk.source_book)}', '${chunk.chunk_type}', '${esc(chunk.title)}', '${esc(chunk.content)}', '${chunk.difficulty}', '${chunk.skill_area}', '${chunk.page_reference}', '${chunk.metadata}');`;
+    }).join('\n');
+
+    const sqlPath = join(PROJECT_ROOT, 'backend', 'knowledge_chunks_inserts.sql');
+    await writeFile(sqlPath, sqlStatements, 'utf-8');
+    console.log(`📝 Generated SQL → knowledge_chunks_inserts.sql`);
+
+    console.log(`\n✅ Extraction Complete!`);
+    console.log(`\nNext: wrangler d1 execute babel-frontier-db --remote --file=backend/knowledge_chunks_inserts.sql`);
 }
 
-/**
- * CLI interface (for manual runs)
- */
-if (import.meta.url === `file://${process.argv[1]}`) {
-    console.log('PDF Extraction Script');
-    console.log('This should be run from the backend directory');
-    console.log('Usage: node --experimental-modules scripts/extract_pdfs.js');
-}
+extractAllPDFs().catch(err => {
+    console.error('\n❌ Fatal error:', err);
+    process.exit(1);
+});

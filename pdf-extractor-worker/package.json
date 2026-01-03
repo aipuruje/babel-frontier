@@ -1,0 +1,17 @@
+{
+    "name": "pdf-extractor-worker",
+    "version": "1.0.0",
+    "description": "Cloudflare Worker to extract IELTS PDFs and populate D1 database",
+    "main": "src/index.js",
+    "type": "module",
+    "scripts": {
+        "deploy": "wrangler deploy",
+        "dev": "wrangler dev"
+    },
+    "dependencies": {
+        "pdfjs-dist": "^4.0.379"
+    },
+    "devDependencies": {
+        "wrangler": "^3.22.0"
+    }
+}

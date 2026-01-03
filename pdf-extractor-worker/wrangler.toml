@@ -1,0 +1,14 @@
+name = "pdf-extractor"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# R2 bucket for PDFs
+[[r2_buckets]]
+binding = "PDF_BUCKET"
+bucket_name = "ielts-pdfs"
+
+# D1 database (same as main app)
+[[d1_databases]]
+binding = "DB"
+database_name = "pdf-extractor-db"
+database_id = "f6eda8be-9212-4e22-b741-4485d0d4f6b5"
