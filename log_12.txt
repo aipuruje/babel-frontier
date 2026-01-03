@@ -1,0 +1,385 @@
+Deploy to Cloudflare	Set up job	﻿2026-01-02T18:54:55.6488720Z Current runner version: '2.330.0'
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6513964Z ##[group]Runner Image Provisioner
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6514927Z Hosted Compute Agent
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6515554Z Version: 20251211.462
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6516179Z Commit: 6cbad8c2bb55d58165063d031ccabf57e2d2db61
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6516946Z Build Date: 2025-12-11T16:28:49Z
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6517651Z Worker ID: {f330dad0-aaea-4bb3-b283-316ab0937699}
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6518294Z ##[endgroup]
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6518885Z ##[group]Operating System
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6519469Z Ubuntu
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6520290Z 24.04.3
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6520928Z LTS
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6521423Z ##[endgroup]
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6521938Z ##[group]Runner Image
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6522590Z Image: ubuntu-24.04
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6523140Z Version: 20251215.174.1
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6524241Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20251215.174/images/ubuntu/Ubuntu2404-Readme.md
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6525713Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20251215.174
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6526957Z ##[endgroup]
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6528069Z ##[group]GITHUB_TOKEN Permissions
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6530179Z Contents: read
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6530937Z Metadata: read
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6531485Z Packages: read
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6532074Z ##[endgroup]
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6534160Z Secret source: Actions
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6534953Z Prepare workflow directory
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6921316Z Prepare all required actions
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:55.6960044Z Getting action download info
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:56.1066722Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:56.2230518Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:56.3151557Z Download action repository 'cloudflare/wrangler-action@v3' (SHA:da0e0dfe58b7a431659754fdf3f186c529afbe65)
+Deploy to Cloudflare	Set up job	2026-01-02T18:54:56.9992046Z Complete job name: Deploy to Cloudflare
+Deploy to Cloudflare	Checkout repository	﻿2026-01-02T18:54:57.0734274Z ##[group]Run actions/checkout@v4
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0735224Z with:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0735699Z   repository: aipuruje/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0736450Z   token: ***
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0736877Z   ssh-strict: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0737322Z   ssh-user: git
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0737770Z   persist-credentials: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0738262Z   clean: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0738708Z   sparse-checkout-cone-mode: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0739232Z   fetch-depth: 1
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0739666Z   fetch-tags: false
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0740338Z   show-progress: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0740812Z   lfs: false
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0741279Z   submodules: false
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0741769Z   set-safe-directory: true
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.0742548Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1809700Z Syncing repository: aipuruje/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1812042Z ##[group]Getting Git version info
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1812909Z Working directory is '/home/runner/work/babel-frontier/babel-frontier'
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1814152Z [command]/usr/bin/git version
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1893405Z git version 2.52.0
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1920858Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1936147Z Temporarily overriding HOME='/home/runner/work/_temp/be199406-cc7e-494c-a9aa-0cd3df4e4216' before making global git config changes
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1938505Z Adding repository directory to the temporary git global config as a safe directory
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1948829Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babel-frontier/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1990636Z Deleting the contents of '/home/runner/work/babel-frontier/babel-frontier'
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1994418Z ##[group]Initializing the repository
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.1998328Z [command]/usr/bin/git init /home/runner/work/babel-frontier/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2115603Z hint: Using 'master' as the name for the initial branch. This default branch name
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2117384Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2119254Z hint: to use in all of your new repositories, which will suppress this warning,
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2121507Z hint: call:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2122208Z hint:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2122979Z hint: 	git config --global init.defaultBranch <name>
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2123661Z hint:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2124290Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2125777Z hint: 'development'. The just-created branch can be renamed via this command:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2126642Z hint:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2127092Z hint: 	git branch -m <name>
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2127621Z hint:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2128302Z hint: Disable this message with "git config set advice.defaultBranchName false"
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2129995Z Initialized empty Git repository in /home/runner/work/babel-frontier/babel-frontier/.git/
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2133189Z [command]/usr/bin/git remote add origin https://github.com/aipuruje/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2165571Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2166911Z ##[group]Disabling automatic garbage collection
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2169161Z [command]/usr/bin/git config --local gc.auto 0
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2197699Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2198957Z ##[group]Setting up auth
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2204533Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2234469Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2580586Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2610956Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2830936Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.2860652Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.3088943Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.3123044Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.3124389Z ##[group]Fetching the repository
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.3131121Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +cb07627084e6087cacae504ce2cef4b86c79008c:refs/remotes/origin/main
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8295916Z From https://github.com/aipuruje/babel-frontier
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8296912Z  * [new ref]         cb07627084e6087cacae504ce2cef4b86c79008c -> origin/main
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8329224Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8330732Z ##[group]Determining the checkout info
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8332283Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8337506Z [command]/usr/bin/git sparse-checkout disable
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8378760Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8405036Z ##[group]Checking out the ref
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8408496Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8536970Z Switched to a new branch 'main'
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8540177Z branch 'main' set up to track 'origin/main'.
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8547490Z ##[endgroup]
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8581302Z [command]/usr/bin/git log -1 --format=%H
+Deploy to Cloudflare	Checkout repository	2026-01-02T18:54:57.8602588Z cb07627084e6087cacae504ce2cef4b86c79008c
+Deploy to Cloudflare	Setup Node.js	﻿2026-01-02T18:54:57.8858999Z ##[group]Run actions/setup-node@v4
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8859639Z with:
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8860228Z   node-version: 20
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8860694Z   cache: npm
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8861416Z   cache-dependency-path: telegram-mini-app/package-lock.json
+Deploy to Cloudflare	Setup Node.js	scripts/package-lock.json
+Deploy to Cloudflare	Setup Node.js	
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8862289Z   always-auth: false
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8862956Z   check-latest: false
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8863605Z   token: ***
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:57.8864035Z ##[endgroup]
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.0668366Z Found in cache @ /opt/hostedtoolcache/node/20.19.6/x64
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.0673849Z ##[group]Environment details
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.4304066Z node: v20.19.6
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.4305883Z npm: 10.8.2
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.4306959Z yarn: 1.22.22
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.4309516Z ##[endgroup]
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.4311340Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npm config get cache
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.5856186Z /home/runner/.npm
+Deploy to Cloudflare	Setup Node.js	2026-01-02T18:54:58.8411958Z npm cache is not found
+Deploy to Cloudflare	Install dependencies	﻿2026-01-02T18:54:58.8599322Z ##[group]Run cd telegram-mini-app
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8600857Z [36;1mcd telegram-mini-app[0m
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8602007Z [36;1mnpm ci[0m
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8602951Z [36;1mcd ../scripts[0m
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8603962Z [36;1mnpm ci[0m
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8651422Z shell: /usr/bin/bash -e {0}
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:54:58.8652574Z ##[endgroup]
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3785428Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3796352Z added 292 packages, and audited 293 packages in 4s
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3796885Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3797199Z 57 packages are looking for funding
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3799945Z   run `npm fund` for details
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3800421Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:03.3800664Z found 0 vulnerabilities
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.1168524Z npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2465455Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2466567Z added 30 packages, and audited 31 packages in 788ms
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2467048Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2467420Z 21 packages are looking for funding
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2481645Z   run `npm fund` for details
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2483937Z 
+Deploy to Cloudflare	Install dependencies	2026-01-02T18:55:04.2484175Z found 0 vulnerabilities
+Deploy to Cloudflare	Build Telegram Mini App	﻿2026-01-02T18:55:04.2635405Z ##[group]Run cd telegram-mini-app
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.2635926Z [36;1mcd telegram-mini-app[0m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.2636324Z [36;1mnpm run build[0m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.2679694Z shell: /usr/bin/bash -e {0}
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.2680300Z ##[endgroup]
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.3809655Z 
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.3810473Z > telegram-mini-app@0.0.0 build
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.3810984Z > vite build
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.3811177Z 
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.6176690Z [36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:04.9651315Z transforming...
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.1204352Z [32m✓[39m 1092 modules transformed.
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.4373926Z rendering chunks...
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5734879Z computing gzip size...
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5889551Z [2mdist/[22m[32mindex.html                           [39m[1m[2m  0.87 kB[22m[1m[22m[2m │ gzip:   0.44 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5891335Z [2mdist/[22m[2massets/[22m[35mindex-D15RLeJi.css            [39m[1m[2m 68.92 kB[22m[1m[22m[2m │ gzip:  10.18 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5893069Z [2mdist/[22m[2massets/[22m[36mreact-vendor-DPMJcw0V.js      [39m[1m[2m 46.46 kB[22m[1m[22m[2m │ gzip:  16.56 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5894738Z [2mdist/[22m[2massets/[22m[36manimation-vendor-BB5BIMlF.js  [39m[1m[2m115.93 kB[22m[1m[22m[2m │ gzip:  38.38 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5895820Z [2mdist/[22m[2massets/[22m[36mchart-vendor-Dn9EtHLZ.js      [39m[1m[2m336.12 kB[22m[1m[22m[2m │ gzip: 101.37 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5897353Z [2mdist/[22m[2massets/[22m[36mindex-CzHgJoaL.js             [39m[1m[2m417.63 kB[22m[1m[22m[2m │ gzip: 117.30 kB[22m
+Deploy to Cloudflare	Build Telegram Mini App	2026-01-02T18:55:09.5897994Z [32m✓ built in 4.95s[39m
+Deploy to Cloudflare	Setup Wrangler	﻿2026-01-02T18:55:09.6532222Z ##[group]Run cloudflare/wrangler-action@v3
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.6532547Z with:
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.6533280Z   apiToken: ***
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.6533525Z   accountId: ***
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.6533706Z   quiet: false
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.6533893Z ##[endgroup]
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.7696885Z ##[group]🔍 Checking for existing Wrangler installation
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:09.7737868Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx --no-install wrangler --version
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6692925Z npm error npx canceled due to missing packages and no YES option: ["wrangler@4.54.0"]
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6700565Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-01-02T18_55_09_832Z-debug-0.log
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6817508Z ⚠️ Wrangler not found or version is incompatible. Installing...
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6818357Z ##[endgroup]
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6818871Z ##[group]📥 Installing Wrangler
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:10.6840853Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npm i wrangler@3.90.0
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:14.7228158Z npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:14.8481643Z npm warn deprecated rollup-plugin-inject@3.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-inject.
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4617895Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4619322Z added 69 packages in 7s
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4619718Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4620268Z 11 packages are looking for funding
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4620830Z   run `npm fund` for details
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4823045Z ✅ Wrangler installed
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4823890Z ##[endgroup]
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4828054Z ##[group]🚀 Running Wrangler Commands
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:17.4857995Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx wrangler deploy
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6480437Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6481408Z  ⛅️ wrangler 3.90.0 (update available 4.54.0)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6482127Z ---------------------------------------------
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6482514Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6860986Z [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6861961Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6862724Z   Please update to the latest version to prevent critical errors.
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6863806Z   Run `npm install --save-dev wrangler@4` to update to the latest version.
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6864624Z   After installation, run Wrangler with `npx wrangler`.
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6865034Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:18.6865049Z 
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.6165926Z Fetching list of already uploaded assets...
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9204110Z Building list of assets to upload...
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9223635Z  = assets/animation-vendor-BB5BIMlF.694900d27c.js (already uploaded assets/animation-vendor-BB5BIMlF.js)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9235084Z  = assets/chart-vendor-Dn9EtHLZ.e8e492596c.js (already uploaded assets/chart-vendor-Dn9EtHLZ.js)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9246904Z  = assets/index-CzHgJoaL.83ecce71c0.js (already uploaded assets/index-CzHgJoaL.js)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9252723Z  = assets/index-D15RLeJi.ecc4e438d3.css (already uploaded assets/index-D15RLeJi.css)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9259401Z  = assets/react-vendor-DPMJcw0V.cc5a40e8f3.js (already uploaded assets/react-vendor-DPMJcw0V.js)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9265353Z  = days-6-7.a9ba99d258.html (already uploaded days-6-7.html)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9272433Z  = equipment-catalog.c89d58f4a6.json (already uploaded equipment-catalog.json)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9276745Z  = index.16482f307f.html (already uploaded index.html)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9282679Z  = vite.0de3998bc2.svg (already uploaded vite.svg)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9288178Z  = week-2.af7916e8b5.html (already uploaded week-2.html)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9290536Z Skipped uploading 10 existing assets.
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9293391Z ↗️  Done syncing assets
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:19.9336686Z Total Upload: 173.49 KiB / gzip: 34.49 KiB
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6079466Z Worker Startup Time: 3 ms
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6084979Z Your worker has access to the following bindings:
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6085470Z - Vars:
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6086262Z   - REGION: "eu-central"
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6086655Z   - TARGET_LATENCY_MS: 15
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.6100298Z Uploaded babel-frontier (3.35 sec)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.9844437Z Deployed babel-frontier triggers (0.16 sec)
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.9845296Z   https://babel-frontier.rahrus1977.workers.dev
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:22.9846089Z Current Version ID: 081a74a5-6c24-47d0-8703-3a7180157d2b
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:23.1529562Z ##[endgroup]
+Deploy to Cloudflare	Setup Wrangler	2026-01-02T18:55:23.1530536Z 🏁 Wrangler Action completed
+Deploy to Cloudflare	Create D1 Database (if not exists)	﻿2026-01-02T18:55:23.1608561Z ##[group]Run npx wrangler d1 create babel-frontier-db || echo "D1 database may already exist"
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1609185Z [36;1mnpx wrangler d1 create babel-frontier-db || echo "D1 database may already exist"[0m
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1641707Z shell: /usr/bin/bash -e {0}
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1641953Z env:
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1642390Z   CLOUDFLARE_API_TOKEN: ***
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1642709Z   CLOUDFLARE_ACCOUNT_ID: ***
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.1642925Z ##[endgroup]
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9102526Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9103418Z  ⛅️ wrangler 3.90.0 (update available 4.54.0)
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9104071Z ---------------------------------------------
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9104388Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9474167Z [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9475127Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9475561Z   Please update to the latest version to prevent critical errors.
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9476439Z   Run `npm install --save-dev wrangler@4` to update to the latest version.
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9477336Z   After installation, run Wrangler with `npx wrangler`.
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9477721Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:23.9477733Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:25.9655587Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:25.9665570Z [31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mA database with that name already exists[0m
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:25.9666187Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:25.9666203Z 
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:25.9679722Z 🪵  Logs were written to "/home/runner/.config/.wrangler/logs/wrangler-2026-01-02_18-55-23_761.log"
+Deploy to Cloudflare	Create D1 Database (if not exists)	2026-01-02T18:55:26.0519713Z D1 database may already exist
+Deploy to Cloudflare	Create KV Namespace (if not exists)	﻿2026-01-02T18:55:26.0547928Z ##[group]Run npx wrangler kv:namespace create babel-frontier-assets || echo "KV namespace may already exist"
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0548665Z [36;1mnpx wrangler kv:namespace create babel-frontier-assets || echo "KV namespace may already exist"[0m
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0582238Z shell: /usr/bin/bash -e {0}
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0582479Z env:
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0583052Z   CLOUDFLARE_API_TOKEN: ***
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0583378Z   CLOUDFLARE_ACCOUNT_ID: ***
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.0583595Z ##[endgroup]
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8044410Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8045383Z  ⛅️ wrangler 3.90.0 (update available 4.54.0)
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8046056Z ---------------------------------------------
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8046378Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8428540Z [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8429110Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8429360Z   Please update to the latest version to prevent critical errors.
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8430116Z   Run `npm install --save-dev wrangler@4` to update to the latest version.
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8430717Z   After installation, run Wrangler with `npx wrangler`.
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8431031Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8431040Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:26.8506420Z 🌀 Creating namespace with title "babel-frontier-babel-frontier-assets"
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3387496Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3398726Z [31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mA request to the Cloudflare API (/accounts/***/storage/kv/namespaces) failed.[0m
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3399510Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3400209Z   create namespace: 'A namespace with this account ID and title already exists' [code: 10014]
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3400933Z   
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3401888Z   If you think this is a bug, please open an issue at: [4mhttps://github.com/cloudflare/workers-sdk/issues/new/choose[0m
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3402550Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.3402563Z 
+Deploy to Cloudflare	Create KV Namespace (if not exists)	2026-01-02T18:55:27.4238004Z KV namespace may already exist
+Deploy to Cloudflare	Apply D1 Schema	﻿2026-01-02T18:55:27.4268099Z ##[group]Run npx wrangler d1 execute babel-frontier-db --remote --file=backend/schema.sql || echo "Schema may already be applied"
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4268974Z [36;1mnpx wrangler d1 execute babel-frontier-db --remote --file=backend/schema.sql || echo "Schema may already be applied"[0m
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4303361Z shell: /usr/bin/bash -e {0}
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4303603Z env:
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4303992Z   CLOUDFLARE_API_TOKEN: ***
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4304290Z   CLOUDFLARE_ACCOUNT_ID: ***
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:27.4304693Z ##[endgroup]
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.1774388Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.1775337Z  ⛅️ wrangler 3.90.0 (update available 4.54.0)
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.1775803Z ---------------------------------------------
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.1776002Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2159615Z [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1mThe version of Wrangler you are using is now out-of-date.[0m
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2160686Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2161328Z   Please update to the latest version to prevent critical errors.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2162453Z   Run `npm install --save-dev wrangler@4` to update to the latest version.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2163283Z   After installation, run Wrangler with `npx wrangler`.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2163702Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2163715Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2283383Z [33m▲ [43;33m[[43;30mWARNING[43;33m][0m [1m⚠️ This process may take some time, during which your D1 database will be unavailable to serve queries.[0m
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2284289Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.2284340Z 
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.9009621Z 🌀 Executing on remote database babel-frontier-db (b9a55250-8c55-4609-bb38-156ac30e7647):
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.9010805Z 🌀 To execute on your local development database, remove the --remote flag from your wrangler command.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.9036171Z Note: if the execution fails to complete, your DB will return to its original state and you can safely retry.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:28.9039302Z ├ Checking if file needs uploading
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7941012Z │
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7941620Z 🌀 File already uploaded. Processing.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7942339Z 🌀 Starting import...
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7943464Z 🌀 Processed 45 queries.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7944796Z 🚣 Executed 45 queries in 0.00 seconds (1 rows read, 7 rows written)
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7946042Z    Database is currently at bookmark 00000008-00000006-00004fe7-d0749460e45d5392813094b309e58627.
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7946935Z [
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7947260Z   {
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7947605Z     "results": [
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7948023Z       {
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7948468Z         "Total queries executed": 45,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7948996Z         "Rows read": 1,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7949444Z         "Rows written": 7,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7950029Z         "Database size (MB)": "0.28"
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7950333Z       }
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7950531Z     ],
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7950744Z     "success": true,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7951208Z     "finalBookmark": "00000008-00000006-00004fe7-d0749460e45d5392813094b309e58627",
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7951715Z     "meta": {
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7951983Z       "served_by": "v3-prod",
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7974881Z       "served_by_region": "ENAM",
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7975391Z       "served_by_colo": "IAD",
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7975822Z       "served_by_primary": true,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7976211Z       "timings": {
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7976576Z         "sql_duration_ms": 2.7516
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7976813Z       },
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7977148Z       "duration": 2.7516,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7977424Z       "changes": 7,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7977725Z       "last_row_id": 54,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7978035Z       "changed_db": true,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7978413Z       "size_after": 278528,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7978667Z       "rows_read": 1,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7978874Z       "rows_written": 7,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7979222Z       "num_tables": 26,
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7979454Z       "total_attempts": 1
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7979923Z     }
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7980243Z   }
+Deploy to Cloudflare	Apply D1 Schema	2026-01-02T18:55:29.7980478Z ]
+Deploy to Cloudflare	Deploy Unified Worker	﻿2026-01-02T18:55:29.8270909Z ##[group]Run cloudflare/wrangler-action@v3
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8271229Z with:
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8271571Z   apiToken: ***
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8271846Z   accountId: ***
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8272036Z   command: deploy
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8272319Z   secrets: GEMINI_API_KEY
+Deploy to Cloudflare	Deploy Unified Worker	TELEGRAM_BOT_TOKEN
+Deploy to Cloudflare	Deploy Unified Worker	CLOUDFLARE_Account_ID
+Deploy to Cloudflare	Deploy Unified Worker	
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8272641Z   quiet: false
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8272821Z env:
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8273069Z   GEMINI_API_KEY: ***
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8273375Z   TELEGRAM_BOT_TOKEN: ***
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8273829Z   CLOUDFLARE_ACCOUNT_ID: ***
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.8274049Z ##[endgroup]
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.9203196Z ##[group]🔍 Checking for existing Wrangler installation
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:29.9245893Z [command]/opt/hostedtoolcache/node/20.19.6/x64/bin/npx --no-install wrangler --version
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6570321Z 3.90.0
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6958769Z ✅ No wrangler version specified, using pre-installed wrangler version 3.90.0
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6960392Z ##[endgroup]
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6961007Z ##[endgroup]
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6961932Z ##[group]🔑 Uploading secrets...
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.6991630Z ##[error]Value for secret CLOUDFLARE_Account_ID not found in environment.
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.7002499Z ##[endgroup]
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.7003580Z ##[error]Failed to upload secrets.
+Deploy to Cloudflare	Deploy Unified Worker	2026-01-02T18:55:30.7005383Z ##[error]🚨 Action failed
+Deploy to Cloudflare	Post Checkout repository	﻿2026-01-02T18:55:30.7131472Z Post job cleanup.
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8078461Z [command]/usr/bin/git version
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8114923Z git version 2.52.0
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8159267Z Temporarily overriding HOME='/home/runner/work/_temp/a62d8767-9f13-4ed2-a7ee-4a88230ea7cd' before making global git config changes
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8161091Z Adding repository directory to the temporary git global config as a safe directory
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8166174Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/babel-frontier/babel-frontier
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8202683Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8235985Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8467497Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8488047Z http.https://github.com/.extraheader
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8500790Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8531956Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8748251Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+Deploy to Cloudflare	Post Checkout repository	2026-01-02T18:55:30.8778707Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+Deploy to Cloudflare	Complete job	﻿2026-01-02T18:55:30.9105844Z Cleaning up orphan processes

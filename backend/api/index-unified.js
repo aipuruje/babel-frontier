@@ -48,6 +48,18 @@ async function handleApiRoutes(url, request, env, corsHeaders) {
         return handleGetUser(userId, env, corsHeaders);
     }
 
+    // NEW: Enhanced Speaking Analysis (Gemini-powered with pedagogy)
+    if (url.pathname === '/api/speaking/analyze-enhanced' && request.method === 'POST') {
+        const { analyzeSpeakingEnhanced } = await import('./speaking_analysis_enhanced.js');
+        return analyzeSpeakingEnhanced(request, env, corsHeaders);
+    }
+
+    // NEW: Enhanced Writing Analysis (Gemini-powered with pedagogy)
+    if (url.pathname === '/api/writing/analyze-enhanced' && request.method === 'POST') {
+        const { analyzeWritingEnhanced } = await import('./writing_analysis_enhanced.js');
+        return analyzeWritingEnhanced(request, env, corsHeaders);
+    }
+
     return new Response(JSON.stringify({ error: 'API endpoint not found' }), {
         status: 404,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
