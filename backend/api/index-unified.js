@@ -60,6 +60,32 @@ async function handleApiRoutes(url, request, env, corsHeaders) {
         return analyzeWritingEnhanced(request, env, corsHeaders);
     }
 
+    // RESOURCES: Query knowledge base
+    if (url.pathname === '/api/resources/knowledge-base' && request.method === 'GET') {
+        const { queryKnowledgeBase } = await import('./resources_handler.js');
+        return queryKnowledgeBase(request, env, corsHeaders);
+    }
+
+    // RESOURCES: Unlock resource for user
+    if (url.pathname === '/api/resources/unlock' && request.method === 'POST') {
+        const { unlockResource } = await import('./resources_handler.js');
+        return unlockResource(request, env, corsHeaders);
+    }
+
+    // RESOURCES: Get user's unlocked resources
+    if (url.pathname.startsWith('/api/resources/unlocked/') && request.method === 'GET') {
+        const userId = url.pathname.split('/')[4];
+        const { getUserUnlockedResources } = await import('./resources_handler.js');
+        return getUserUnlockedResources(request, env, corsHeaders, userId);
+    }
+
+    // RESOURCES: Stream audio file
+    if (url.pathname.startsWith('/api/audio/') && request.method === 'GET') {
+        const filename = url.pathname.split('/')[3];
+        const { streamAudioFile } = await import('./resources_handler.js');
+        return streamAudioFile(request, env, corsHeaders, filename);
+    }
+
     return new Response(JSON.stringify({ error: 'API endpoint not found' }), {
         status: 404,
         headers: { ...corsHeaders, 'Content-Type': 'application/json' }
