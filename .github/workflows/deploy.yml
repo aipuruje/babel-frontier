@@ -22,12 +22,12 @@ jobs:
       - name: Install backend dependencies
         run: |
           cd backend
-          npm ci
+          npm install
 
       - name: Install frontend dependencies
         run: |
           cd telegram-mini-app
-          npm ci
+          npm install
 
       - name: Build frontend
         run: |
