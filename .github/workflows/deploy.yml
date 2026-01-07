@@ -1,0 +1,116 @@
+name: Deploy to Cloudflare
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy Babel Frontier to Cloudflare
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: |
+            backend/package-lock.json
+            telegram-mini-app/package-lock.json
+
+      - name: Install backend dependencies
+        run: |
+          cd backend
+          npm ci
+
+      - name: Install frontend dependencies
+        run: |
+          cd telegram-mini-app
+          npm ci
+
+      - name: Build frontend
+        run: |
+          cd telegram-mini-app
+          npm run build
+
+      - name: Setup Wrangler
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          
+      - name: Create KV Namespaces (if not exist)
+        run: |
+          echo "Creating KV namespaces..."
+          wrangler kv namespace create "DRAFTS_KV" || echo "DRAFTS_KV may already exist"
+          wrangler kv namespace create "LEADERBOARD_KV" || echo "LEADERBOARD_KV may already exist"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
+
+      - name: Create R2 Buckets (if not exist)
+        run: |
+          echo "Creating R2 buckets..."
+          wrangler r2 bucket create babel-frontier-audio || echo "babel-frontier-audio may already exist"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
+
+      - name: Create D1 Database (if not exist)
+        run: |
+          echo "Creating D1 database..."
+          wrangler d1 create babel-frontier-db || echo "babel-frontier-db may already exist"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
+
+      - name: Run D1 Migrations
+        run: |
+          echo "Running database migrations..."
+          wrangler d1 execute babel-frontier-db --file=backend/schema.sql --remote || echo "Migration may have already run"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
+
+      - name: Create Queue (if not exist)
+        run: |
+          echo "Creating queue..."
+          wrangler queues create ielts-grading-tasks || echo "ielts-grading-tasks may already exist"
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
+
+      - name: Set Worker Secrets
+        run: |
+          echo "Setting worker secrets..."
+          echo "${{ secrets.GEMINI_API_KEY }}" | wrangler secret put GEMINI_API_KEY
+          echo "${{ secrets.OPENAI_API_KEY }}" | wrangler secret put OPENAI_API_KEY
+          echo "${{ secrets.TELEGRAM_BOT_TOKEN }}" | wrangler secret put TELEGRAM_BOT_TOKEN
+          echo "${{ secrets.JWT_SECRET }}" | wrangler secret put JWT_SECRET
+          echo "${{ secrets.ENCRYPTION_KEY }}" | wrangler secret put ENCRYPTION_KEY
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deploy Worker to Cloudflare
+        run: wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+
+      - name: Deployment Summary
+        run: |
+          echo "✅ Deployment Complete!"
+          echo "🌐 Worker deployed to Cloudflare"
+          echo "📦 All resources created/updated"
+          echo "🔐 Secrets configured"
