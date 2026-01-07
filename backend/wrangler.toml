@@ -1,5 +1,5 @@
 name = "babel-frontier-core"
-main = "backend/api/index.js"
+main = "api/index.js"
 compatibility_date = "2026-01-04"
 compatibility_flags = ["nodejs_compat"]
 
