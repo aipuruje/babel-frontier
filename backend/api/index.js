@@ -66,11 +66,10 @@ import {
     handleSpeakingInit,
     handleChunkUpload,
     handleSpeakingFinalize,
-    handleSpeakingStatus
+    handleSpeakingStatus,
+    handleGetUploadUrl
 } from './speaking_r2_handler.js';
 
-import { handleGetUploadUrl } from './speaking/get_upload_url.js';
-import { handleSpeakingFinalize } from './speaking/finalize.js';
 import { handleHealthCheck } from './health_check.js';
 
 // Import Async Grading Queue Handlers (Antigravity Architecture)
