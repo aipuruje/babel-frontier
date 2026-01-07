@@ -38,75 +38,94 @@ jobs:
           cd telegram-mini-app
           npm run build
 
+      - name: Get Cloudflare Account ID
+        id: get-account-id
+        run: |
+          echo "Retrieving Cloudflare account ID..."
+          ACCOUNT_ID=$(curl -s -X GET "https://api.cloudflare.com/client/v4/accounts" \
+            -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
+            -H "Content-Type: application/json" | jq -r '.result[0].id')
+          echo "account_id=$ACCOUNT_ID" >> $GITHUB_OUTPUT
+          echo "Using Account ID: $ACCOUNT_ID"
+        continue-on-error: true
+
       - name: Setup Wrangler
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          cd backend
+          npm install -g wrangler
+          wrangler --version
           
       - name: Create KV Namespaces (if not exist)
+        working-directory: backend
         run: |
           echo "Creating KV namespaces..."
-          wrangler kv namespace create "DRAFTS_KV" || echo "DRAFTS_KV may already exist"
-          wrangler kv namespace create "LEADERBOARD_KV" || echo "LEADERBOARD_KV may already exist"
+          wrangler kv namespace create "DRAFTS_KV" --env production || echo "DRAFTS_KV may already exist"
+          wrangler kv namespace create "LEADERBOARD_KV" --env production || echo "LEADERBOARD_KV may already exist"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create R2 Buckets (if not exist)
+        working-directory: backend
         run: |
           echo "Creating R2 buckets..."
           wrangler r2 bucket create babel-frontier-audio || echo "babel-frontier-audio may already exist"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create D1 Database (if not exist)
+        working-directory: backend
         run: |
           echo "Creating D1 database..."
           wrangler d1 create babel-frontier-db || echo "babel-frontier-db may already exist"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Run D1 Migrations
+        working-directory: backend
         run: |
           echo "Running database migrations..."
-          wrangler d1 execute babel-frontier-db --file=backend/schema.sql --remote || echo "Migration may have already run"
+          wrangler d1 execute babel-frontier-db --file=schema.sql --remote || echo "Migration may have already run"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
       - name: Create Queue (if not exist)
+        working-directory: backend
         run: |
           echo "Creating queue..."
           wrangler queues create ielts-grading-tasks || echo "ielts-grading-tasks may already exist"
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
         continue-on-error: true
 
-      - name: Set Worker Secrets
+      - name: Set Worker Secrets (if provided)
+        working-directory: backend
         run: |
           echo "Setting worker secrets..."
-          echo "${{ secrets.GEMINI_API_KEY }}" | wrangler secret put GEMINI_API_KEY
-          echo "${{ secrets.OPENAI_API_KEY }}" | wrangler secret put OPENAI_API_KEY
-          echo "${{ secrets.TELEGRAM_BOT_TOKEN }}" | wrangler secret put TELEGRAM_BOT_TOKEN
-          echo "${{ secrets.JWT_SECRET }}" | wrangler secret put JWT_SECRET
-          echo "${{ secrets.ENCRYPTION_KEY }}" | wrangler secret put ENCRYPTION_KEY
+          if [ -n "${{ secrets.GEMINI_API_KEY }}" ]; then echo "${{ secrets.GEMINI_API_KEY }}" | wrangler secret put GEMINI_API_KEY; fi
+          if [ -n "${{ secrets.OPENAI_API_KEY }}" ]; then echo "${{ secrets.OPENAI_API_KEY }}" | wrangler secret put OPENAI_API_KEY; fi
+          if [ -n "${{ secrets.TELEGRAM_BOT_TOKEN }}" ]; then echo "${{ secrets.TELEGRAM_BOT_TOKEN }}" | wrangler secret put TELEGRAM_BOT_TOKEN; fi
+          if [ -n "${{ secrets.JWT_SECRET }}" ]; then echo "${{ secrets.JWT_SECRET }}" | wrangler secret put JWT_SECRET; fi
+          if [ -n "${{ secrets.ENCRYPTION_KEY }}" ]; then echo "${{ secrets.ENCRYPTION_KEY }}" | wrangler secret put ENCRYPTION_KEY; fi
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
+        continue-on-error: true
 
       - name: Deploy Worker to Cloudflare
+        working-directory: backend
         run: wrangler deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ steps.get-account-id.outputs.account_id || secrets.CLOUDFLARE_ACCOUNT_ID }}
 
       - name: Deployment Summary
         run: |
