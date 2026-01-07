@@ -1,0 +1,85 @@
+[
+    {
+        "band": 6.0,
+        "prompt": "Some people believe that technology has made our lives more complex. Others think it has made life easier. Discuss both views.",
+        "essay": "In my humble opinion, this is a controversial issue that has both advantages and disadvantages. On the one hand, technology makes our lives easier. For example, we can communicate with people around the world instantly. On the other hand, technology can be complicated and confusing. It goes without saying that this topic requires careful consideration. In conclusion, last but not least, I would like to say that technology has both positive and negative effects on our lives.",
+        "isTemplate": true,
+        "templatePhrases": [
+            "In my humble opinion",
+            "controversial issue",
+            "both advantages and disadvantages",
+            "On the one hand... On the other hand",
+            "It goes without saying",
+            "last but not least"
+        ],
+        "expectedDetection": "High use of memorized templates",
+        "source": "Google University (common template)"
+    },
+    {
+        "band": 5.5,
+        "prompt": "Many cities are experiencing traffic congestion. What are the causes and solutions?",
+        "essay": "Nowadays, traffic congestion is a major problem in many cities around the world. This essay will discuss the causes and possible solutions to this problem. First and foremost, one of the main causes is the increasing number of private vehicles. To solve this problem, governments should improve public transportation. Moreover, another important factor is poor urban planning. Therefore, city planners should design better road systems. In conclusion, to sum up, there are various causes of traffic congestion and multiple solutions that can be implemented. It is hoped that in the near future, this problem will be solved.",
+        "isTemplate": true,
+        "templatePhrases": [
+            "Nowadays",
+            "major problem",
+            "around the world",
+            "This essay will discuss",
+            "First and foremost",
+            "To solve this problem",
+            "Moreover",
+            "Therefore",
+            "In conclusion, to sum up",
+            "It is hoped that in the near future"
+        ],
+        "expectedDetection": "Formulaic structure with template phrases",
+        "source": "IELTS Writing Task 2 Templates (common)"
+    },
+    {
+        "band": 6.0,
+        "prompt": "Some people think universities should provide job skills. Others think they should teach for knowledge's sake. Discuss both views.",
+        "essay": "It is undeniable that education plays a crucial role in our modern society. Some individuals argue that universities should focus on practical skills, while others believe in academic knowledge. Both viewpoints have their merits. From one perspective, practical skills are essential in today's competitive job market. For instance, graduates with technical abilities can secure employment more easily. From another perspective, theoretical knowledge broadens one's horizons and develops critical thinking. To illustrate, studying philosophy enhances analytical capabilities. Taking everything into account, in my personal opinion, universities should strike a balance between both approaches. This comprehensive strategy would benefit students in the long run.",
+        "isTemplate": true,
+        "templatePhrases": [
+            "It is undeniable that",
+            "plays a crucial role",
+            "Some individuals argue that",
+            "Both viewpoints have their merits",
+            "From one perspective",
+            "From another perspective",
+            "To illustrate",
+            "Taking everything into account",
+            "in my personal opinion",
+            "strike a balance",
+            "This comprehensive strategy",
+            "in the long run"
+        ],
+        "expectedDetection": "Heavy reliance on fixed expressions",
+        "source": "IELTS Band 6 Template Collection"
+    },
+    {
+        "band": 5.0,
+        "prompt": "Online shopping is replacing traditional stores. Do the advantages outweigh the disadvantages?",
+        "essay": "In recent years, online shopping has become increasingly popular. This trend has sparked a heated debate about whether the advantages outweigh the disadvantages. In this essay, I will explore both sides of the argument. To begin with, the main advantage is convenience. People can shop from home without going to the store. Furthermore, online shopping offers a wider range of products. However, there are also disadvantages. The biggest drawback is that customers cannot see products before buying. Additionally, delivery takes time. In my opinion, despite some drawbacks, I firmly believe that the advantages outweigh the disadvantages. To conclude, it is clear that online shopping has changed the way we buy things.",
+        "isTemplate": true,
+        "templatePhrases": [
+            "In recent years",
+            "has become increasingly popular",
+            "sparked a heated debate",
+            "whether the advantages outweigh the disadvantages",
+            "In this essay, I will explore",
+            "both sides of the argument",
+            "To begin with",
+            "The main advantage",
+            "Furthermore",
+            "However",
+            "The biggest drawback",
+            "Additionally",
+            "In my opinion, despite",
+            "I firmly believe that",
+            "To conclude, it is clear that"
+        ],
+        "expectedDetection": "Excessive use of discourse markers and fixed phrases",
+        "source": "Band 5-6 Template Essays"
+    }
+]

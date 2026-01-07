@@ -1,0 +1,67 @@
+[
+    {
+        "band": 3.5,
+        "prompt": "Some people think that the teenage years are the happiest times of most people's lives. Others think that adult life brings more happiness, in spite of greater responsibilities. Discuss both these views and give your own opinion.",
+        "essay": "I think teenager is happy. They no have work. They play with friend. Adult have many problem. They work every day. They tired. I think teenager more happy than adult. This is my opinion.",
+        "source": "Common Mistakes at IELTS - Intermediate",
+        "expectedIssues": [
+            "Severe grammatical errors",
+            "Extremely limited vocabulary",
+            "No paragraph structure",
+            "Task barely addressed",
+            "Very short (< 100 words)"
+        ]
+    },
+    {
+        "band": 4.0,
+        "prompt": "Many people believe that social networking sites have had a huge negative impact on both individuals and society. To what extent do you agree?",
+        "essay": "Social network is very popular now. Many people use Facebook and Instagram. This thing have good and bad. Good thing is can talk to friend fast. Can see photo of friend. Bad thing is people spend too much time. They no talk face to face. My friend he use phone all day. I think social network have problem but also good. We must be careful how use it.",
+        "source": "Original",
+        "expectedIssues": [
+            "Frequent subject-verb agreement errors",
+            "Limited range of vocabulary",
+            "Basic sentence structures only",
+            "Weak task response",
+            "Minimal coherence"
+        ]
+    },
+    {
+        "band": 4.5,
+        "prompt": "Some people say that advertising encourages us to buy things we really do not need. Others say that advertisements tell us about new products that may improve our lives. Which viewpoint do you agree with?",
+        "essay": "Advertising is everywhere in our life. On TV, on internet, on street. Some people think advertising make us buy thing we don't need. I agree with this idea. Because company want make money. They show beautiful picture and we want buy. But some advertising is good. It tell us about new product. For example, new phone or new car. This can help us know what to buy. In my opinion, advertising has two side. We must think before we buy something. Company just want our money.",
+        "source": "Original",
+        "expectedIssues": [
+            "Repetitive vocabulary (advertising x5)",
+            "Article errors throughout",
+            "Simple coordination (and, but)",
+            "Some task response but underdeveloped",
+            "Basic cohesion"
+        ]
+    },
+    {
+        "band": 5.0,
+        "prompt": "Some people think that universities should provide graduates with the knowledge and skills needed in the workplace. Others think that the true function of a university should be to give access to knowledge for its own sake. Discuss both views.",
+        "essay": "Universities have important role in education. Some people believe universities should teach practical skills for jobs. Other people think universities should focus on academic knowledge. Both views have good points. First, if universities teach job skills, students can find work easily after graduation. For example, engineering students learn how to design buildings. This is useful in workplace. Companies want graduates who can work immediately. Second, universities should also teach general knowledge. Students need to learn subjects like history and philosophy. This helps them understand the world better. It makes them better citizens. In my opinion, universities should do both things. They should teach practical skills and also academic subjects. This way students get complete education.",
+        "source": "Original",
+        "expectedIssues": [
+            "Some errors in articles and prepositions",
+            "Limited range of complex sentences",
+            "Adequate task response but not fully developed",
+            "Basic cohesive devices",
+            "Adequate vocabulary with some repetition"
+        ]
+    },
+    {
+        "band": 5.5,
+        "prompt": "In some countries, governments are encouraging industries and businesses to move out of large cities and into regional areas. Do the advantages of this development outweigh the disadvantages?",
+        "essay": "Nowadays, many governments are trying to move companies from big cities to countryside. This trend has both positive and negative effects. On the one hand, moving businesses to regional areas can reduce problems in cities. Cities are very crowded with too many people and cars. If companies move to countryside, there will be less traffic and pollution in cities. Also, countryside areas will develop more. People in villages can find jobs near their homes. This is good for rural economy. On the other hand, this policy has some disadvantages. First, countryside areas may not have good infrastructure like roads and internet. Companies need these facilities to work efficiently. Second, many employees may not want to leave cities because cities have better schools and hospitals for their families. In conclusion, I think the advantages are greater than disadvantages. However, governments should improve infrastructure in regional areas before moving companies there.",
+        "source": "Original",
+        "expectedIssues": [
+            "Some awkward expressions (countryside repeated)",
+            "Mix of simple and complex sentences",
+            "Adequate coherence with clear progression",
+            "Some errors but generally communicative",
+            "Addresses task but ideas could be more developed"
+        ]
+    }
+]

@@ -1,0 +1,21 @@
+name = "neural-sync-worker"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# KV Namespace for Media Storage (Fallback for R2)
+[[kv_namespaces]]
+binding = "MEDIA_KV"
+id = "968e1aaf536a4894a2ea4e2934f73e95"
+
+# Cloudflare AI Binding (Whisper)
+[ai]
+binding = "AI"
+
+# D1 Database Binding (Shared with main app)
+[[d1_databases]]
+binding = "DB"
+database_name = "babel-frontier-db"
+database_id = "f6eda8be-9212-4e22-b741-4485d0d4f6b5"
+
+# Secrets (Set via wrangler secret put)
+# GEMINI_API_KEY

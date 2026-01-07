@@ -1,0 +1,147 @@
+{
+  "timestamp": "2026-01-03T16:29:29.014Z",
+  "baseUrl": "https://babel-frontier.rahrus1977.workers.dev",
+  "summary": {
+    "totalTests": 15,
+    "passed": 0,
+    "failed": 15,
+    "crashed": 0
+  },
+  "testResults": [
+    {
+      "testName": "Empty text",
+      "input": "",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Single word",
+      "input": "Hello",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Gibberish text",
+      "input": "asdfkljasdf klajsdf lkajsdf qwpoieur zxcvbnm mnbvcxz lkjhgfdsa poiuytrewq",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Repeated word spam",
+      "input": "good good good good good good good good good good good good good good good good good good good good ...",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Only punctuation",
+      "input": "........ !!!!! ????? ,,,,,, ;;;;; ::::",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Numbers only",
+      "input": "123 456 789 101112 131415 161718 192021 222324",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Unicode spam (emojis)",
+      "input": "😀😎🔥💀👑⚡🎮🏆 😀😎🔥💀👑⚡🎮🏆 😀😎🔥💀👑⚡🎮🏆 😀😎🔥💀👑⚡🎮🏆",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Exact template repetition",
+      "input": "In my humble opinion, this is a controversial issue. In my humble opinion, this is a controversial i...",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Mixed Cyrillic and Latin",
+      "input": "This is английский language but Узбекча mixed together without sense или meaning для essay.",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Extremely long run-on sentence",
+      "input": "I think that technology is good because we can use computers and phones and internet and social medi...",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "SQL injection attempt",
+      "input": "'; DROP TABLE users; -- Some people think technology is good",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "HTML/Script injection",
+      "input": "<script>alert(\"XSS\")</script> Technology has changed our lives in many ways.",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Extremely short (incomplete task)",
+      "input": "Technology good. I like.",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Off-topic response",
+      "input": "My favorite food is pizza. I like to eat pizza every weekend with my friends. Pizza is delicious and...",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "testName": "Question as answer",
+      "input": "What is technology? What are the advantages? What are the disadvantages? How does it affect us? What...",
+      "status": 404,
+      "crashed": false,
+      "passed": false,
+      "error": "HTTP 404",
+      "response": "{\"error\":\"API endpoint not found\"}"
+    }
+  ]
+}

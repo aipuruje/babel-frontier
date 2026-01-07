@@ -1,0 +1,35 @@
+{
+    "stages": [
+        {
+            "duration": "1m",
+            "target": 10
+        },
+        {
+            "duration": "2m",
+            "target": 50
+        },
+        {
+            "duration": "2m",
+            "target": 50
+        }
+    ],
+    "thresholds": {
+        "http_req_duration": [
+            "p(95)<3000"
+        ],
+        "http_req_failed": [
+            "rate<0.1"
+        ]
+    },
+    "summaryTrendStats": [
+        "avg",
+        "min",
+        "med",
+        "max",
+        "p(90)",
+        "p(95)",
+        "p(99)"
+    ],
+    "noConnectionReuse": false,
+    "userAgent": "k6-load-test/1.0 (Babel-Frontier-Baseline)"
+}

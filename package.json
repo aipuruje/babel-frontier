@@ -1,0 +1,12 @@
+{
+    "name": "pdf-teaching-point-extractor",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "extract": "node extract_teaching_points.js"
+    },
+    "dependencies": {
+        "pdfjs-dist": "^3.11.174",
+        "node-fetch": "^3.3.2"
+    }
+}

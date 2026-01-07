@@ -1,0 +1,15 @@
+{
+    "name": "neural-sync-worker",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "deploy": "wrangler deploy"
+    },
+    "dependencies": {
+        "hono": "^3.12.0",
+        "pdf-parse": "^2.4.5"
+    },
+    "devDependencies": {
+        "wrangler": "^3.22.0"
+    }
+}

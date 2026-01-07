@@ -1,0 +1,54 @@
+[
+    {
+        "band": 7.0,
+        "prompt": "Some people believe that unpaid community service should be a compulsory part of high school programs. To what extent do you agree or disagree?",
+        "essay": "Community service has become a topic of considerable debate in educational circles. While some advocate for mandatory volunteer work in high schools, I believe that although community service offers valuable benefits, it should remain optional rather than compulsory. On one hand, requiring students to participate in community service can foster a sense of social responsibility. When young people engage with local charities or environmental projects, they develop empathy and awareness of societal issues. For instance, students who volunteer at food banks or care homes often gain perspectives that cannot be taught in traditional classrooms. Moreover, such experiences can enhance their CVs and prepare them for future employment. However, making community service mandatory may prove counterproductive. Firstly, students already face significant academic pressures, and adding compulsory volunteer hours could increase stress levels. Secondly, forcing participation may diminish the genuine altruistic spirit that should underpin volunteer work. When service becomes an obligation, it risks being viewed as merely another task to complete rather than an opportunity for personal growth. In conclusion, while community service undoubtedly offers advantages, I contend that it should be encouraged but not enforced, allowing students to engage voluntarily and derive authentic satisfaction from their contributions.",
+        "source": "Original",
+        "expectedStrengths": [
+            "Clear position throughout",
+            "Well-organized paragraphs",
+            "Good range of vocabulary",
+            "Mix of simple and complex sentences",
+            "Effective cohesive devices"
+        ]
+    },
+    {
+        "band": 7.5,
+        "prompt": "Many people believe that international tourism is a bad thing for their country. What are the reasons? What can be done to change negative attitudes?",
+        "essay": "International tourism has experienced exponential growth in recent decades, yet public opinion in some destinations remains skeptical. This essay will examine the underlying causes of this resistance and propose strategies to foster more positive perceptions. Several factors contribute to negative attitudes toward tourism. Primarily, local residents often witness environmental degradation resulting from excessive visitor numbers. In Venice, for example, the influx of cruise ships has contributed to pollution and erosion of historical architecture. Additionally, tourism can drive up property prices, displacing long-term residents and eroding community cohesion. Cultural commodification represents another concern, as authentic traditions may be transformed into superficial spectacles designed for tourist consumption. To address these concerns, governments and tourism operators must prioritize sustainable practices. Implementing visitor quotas in ecologically sensitive areas can mitigate environmental damage while preserving attractions for future generations. Furthermore, encouraging community-based tourism initiatives ensures that economic benefits reach local populations rather than multinational corporations. Education campaigns highlighting tourism's positive contributions—such as job creation and cultural exchange—can also shift public perception. In conclusion, while legitimate concerns underpin anti-tourism sentiment, strategic interventions focusing on sustainability and equitable benefit distribution can cultivate more favorable attitudes among host communities.",
+        "source": "Original",
+        "expectedStrengths": [
+            "Sophisticated vocabulary (exponential, commodification, cohesion)",
+            "Complex sentence structures",
+            "Clear progression with examples",
+            "Fully addresses both parts of question",
+            "Effective paraphrasing"
+        ]
+    },
+    {
+        "band": 8.0,
+        "prompt": "Some people think that governments should spend money on faster means of public transport. However, others think that there are other more important priorities for public spending (e.g. cost, environment). Discuss both views and give your opinion.",
+        "essay": "The allocation of public funds constitutes a perpetual dilemma for policymakers, particularly regarding transportation infrastructure. While expediting public transit systems offers compelling advantages, alternative priorities merit equal consideration. This essay will evaluate both perspectives before advancing a nuanced position. Advocates of accelerated public transport cite multiple benefits. Enhanced connectivity between urban centers facilitates economic integration, enabling professionals to access broader employment markets. High-speed rail networks in Japan and France exemplify this dynamic, contributing substantially to regional GDP growth. Moreover, efficient mass transit systems can alleviate road congestion and reduce carbon emissions, addressing both pragmatic and environmental imperatives. Conversely, competing priorities demand attention. Healthcare and education infrastructure often suffer from chronic underfunding, with tangible consequences for social welfare. In developing nations particularly, allocating scarce resources to high-speed rail rather than primary schools or medical facilities raises ethical questions. Additionally, the environmental credentials of rapid transportation require scrutiny; constructing new railways often necessitates significant ecological disruption, potentially offsetting operational carbon savings. My contention is that context determines optimal policy. In densely populated corridors with demonstrated demand, investing in faster transit yields substantial returns. However, this must not preclude parallel investment in fundamental services. Governments should pursue balanced portfolios, recognizing that sustainable development encompasses both physical infrastructure and human capital. In conclusion, while rapid transit offers considerable merit, prudent governance requires holistic assessment of societal needs rather than fixating on singular priorities.",
+        "source": "Original",
+        "expectedStrengths": [
+            "Sophisticated lexis (perpetual dilemma, nuanced position, holistic assessment)",
+            "Wide range of complex structures",
+            "Fully developed arguments with specific examples",
+            "Sophisticated organization and cohesion",
+            "Demonstrates critical thinking"
+        ]
+    },
+    {
+        "band": 8.5,
+        "prompt": "In many countries, the proportion of older people is steadily increasing. Does this trend have more positive or negative effects on society?",
+        "essay": "Demographic aging represents one of the defining transformations of the twenty-first century, with profound implications for social, economic, and political systems. While this trend undeniably presents challenges, a comprehensive analysis reveals that its ramifications are predominantly negative, though not without certain advantages. The fiscal burden imposed by aging populations constitutes the primary concern. As the ratio of retirees to working-age individuals increases, pension and healthcare systems face unsustainable pressure. Japan's experience illustrates this vividly: projected social security costs threaten to consume over half of government expenditure within two decades. Furthermore, labor shortages may impede economic dynamism, as shrinking workforces struggle to maintain productivity levels. This demographic imbalance also risks intergenerational conflict, as younger cohorts shoulder mounting tax obligations to support their predecessors. Nevertheless, aging societies possess certain assets. Older individuals often contribute valuable institutional knowledge and mentorship, facilitating knowledge transfer within organizations. Additionally, the 'silver economy'—encompassing healthcare, leisure, and age-appropriate consumer goods—generates substantial commercial opportunities. Countries like Germany have successfully leveraged their aging demographics to develop globally competitive gerontechnology sectors. However, these benefits pale beside the systemic challenges. Ultimately, while aging populations are not categorically detrimental, their aggregate impact skews negative absent proactive policy interventions. Governments must pursue multifaceted strategies: incentivizing higher birth rates, facilitating immigration, extending working lives, and investing in automation to augment labor productivity. Only through such comprehensive reforms can societies hope to ameliorate the adverse consequences of demographic aging. In conclusion, though aging populations offer isolated advantages, their overarching effects are deleterious, necessitating urgent and coordinated policy responses to ensure societal resilience and intergenerational equity.",
+        "source": "Original",
+        "expectedStrengths": [
+            "Exceptional vocabulary range and precision",
+            "Sophisticated grammatical structures with full flexibility",
+            "Seamless coherence and cohesion",
+            "Fully extended and supported arguments",
+            "Demonstrates exceptional command of language"
+        ]
+    }
+]

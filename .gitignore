@@ -1,0 +1,82 @@
+# Environment variables and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+.wrangler/
+.dev.vars
+
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build outputs
+dist/
+build/
+.next/
+out/
+.cache/
+
+# IDE and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Misc
+.git/
+*.bak
+*.backup
+
+# Large binary test files
+k6-bin/
+test_audio.mp3
+
+# Large PDF books (educational materials)
+*.pdf
+**/*.pdf
+
+# Temporary files
+*.tmp
+tmp/
+temp/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.so
+*.egg
+*.egg-info/
+venv/
+env/
+
+# Test coverage
+coverage/
+.turbo/
+build/
+.vercel/
+.next/
+out/
+
+# Keep example env
+!.env.example
+!.env.template

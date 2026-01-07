@@ -1,0 +1,272 @@
+{
+    "pedagogy": {
+        "system": "Cullen-Ng Hybrid Method",
+        "target_audience": "Uzbek IELTS Candidates",
+        "age_range": "18-35",
+        "current_level_focus": "Band 3.5 to Band 9.0"
+    },
+    "band_progression": {
+        "band_9.0": {
+            "label": "Expert User",
+            "damage_range": [
+                0,
+                5
+            ],
+            "description": "Fully operational command. Appropriate, accurate and fluent with complete understanding.",
+            "speaking_criteria": {
+                "fluency": "Speaks fluently with no repetition or self-correction",
+                "pause_tolerance": "< 0.5s between thoughts",
+                "hesitation_penalty": 1
+            },
+            "color": "#00ff00",
+            "icon": "👑"
+        },
+        "band_8.5": {
+            "label": "Very Good User+",
+            "damage_range": [
+                6,
+                10
+            ],
+            "description": "Fully operational with only occasional unsystematic inaccuracies.",
+            "speaking_criteria": {
+                "fluency": "Very fluent with rare hesitations",
+                "pause_tolerance": "< 1.0s",
+                "hesitation_penalty": 2
+            },
+            "color": "#10b981",
+            "icon": "⭐"
+        },
+        "band_8.0": {
+            "label": "Very Good User",
+            "damage_range": [
+                11,
+                20
+            ],
+            "description": "Handles complex detailed argumentation well.",
+            "speaking_criteria": {
+                "fluency": "Speaks at length without noticeable effort",
+                "pause_tolerance": "< 1.5s",
+                "hesitation_penalty": 3
+            },
+            "color": "#22c55e",
+            "icon": "🌟"
+        },
+        "band_7.5": {
+            "label": "Good User+",
+            "damage_range": [
+                21,
+                30
+            ],
+            "description": "Operational command with occasional inaccuracies.",
+            "speaking_criteria": {
+                "fluency": "Usually maintains flow with some repetition",
+                "pause_tolerance": "< 2.0s",
+                "hesitation_penalty": 4
+            },
+            "color": "#84cc16",
+            "icon": "✨"
+        },
+        "band_7.0": {
+            "label": "Good User",
+            "damage_range": [
+                31,
+                40
+            ],
+            "description": "Handles complex language well but with occasional inaccuracies.",
+            "speaking_criteria": {
+                "fluency": "Speaks at length but may lose coherence at times",
+                "pause_tolerance": "< 2.5s",
+                "hesitation_penalty": 5
+            },
+            "color": "#eab308",
+            "icon": "💫"
+        },
+        "band_6.5": {
+            "label": "Competent User+",
+            "damage_range": [
+                41,
+                50
+            ],
+            "description": "Generally effective command with some inaccuracies.",
+            "speaking_criteria": {
+                "fluency": "Willing to speak at length with hesitation",
+                "pause_tolerance": "< 3.0s",
+                "hesitation_penalty": 6
+            },
+            "color": "#f59e0b",
+            "icon": "🔥"
+        },
+        "band_6.0": {
+            "label": "Competent User",
+            "damage_range": [
+                51,
+                60
+            ],
+            "description": "Effective command despite inaccuracies and misunderstandings.",
+            "speaking_criteria": {
+                "fluency": "Can continue but with repetition and self-correction",
+                "pause_tolerance": "< 3.5s",
+                "hesitation_penalty": 7
+            },
+            "color": "#f97316",
+            "icon": "⚡"
+        },
+        "band_5.5": {
+            "label": "Modest User+",
+            "damage_range": [
+                61,
+                70
+            ],
+            "description": "Partial command with frequent problems.",
+            "speaking_criteria": {
+                "fluency": "Usually maintains flow but with repetition",
+                "pause_tolerance": "< 4.0s",
+                "hesitation_penalty": 8
+            },
+            "color": "#ef4444",
+            "icon": "⚠️"
+        },
+        "band_5.0": {
+            "label": "Modest User",
+            "damage_range": [
+                71,
+                80
+            ],
+            "description": "Partial command. Copes with overall meaning in most situations.",
+            "speaking_criteria": {
+                "fluency": "Cannot respond without noticeable pauses",
+                "pause_tolerance": "< 5.0s",
+                "hesitation_penalty": 9
+            },
+            "color": "#dc2626",
+            "icon": "🔻"
+        },
+        "band_4.5": {
+            "label": "Limited User+",
+            "damage_range": [
+                81,
+                90
+            ],
+            "description": "Basic competence limited to familiar situations.",
+            "speaking_criteria": {
+                "fluency": "Cannot keep going without frequent pauses",
+                "pause_tolerance": "< 6.0s",
+                "hesitation_penalty": 10
+            },
+            "color": "#b91c1c",
+            "icon": "❌"
+        },
+        "band_4.0": {
+            "label": "Limited User",
+            "damage_range": [
+                91,
+                100
+            ],
+            "description": "Ability limited to familiar situations. Frequent breakdowns.",
+            "speaking_criteria": {
+                "fluency": "Pauses lengthily before most words",
+                "pause_tolerance": "< 8.0s",
+                "hesitation_penalty": 12
+            },
+            "color": "#991b1b",
+            "icon": "💀"
+        },
+        "band_3.5": {
+            "label": "Extremely Limited",
+            "damage_range": [
+                101,
+                999
+            ],
+            "description": "Conveys and understands only general meaning in very familiar situations.",
+            "speaking_criteria": {
+                "fluency": "Long pauses, frequent breakdown",
+                "pause_tolerance": "> 8.0s",
+                "hesitation_penalty": 15
+            },
+            "color": "#7f1d1d",
+            "icon": "☠️"
+        }
+    },
+    "skill_domains": {
+        "speaking": {
+            "stat_name": "Charisma",
+            "icon": "🎤",
+            "color": "#8b5cf6",
+            "description": "The Arena - Master your voice",
+            "game_mechanic": "Voice analysis battles",
+            "current_implementation": "OpenAI Whisper + pause detection",
+            "scoring_factors": [
+                "fluency_coherence",
+                "lexical_resource",
+                "grammatical_range_accuracy",
+                "pronunciation"
+            ]
+        },
+        "listening": {
+            "stat_name": "Sensory",
+            "icon": "👂",
+            "color": "#3b82f6",
+            "description": "The Interrogation - Sharpen your ears",
+            "game_mechanic": "Audio comprehension dodge mechanics",
+            "implementation_status": "planned",
+            "scoring_factors": [
+                "understanding_main_ideas",
+                "understanding_details",
+                "recognizing_opinions",
+                "following_development"
+            ]
+        },
+        "reading": {
+            "stat_name": "Knowledge",
+            "icon": "📖",
+            "color": "#10b981",
+            "description": "The Archive - Unlock ancient wisdom",
+            "game_mechanic": "T/F/NG question battles for critical hits",
+            "implementation_status": "planned",
+            "scoring_factors": [
+                "identifying_information",
+                "identifying_views",
+                "understanding_detail",
+                "recognizing_purpose"
+            ]
+        },
+        "writing": {
+            "stat_name": "Strategy",
+            "icon": "✍️",
+            "color": "#f59e0b",
+            "description": "The Citadel - Construct your defenses",
+            "game_mechanic": "Essay composition builds defensive structures",
+            "implementation_status": "planned",
+            "scoring_factors": [
+                "task_achievement",
+                "coherence_cohesion",
+                "lexical_resource",
+                "grammatical_range_accuracy"
+            ]
+        }
+    },
+    "game_mechanics": {
+        "damage_calculation": {
+            "formula": "total_damage = sum(all hesitation penalties)",
+            "hesitation_threshold": 2.0,
+            "base_penalty_per_hesitation": 10,
+            "max_damage_cap": 999
+        },
+        "band_determination": {
+            "method": "Find band where damage falls within damage_range",
+            "default": "band_3.5"
+        },
+        "progression": {
+            "xp_system": "Coming in Week 2",
+            "unlockables": "New vocabulary 'spells' at each band level",
+            "difficulty_scaling": "Enemy AI adapts to player's band level"
+        }
+    },
+    "metadata": {
+        "version": "1.0.0",
+        "created": "2025-12-31",
+        "framework": "Antigravity Intent-Code Protocol",
+        "pedagogy_verified": true,
+        "week": 1
+    }
+}

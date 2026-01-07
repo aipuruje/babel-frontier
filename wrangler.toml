@@ -1,0 +1,52 @@
+name = "babel-frontier-core"
+main = "backend/api/index.js"
+compatibility_date = "2026-01-04"
+compatibility_flags = ["nodejs_compat"]
+
+[triggers]
+crons = ["0 0 * * *"] # Runs every day at midnight UTC
+
+# 1. Database (The Relational Core)
+[[d1_databases]]
+binding = "DB"
+database_name = "babel-frontier-db"
+database_id = "f6eda8be-9212-4e22-b741-4485d0d4f6b5"
+
+# 2. Storage (Audio & Binary)
+[[r2_buckets]]
+binding = "AUDIO_BUCKET"
+bucket_name = "babel-frontier-audio"
+
+# 3. High-Speed Cache (Drafts & Leaderboards)
+[[kv_namespaces]]
+binding = "DRAFTS_KV"
+id = "PASTE_KV_DRAFTS_ID_HERE"
+
+[[kv_namespaces]]
+binding = "LEADERBOARD_KV"
+id = "PASTE_KV_LEADERBOARD_ID_HERE"
+
+# 4. Async Processing (AI Grading)
+[[queues.producers]]
+binding = "GRADING_QUEUE"
+queue = "ielts-grading-tasks"
+
+[[queues.consumers]]
+queue = "ielts-grading-tasks"
+max_batch_size = 1
+max_batch_timeout = 30
+max_retries = 3
+dead_letter_queue = "ielts-grading-dlq"
+
+# 5. Background Tasks (Momentum Decay)
+[ai]
+binding = "AI"
+
+# Environment variables (non-sensitive)
+[vars]
+REGION = "eu-central"
+TARGET_LATENCY_MS = 15
+
+# Secrets
+# GEMINI_API_KEY - Set in GitHub Secrets
+# TELEGRAM_BOT_TOKEN - Set in GitHub Secrets

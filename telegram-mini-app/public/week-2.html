@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Alisher: Week 2 - Expansion & Adaptive Mastery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Chosen Palette: Cyber Cobalt, Uzbekistan Gold, and Deep Graphite -->
+    <!-- Application Structure Plan: 
+         - Vertical Timeline of Intent for Days 01, 02, and 03.
+         - 600% Ultra-Detail view for each day's technical and pedagogical orchestration.
+         - Real-time "Alisher Growth" Heatmap visualization.
+         - The "Intent Composer" for Antigravity Nov 2025. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --cyber-cobalt: #1E40AF;
+            --silk-gold: #C5A059;
+            --carbon: #0F172A;
+            --neon-blue: #38BDF8;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #020617;
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .glass-panel {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 32px;
+        }
+
+        .intent-console {
+            background: #020617;
+            border-left: 4px solid var(--silk-gold);
+            padding: 2rem;
+            position: relative;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .copy-trigger {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.65rem;
+            color: var(--silk-gold);
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+            opacity: 0.6;
+        }
+
+        .copy-trigger:hover {
+            opacity: 1;
+        }
+
+        .day-tab {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .day-tab.active {
+            background: var(--silk-gold);
+            color: black;
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.3);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .step-indicator {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="p-0 m-0">
+
+    <!-- Global Navigation -->
+    <nav
+        class="sticky top-0 z-50 bg-slate-950/80 backdrop-blur-xl border-b border-white/5 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div
+                class="w-12 h-12 bg-gradient-to-tr from-blue-900 to-blue-500 rounded-xl flex items-center justify-center border border-white/10 shadow-lg shadow-blue-500/20">
+                <i class="fas fa-brain text-white text-xl"></i>
+            </div>
+            <div>
+                <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">Expansion
+                    Protocol</span>
+                <span class="block text-xl font-bold mono tracking-tighter uppercase">Week 2: <span
+                        class="text-blue-400">The Neural Arc</span></span>
+            </div>
+        </div>
+        <div class="flex gap-4">
+            <button onclick="showDay(1)" id="btn-1"
+                class="day-tab active px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-white/5">Day
+                01</button>
+            <button onclick="showDay(2)" id="btn-2"
+                class="day-tab px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-white/5 text-gray-400">Day
+                02</button>
+            <button onclick="showDay(3)" id="btn-3"
+                class="day-tab px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest border border-white/5 text-gray-400">Day
+                03</button>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-8 py-12">
+
+        <!-- Executive Vision -->
+        <section id="vision-header" class="mb-20">
+            <div class="flex items-center gap-2 text-silk-gold mb-4">
+                <i class="fas fa-infinity"></i>
+                <span class="text-xs font-bold uppercase tracking-widest">Adaptive Logic Synthesis</span>
+            </div>
+            <h1 id="main-title" class="text-6xl lg:text-8xl font-bold tracking-tighter leading-none mb-6 text-white">
+                PERSONALIZED <br> <span
+                    class="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">DOMINATION.</span>
+            </h1>
+            <p id="main-desc" class="text-xl text-slate-400 max-w-4xl leading-relaxed">
+                In Week 2, we move from "one game for all" to "the game that grows with Alisher." As the Orchestrator,
+                you are now fine-tuning the **Neural Feedback Loops** and the **Social Dopamine Engines**. We are
+                creating a system where the game knows exactly why Alisher failed his last Speaking Battle and builds a
+                custom training dungeon to fix it by lunch.
+            </p>
+        </section>
+
+        <!-- DAY 01: NEURAL PERSONALIZATION -->
+        <div id="content-1" class="day-content">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2 space-y-12">
+                    <h2 class="text-3xl font-bold mono uppercase border-b border-white/10 pb-4">Day 01: The AI Tutor
+                        Synthesis</h2>
+
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="step-indicator">01</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-blue-400">Error Mapping Archive</h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    Analyze the first 24 hours of Alisher's metadata. Google Antigravity detects that
+                                    Alisher uses the word "Good" 45 times but never uses "Exceptional" or "Superb".
+                                    <br><span class="text-silk-gold font-bold">The Intent:</span> Instruct the AI to
+                                    generate a 'Loot Box' that only contains synonyms for 'Good'.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <div class="step-indicator">02</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-blue-400">Personalized Mission Generation</h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    The AI re-writes the "Citadel Reading" mission *specifically* for Alisher. It
+                                    injects topics he loves (PUBG, Samarkand History) but uses the C1-level vocabulary
+                                    he lacks.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intent-console mt-12">
+                        <span class="copy-trigger">Intent Prompt #1: Neural Feedback</span>
+                        <p class="text-[11px] mono text-blue-300 leading-relaxed">
+                            "Google Antigravity: Analyze user session ID [ALISHER_001]. Extract the 'Lexical Poverty
+                            Map'. <br><br>
+                            Instruction: For tomorrow's login, generate 3 'Side Quests' that focus exclusively on the 5
+                            grammar points he failed in the Speaking Battle. <br>
+                            Visual: Create a 'Personal Mentor' NPC (using my voice profile) that greets him and says:
+                            'Alisher, I saw you struggled with Conditionals. Let's conquer the Level 2 Foundry to
+                            upgrade your shield.' <br>
+                            Logic: The mission success criteria must be the correct usage of 'If I had...' at least 3
+                            times in the voice-to-logic stream."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Day 1 Visualization -->
+                <div class="glass-panel p-8 h-fit sticky top-32">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Alisher's Mastery
+                        Heatmap</h4>
+                    <div class="chart-container">
+                        <canvas id="masteryChart"></canvas>
+                    </div>
+                    <div class="mt-8 space-y-4">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-500">Neural Adaptability</span>
+                            <span class="text-green-400 font-bold">98%</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-slate-500">Personalization Depth</span>
+                            <span class="text-blue-400 font-bold">Level 12</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 02: COMPETITIVE SOCIAL LAYERS -->
+        <div id="content-2" class="day-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2 space-y-12">
+                    <h2 class="text-3xl font-bold mono uppercase border-b border-white/10 pb-4">Day 02: The Guild Arena
+                        (5v5 Rhetoric)</h2>
+
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="step-indicator">01</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-silk-gold">Guild Management Module</h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    Enable Alisher to create the "Tashkent Titans" guild. Use Telegram's 'Shared Cloud
+                                    Storage' via Antigravity to sync guild progress. Guild members can 'donate' Lexical
+                                    Shards to help weaker members level up.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <div class="step-indicator">02</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-silk-gold">5v5 Verbal Combat Logic</h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    Real-time synchronous battles. Two guilds enter. The AI presents a 'Crisis Topic'.
+                                    Each player must contribute one spoken argument. The guild with the highest
+                                    aggregate 'Coherence Score' wins the Samarkand Territory.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intent-console mt-12" style="border-left-color: var(--silk-gold);">
+                        <span class="copy-trigger">Intent Prompt #2: Social Sync</span>
+                        <p class="text-[11px] mono text-yellow-200 leading-relaxed">
+                            "Google Antigravity: Synthesize the 'Guild Arena' architecture. <br><br>
+                            Logic: Use 'Antigravity Real-time Sync' to connect 10 concurrent Telegram users in a single
+                            voice-battle instance. <br>
+                            UI: Create a 'Tug-of-War' visual. When Guild A speaks with higher Fluency, the rope moves
+                            toward their side. <br>
+                            Database: Update the 'Territory Map' of Neo-Uzbekistan in Firebase to show the dominant
+                            guild. <br>
+                            Reward: The winning guild gets a 'Scholarship Multiplier' for the next 24 hours."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8">
+                    <h4 class="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Guild Power Balance</h4>
+                    <div class="chart-container">
+                        <canvas id="guildChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DAY 03: MONETIZATION ARCHITECTURE -->
+        <div id="content-3" class="day-content hidden">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2 space-y-12">
+                    <h2 class="text-3xl font-bold mono uppercase border-b border-white/10 pb-4">Day 03: The Uzbekistan
+                        Wealth Handshake</h2>
+
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="step-indicator">01</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-green-400">Payment Rails: Click & Payme Integration
+                                </h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    Instruction: Integrate the API webhooks for Click.uz and Payme. Direct Alisher to
+                                    the local payment checkout inside the TWA. No Apple/Google 30% tax—this is a direct
+                                    Uzbekistan transaction.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-6">
+                            <div class="step-indicator">02</div>
+                            <div>
+                                <h4 class="font-bold text-lg text-green-400">The "Energy" Economy</h4>
+                                <p class="text-sm text-slate-400 mt-2 leading-relaxed">
+                                    Alisher gets 3 missions a day for free. To play more (to keep his guild rank), he
+                                    must buy 'Plov Potions' (Energy). 1 Plov Potion = 10,000 UZS.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intent-console mt-12" style="border-left-color: #10B981;">
+                        <span class="copy-trigger">Intent Prompt #3: Monetary Sync</span>
+                        <p class="text-[11px] mono text-green-300 leading-relaxed">
+                            "Google Antigravity: Implement the 'Monetary Handshake' protocol. <br><br>
+                            Action: Create a 'Marketplace' tab in the TWA. <br>
+                            Products: 'Legendary Band 9.0 Mock Test' (50,000 UZS), 'Infinite Energy Pass' (150,000 UZS).
+                            <br>
+                            Integration: Use the 'Antigravity Payment Hook' to connect to Click.uz. Upon successful
+                            transaction, immediately update the Firebase 'Inventory' array for the user and trigger a
+                            'Golden Chest' animation."
+                        </p>
+                    </div>
+                </div>
+
+                <div class="glass-panel p-8 h-fit bg-green-500/5 border-green-500/20">
+                    <h4 class="text-xs font-bold text-green-500 uppercase tracking-widest mb-4 text-green-400">
+                        Solopreneur Revenue Projection</h4>
+                    <div class="text-4xl font-bold mb-2 text-white">$12,500<span
+                            class="text-sm text-slate-500 font-normal ml-2">/mo</span></div>
+                    <p class="text-[10px] text-slate-500 leading-relaxed">Based on 5,000 active users in Tashkent with a
+                        5% conversion rate to the 'Elite Linguist' pass.</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Action -->
+    <footer class="bg-slate-950 border-t border-white/5 py-12 mt-20 text-white">
+        <div class="max-w-7xl mx-auto px-8 text-center">
+            <h2 class="text-2xl font-bold mb-6 italic text-slate-400">"You are no longer teaching a student. You are
+                governing a <span class="text-blue-400">Linguistic Nation</span>."</h2>
+            <div class="flex justify-center gap-6">
+                <button
+                    class="px-12 py-4 bg-blue-600 text-white font-bold rounded-2xl hover:scale-105 transition shadow-lg shadow-blue-500/20 uppercase tracking-widest text-xs">Deploy
+                    Expansion Build</button>
+                <button
+                    class="px-12 py-4 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition uppercase tracking-widest text-xs">View
+                    Alisher's Neural Map</button>
+            </div>
+            <p class="mt-12 text-[10px] text-slate-600 mono uppercase tracking-widest">&copy; 2025 Project Alisher •
+                Orchestrated by The 47-Year-Old Titan • Powered by Google Antigravity</p>
+        </div>
+    </footer>
+
+    <script>
+        // State Management
+        let currentDay = 1;
+        let masteryChartInstance = null;
+        let guildChartInstance = null;
+
+        function showDay(day) {
+            document.querySelectorAll('.day-content').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.day-tab').forEach(btn => {
+                btn.classList.remove('active', 'text-black');
+                btn.classList.add('text-gray-400');
+            });
+
+            document.getElementById('content-' + day).classList.remove('hidden');
+            document.getElementById('btn-' + day).classList.add('active');
+
+            // Update Title/Description based on day
+            const titles = {
+                1: "PERSONALIZED <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300'>DOMINATION.</span>",
+                2: "GUILD <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-400'>WARFARE.</span>",
+                3: "THE WEALTH <br> <span class='text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300'>HANDSHAKE.</span>"
+            };
+            const descs = {
+                1: "In Week 2 Day 1, we move from 'one game for all' to 'the game that grows with Alisher.' We are creating a system where the AI tutor identifies his exact IELTS weaknesses and builds a training dungeon to fix it.",
+                2: "Day 2 is about the Social Engine. We are building the competitive infrastructure that makes students in Tashkent stay up until 2 AM practicing Speaking to keep their Guild at the top of the leaderboard.",
+                3: "Day 3 is the engine of sustainability. We integrate local Uzbekistan payment rails to turn your IELTS expertise into a massive semi-passive income stream while Alisher buys his way to mastery."
+            };
+
+            document.getElementById('main-title').innerHTML = titles[day];
+            document.getElementById('main-desc').innerText = descs[day];
+
+            currentDay = day;
+
+            // Re-initialize charts on tab switch to ensure proper rendering in visible container
+            setTimeout(initCharts, 50);
+        }
+
+        // Charts Initialization
+        function initCharts() {
+            // Cleanup existing instances to prevent memory leaks and RangeErrors
+            if (masteryChartInstance) {
+                masteryChartInstance.destroy();
+                masteryChartInstance = null;
+            }
+            if (guildChartInstance) {
+                guildChartInstance.destroy();
+                guildChartInstance = null;
+            }
+
+            // Mastery Chart (Day 1) - Radar Chart
+            const ctx1 = document.getElementById('masteryChart');
+            if (ctx1 && !document.getElementById('content-1').classList.contains('hidden')) {
+                masteryChartInstance = new Chart(ctx1, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Conditionals', 'Lexical Density', 'Intonation', 'Cohesion', 'Task Response'],
+                        datasets: [{
+                            label: 'Baseline (Day 1)',
+                            data: [30, 40, 50, 35, 45],
+                            borderColor: '#4A5568',
+                            backgroundColor: 'rgba(74, 85, 104, 0.1)',
+                        }, {
+                            label: 'Current (Week 2)',
+                            data: [75, 65, 80, 70, 85],
+                            borderColor: '#38BDF8',
+                            backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            r: {
+                                min: 0,
+                                max: 100,
+                                beginAtZero: true,
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                ticks: {
+                                    display: false,
+                                    precision: 0 // Prevents NumberFormat RangeError
+                                },
+                                pointLabels: {
+                                    color: '#888',
+                                    font: { size: 10 }
+                                }
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Guild Chart (Day 2) - Doughnut Chart
+            const ctx2 = document.getElementById('guildChart');
+            if (ctx2 && !document.getElementById('content-2').classList.contains('hidden')) {
+                guildChartInstance = new Chart(ctx2, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Tashkent Titans', 'Samarkand Silk', 'Bukhara Blades', 'Other'],
+                        datasets: [{
+                            data: [45, 25, 20, 10],
+                            backgroundColor: ['#C5A059', '#1E40AF', '#10B981', '#4A5568'],
+                            borderWidth: 0
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom',
+                                labels: { color: '#888', font: { size: 10 } }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        window.onload = function () {
+            initCharts();
+        };
+
+        // Handle window resizing for responsive charts
+        let resizeTimer;
+        window.onresize = function () {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(initCharts, 200);
+        };
+    </script>
+</body>
+
+</html>

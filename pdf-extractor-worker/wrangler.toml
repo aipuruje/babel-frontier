@@ -1,0 +1,15 @@
+name = "pdf-extractor"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# D1 database (babel-frontier-db for teaching points)
+[[d1_databases]]
+binding = "DB"
+database_name = "babel-frontier-db"
+database_id = "f6eda8be-9212-4e22-b741-4485d0d4f6b5"
+
+# Secrets (set via wrangler secret put)
+# GEMINI_API_KEY - for teaching point extraction
+
+# Note: PDFs are fetched from public R2 URL
+# https://pub-0a7a4dd1a6604be2b34ef013fe4bef6c.r2.dev/

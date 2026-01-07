@@ -1,0 +1,153 @@
+{
+  "timestamp": "2026-01-03T16:29:26.758Z",
+  "baseUrl": "https://babel-frontier.rahrus1977.workers.dev",
+  "summary": {
+    "totalTests": 0,
+    "passed": 0,
+    "failed": 0,
+    "passRate": "NaN"
+  },
+  "weakEssays": [
+    {
+      "expectedBand": 3.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 4,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 4.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 5.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    }
+  ],
+  "strongEssays": [
+    {
+      "expectedBand": 7,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 7.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 8,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 8.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    }
+  ],
+  "templateEssays": [
+    {
+      "expectedBand": 6,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 5.5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 6,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    },
+    {
+      "expectedBand": 5,
+      "actualBand": 0,
+      "passed": false,
+      "error": "HTTP 404: {\"error\":\"API endpoint not found\"}"
+    }
+  ],
+  "pedagogicalDrift": [
+    {
+      "type": "grade_inflation",
+      "expected": 3.5,
+      "actual": 0,
+      "essay": "I think teenager is happy. They no have work. They play with friend. Adult have many problem. They w..."
+    },
+    {
+      "type": "grade_inflation",
+      "expected": 4,
+      "actual": 0,
+      "essay": "Social network is very popular now. Many people use Facebook and Instagram. This thing have good and..."
+    },
+    {
+      "type": "grade_inflation",
+      "expected": 4.5,
+      "actual": 0,
+      "essay": "Advertising is everywhere in our life. On TV, on internet, on street. Some people think advertising ..."
+    },
+    {
+      "type": "grade_inflation",
+      "expected": 5,
+      "actual": 0,
+      "essay": "Universities have important role in education. Some people believe universities should teach practic..."
+    },
+    {
+      "type": "grade_inflation",
+      "expected": 5.5,
+      "actual": 0,
+      "essay": "Nowadays, many governments are trying to move companies from big cities to countryside. This trend h..."
+    },
+    {
+      "type": "grade_deflation",
+      "expected": 7,
+      "actual": 0,
+      "essay": "Community service has become a topic of considerable debate in educational circles. While some advoc..."
+    },
+    {
+      "type": "grade_deflation",
+      "expected": 7.5,
+      "actual": 0,
+      "essay": "International tourism has experienced exponential growth in recent decades, yet public opinion in so..."
+    },
+    {
+      "type": "grade_deflation",
+      "expected": 8,
+      "actual": 0,
+      "essay": "The allocation of public funds constitutes a perpetual dilemma for policymakers, particularly regard..."
+    },
+    {
+      "type": "grade_deflation",
+      "expected": 8.5,
+      "actual": 0,
+      "essay": "Demographic aging represents one of the defining transformations of the twenty-first century, with p..."
+    }
+  ],
+  "totalTests": null,
+  "failed": null,
+  "passed": null
+}

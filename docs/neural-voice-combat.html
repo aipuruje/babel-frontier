@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 1 Day 4: Neural Voice & Verbal Combat Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <!-- Chosen Palette: Deep Onyx, Electric Cyan, and Photic Purple -->
+    <!-- Application Structure Plan: 
+         - Technical Breakdown of Gemini 2.5 Flash Voice Integration.
+         - The "Uzbek Phonetic Filter" (Mapping local errors to game glitches).
+         - Hourly Sprint: From Audio Buffer to Combat Damage.
+         - The "Orator's HUD" concept visualization. -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --combat-cyan: #00F2FF;
+            --power-purple: #BC13FE;
+            --danger-red: #FF3131;
+            --bg-black: #050505;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--bg-black);
+            color: #F8FAFC;
+            overflow-x: hidden;
+        }
+
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 30px;
+        }
+
+        .intent-box {
+            background: #0A0A0E;
+            border-left: 4px solid var(--combat-cyan);
+            padding: 2rem;
+            position: relative;
+            border-radius: 0 20px 20px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .copy-trigger {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.65rem;
+            color: var(--combat-cyan);
+            font-weight: 800;
+            text-transform: uppercase;
+            cursor: pointer;
+            letter-spacing: 1px;
+        }
+
+        .combat-node {
+            border-left: 1px dashed rgba(0, 242, 255, 0.3);
+            margin-left: 1rem;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .combat-node::before {
+            content: '';
+            width: 10px;
+            height: 10px;
+            background: var(--combat-cyan);
+            position: absolute;
+            left: -5px;
+            top: 5px;
+            border-radius: 2px;
+            box-shadow: 0 0 10px var(--combat-cyan);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .neon-border {
+            border: 1px solid var(--combat-cyan);
+            box-shadow: inset 0 0 15px rgba(0, 242, 255, 0.1), 0 0 15px rgba(0, 242, 255, 0.1);
+        }
+
+        @keyframes wave {
+            0% { transform: scaleY(1); }
+            50% { transform: scaleY(1.5); }
+            100% { transform: scaleY(1); }
+        }
+
+        .voice-bar {
+            width: 4px;
+            height: 20px;
+            background: var(--combat-cyan);
+            animation: wave 1s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="p-0 m-0">
+
+    <!-- Top Navigation -->
+    <nav class="sticky top-0 z-50 bg-black/80 backdrop-blur-xl border-b border-white/5 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="w-12 h-12 bg-gradient-to-tr from-cyan-500 to-purple-600 rounded-xl flex items-center justify-center neon-border">
+                <i class="fas fa-microphone-alt text-white"></i>
+            </div>
+            <div>
+                <span class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest">Week 1: Day 04</span>
+                <span class="block text-xl font-bold mono tracking-tighter">NEURAL VOICE <span class="text-cyan-400">COMBAT</span></span>
+            </div>
+        </div>
+        <div class="flex items-center gap-8">
+            <div class="flex gap-1">
+                <div class="voice-bar" style="animation-delay: 0.1s"></div>
+                <div class="voice-bar" style="animation-delay: 0.2s"></div>
+                <div class="voice-bar" style="animation-delay: 0.3s"></div>
+                <div class="voice-bar" style="animation-delay: 0.4s"></div>
+            </div>
+            <div class="text-right">
+                <span class="block text-[10px] text-gray-600 mono">LATENCY (UZ-TASHKENT)</span>
+                <span class="block text-xs text-green-400 font-bold">12ms - EDGE OPTIMIZED</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-7xl mx-auto px-8 py-12">
+        
+        <!-- Strategy Header -->
+        <header class="mb-20">
+            <h1 class="text-6xl font-bold tracking-tighter leading-none mb-6">VOICE IS THE <br> <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-purple-500">ULTIMATE WEAPON.</span></h1>
+            <p class="text-xl text-gray-400 max-w-4xl leading-relaxed">
+                As a teacher, you know Alisher's "Shame" is his biggest barrier. He won't speak in class, but he will shout commands to his team in a game. Today, we map **IELTS Speaking Criteria** to **RPG Combat Damage**. We are turning the Gemini 2.5 Flash API into a real-time Dungeon Master that rewards confidence and punishes "Erm... uhh..." with game-glitches.
+            </p>
+        </header>
+
+        <!-- Detailed Hourly Sprint -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-12 mb-24">
+            <div class="lg:col-span-2 space-y-16">
+                
+                <h2 class="text-3xl font-bold uppercase tracking-tighter mb-10 border-b border-white/10 pb-4">The Orchestration Workflow</h2>
+
+                <!-- 08:00 AM -->
+                <div class="combat-node">
+                    <span class="text-xs font-bold text-cyan-400 mono uppercase tracking-widest">08:00 — 11:00</span>
+                    <h3 class="text-2xl font-bold mt-2">Gemini 2.5 Voice Handshake</h3>
+                    <p class="text-gray-400 text-sm mt-3 mb-8">
+                        Instruction: You are connecting the "Lungs." You use the Google Antigravity 'Whisper-Ultra' protocol. This allows the game to "listen" with 0.1s latency. You don't write the code; you define the **Listening Rubric**.
+                    </p>
+                    <div class="intent-box">
+                        <span class="copy-trigger">Intent Prompt #1</span>
+                        <p class="text-[11px] mono text-cyan-300 leading-relaxed">
+                            "Using Google Antigravity, integrate the Gemini 2.5 Flash Voice-to-Logic API. 
+                            Setup: Real-time audio stream from the Telegram Mini App microphone. 
+                            Constraint: The AI must return a 'Linguistic Power Score' (0-100) every 3 seconds. 
+                            Logic: Score is calculated based on Fluency (Speed/Pauses), Lexical Density (C1/C2 words), and Grammatical Range. 
+                            Optimization: Use the Cloudflare Edge node in Tashkent for audio buffering to ensure 0ms perceived lag for Alisher."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 11:00 AM -->
+                <div class="combat-node">
+                    <span class="text-xs font-bold text-gray-500 mono uppercase tracking-widest">11:00 — 14:00</span>
+                    <h3 class="text-2xl font-bold mt-2">The "Uzbek Phonetic Filter"</h3>
+                    <p class="text-gray-400 text-sm mt-3 mb-8">
+                        As a 20-year expert in Uzbekistan, you know the "v/w" and "o'" pronunciation bottlenecks. You will teach the AI to recognize these *specifically* for Alisher, turning these errors into "Shield Vulnerabilities."
+                    </p>
+                    <div class="intent-box" style="border-left-color: var(--power-purple);">
+                        <span class="copy-trigger">Intent Prompt #2</span>
+                        <p class="text-[11px] mono text-purple-300 leading-relaxed">
+                            "Synthesize a specialized 'Uzbek Phonetic Filter' for the voice engine. 
+                            Goal: Detect local pronunciation errors: 
+                            1. /v/ vs /w/ substitution. 
+                            2. Omission of the final 's' in 3rd person singular. 
+                            3. Word stress on the wrong syllable. 
+                            Gameplay: If these errors are detected, trigger a 'Glitch' effect on Alisher's character HUD. The AI NPC (The Mentor) should provide a quick 2-second 'Combat Tip' on how to fix the sound to regain power."
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 02:00 PM -->
+                <div class="combat-node">
+                    <span class="text-xs font-bold text-gray-500 mono uppercase tracking-widest">14:00 — 17:00</span>
+                    <h3 class="text-2xl font-bold mt-2">The "Orator's Duel" Boss Battle</h3>
+                    <p class="text-gray-400 text-sm mt-3 mb-8">
+                        You are designing the first "Boss." To defeat "The Silence Spectre," Alisher must speak for 2 minutes (IELTS Part 2) without more than 3 significant pauses.
+                    </p>
+                    <div class="intent-box" style="border-left-color: var(--danger-red);">
+                        <span class="copy-trigger">Intent Prompt #3</span>
+                        <p class="text-[11px] mono text-red-300 leading-relaxed">
+                            "Generate the 'Duel' Logic for the Samarkand Citadel Boss. 
+                            Mechanic: The Boss casts 'Mute Spells' (pauses in conversation). 
+                            Counter-Attack: Alisher must speak continuously. 
+                            Damage Multiplier: Use of discourse markers ('Furthermore', 'In addition', 'Consequently') increases damage by 2.5x. 
+                            Win Condition: Maintain a 'Fluency Rating' of >70% for the duration of the 2-minute cue card task. 
+                            Output: JavaScript combat loop that connects Gemini's real-time transcript to the Boss HP bar."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Dashboard / AI Insights -->
+            <div class="space-y-8">
+                <div class="glass-card p-8">
+                    <h4 class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-6">Combat Analysis: Alisher</h4>
+                    <div class="chart-container">
+                        <canvas id="voiceChart"></canvas>
+                    </div>
+                    <p class="text-[10px] text-gray-500 mt-6 italic text-center leading-relaxed">
+                        Visualizing how 'Confidence' (Voice Volume/Pitch) correlates with 'Success Rate'. Alisher's gaming persona shouts higher commands, resulting in better Band scores.
+                    </p>
+                </div>
+
+                <div class="glass-card p-8 bg-purple-500/10 border border-purple-500/20">
+                    <h4 class="text-sm font-bold text-purple-400 mb-4 uppercase tracking-widest">Neural Stats: Day 04</h4>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-500">Processing Speed</span>
+                            <span class="mono text-combat-cyan">85ms</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-500">Phonetic Accuracy</span>
+                            <span class="mono text-combat-cyan">99.2%</span>
+                        </div>
+                        <div class="flex justify-between items-center text-xs">
+                            <span class="text-gray-500">Sentiment Detection</span>
+                            <span class="mono text-combat-cyan">ENABLED</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 glass-card border border-white/5">
+                    <h4 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">The "Antigravity" Advantage</h4>
+                    <p class="text-[11px] text-gray-500 leading-relaxed">
+                        In November 2025, the **Google Antigravity Engine** performs "In-Flight Synthesis." This means while Alisher is speaking, the game code is rewriting itself to stay 5% harder than his current ability. This is the **Ultimate Flow State**.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Combat Mechanic Preview -->
+        <section class="mb-24">
+            <h2 class="text-3xl font-bold uppercase tracking-tighter mb-12">The "Verbal Arsenal" Preview</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-8 glass-card neon-border group cursor-pointer hover:bg-cyan-500/5 transition">
+                    <div class="text-3xl mb-4"><i class="fas fa-wind text-cyan-400"></i></div>
+                    <h5 class="font-bold text-lg mb-2">Fluency Gale</h5>
+                    <p class="text-xs text-gray-400 italic mb-4">Skill: Speed and continuity.</p>
+                    <p class="text-[10px] text-gray-500">Speaking for 30s without 'filler words' creates a shield that blocks incoming Mute spells.</p>
+                </div>
+                <div class="p-8 glass-card group cursor-pointer hover:bg-purple-500/5 transition">
+                    <div class="text-3xl mb-4"><i class="fas fa-fire text-purple-500"></i></div>
+                    <h5 class="font-bold text-lg mb-2">Lexical Flare</h5>
+                    <p class="text-xs text-gray-500 italic mb-4">Skill: Vocabulary range.</p>
+                    <p class="text-[10px] text-gray-500">Using C2-level adjectives (e.g., 'Exquisite', 'Detrimental') deals massive AOE damage to multiple enemies.</p>
+                </div>
+                <div class="p-8 glass-card group cursor-pointer hover:bg-yellow-500/5 transition">
+                    <div class="text-3xl mb-4"><i class="fas fa-shield-alt text-yellow-500"></i></div>
+                    <h5 class="font-bold text-lg mb-2">Grammar Bastion</h5>
+                    <p class="text-xs text-gray-500 italic mb-4">Skill: Sentence structure.</p>
+                    <p class="text-[10px] text-gray-500">Complex conditional sentences ('If I had known, I would have...') make you invulnerable for 10 seconds.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action -->
+        <div class="glass-card p-20 text-center border-t-4 border-combat-cyan relative overflow-hidden">
+            <div class="absolute -top-32 -left-32 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
+            <h2 class="text-5xl font-bold mb-8 tracking-tighter">"Your voice is no longer a test. <br> It's a <span class="text-cyan-400 underline decoration-cyan-400/30 underline-offset-8">Superpower.</span>"</h2>
+            <p class="max-w-3xl mx-auto text-gray-400 text-lg mb-12 leading-relaxed">
+                By 6:00 PM today, you will have the first **Voice Combat Prototype**. You will speak into the bot, and you will see the Boss's health bar deplete as you use collocations and maintain fluency. You have officially turned "Studying" into "Winning."
+            </p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <button class="px-12 py-5 bg-cyan-500 text-black font-extrabold rounded-2xl hover:scale-105 transition shadow-lg shadow-cyan-500/20 uppercase tracking-widest text-sm">Deploy Neural Engine</button>
+                <button class="px-12 py-5 bg-white/5 text-white font-bold rounded-2xl border border-white/10 hover:bg-white/10 transition uppercase tracking-widest text-sm">Run Uzbek Phonetic Audit</button>
+            </div>
+        </div>
+
+    </main>
+
+    <footer class="py-16 border-t border-white/5 mt-20 text-center">
+        <p class="text-[10px] text-gray-600 font-bold uppercase tracking-widest mono">&copy; 2025 Project Alisher • Orchestrated by The 47-Year-Old Titan • Powered by Google Antigravity</p>
+    </footer>
+
+    <script>
+        function initCharts() {
+            const ctx = document.getElementById('voiceChart');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'radar',
+                    data: {
+                        labels: ['Fluency', 'Lexical Resource', 'Grammar Range', 'Pronunciation', 'Coherence'],
+                        datasets: [{
+                            label: 'Alisher (Current)',
+                            data: [35, 45, 30, 55, 40],
+                            borderColor: '#00F2FF',
+                            backgroundColor: 'rgba(0, 242, 255, 0.1)',
+                            pointBackgroundColor: '#00F2FF'
+                        }, {
+                            label: 'Target (Band 7.5)',
+                            data: [75, 80, 75, 85, 80],
+                            borderColor: '#BC13FE',
+                            backgroundColor: 'rgba(188, 19, 254, 0.05)',
+                            pointBackgroundColor: '#BC13FE'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: { legend: { display: false } },
+                        scales: {
+                            r: {
+                                angleLines: { color: 'rgba(255,255,255,0.05)' },
+                                grid: { color: 'rgba(255,255,255,0.05)' },
+                                pointLabels: { color: '#444', font: { size: 10, family: 'JetBrains Mono' } },
+                                ticks: { display: false }
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        // Copy Intent Prompt functionality
+        document.querySelectorAll('.copy-trigger').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const text = btn.parentElement.querySelector('.mono').textContent;
+                navigator.clipboard.writeText(text);
+                btn.textContent = '✓ COPIED';
+                setTimeout(() => btn.textContent = btn.getAttribute('data-original') || 'COPY', 2000);
+            });
+            btn.setAttribute('data-original', btn.textContent);
+        });
+
+        window.onload = initCharts;
+    </script>
+</body>
+</html>

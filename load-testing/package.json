@@ -1,0 +1,23 @@
+{
+    "name": "babel-frontier-load-testing",
+    "version": "1.0.0",
+    "type": "module",
+    "description": "Load testing and pedagogical audit framework for Babel Frontier",
+    "scripts": {
+        "test:baseline": "k6 run --config load-testing/config/ramp-up-50.json load-testing/k6-scripts/speaking-stress-test.js",
+        "test:daily-peak": "k6 run --config load-testing/config/ramp-up-200.json load-testing/k6-scripts/grading-latency-test.js",
+        "test:stress": "k6 run --config load-testing/config/ramp-up-500.json load-testing/k6-scripts/writing-stress-test.js",
+        "audit:cullen": "node pedagogical-audit/cullen-checksum.js",
+        "audit:fuzzer": "node pedagogical-audit/fuzzer.js",
+        "analyze:friction": "node pedagogical-audit/friction-analyzer.js",
+        "test:all": "pwsh ./run-all-tests.ps1"
+    },
+    "keywords": [
+        "load-testing",
+        "k6",
+        "ielts",
+        "pedagogical-audit"
+    ],
+    "author": "Antigravity AI",
+    "license": "MIT"
+}

@@ -1,0 +1,4 @@
+// Auto-forge handler - append to end of index.js before final export
+import { handleAutoForge } from './auto_forge.js';
+
+// Then add the function directly in index.js at the end before closing

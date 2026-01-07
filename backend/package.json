@@ -1,0 +1,11 @@
+{
+    "name": "babel-frontier-worker",
+    "version": "1.0.0",
+    "private": true,
+    "dependencies": {
+        "@aws-sdk/client-s3": "^3.962.0",
+        "@aws-sdk/s3-request-presigner": "^3.962.0",
+        "@cloudflare/kv-asset-handler": "^0.3.0",
+        "pdf-parse": "^2.4.5"
+    }
+}
