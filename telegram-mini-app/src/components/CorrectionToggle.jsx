@@ -15,17 +15,11 @@ import { useState, useEffect } from 'react';
  * - essayText: String (original essay text)
  */
 const CorrectionToggle = ({ corrections, currentWeakness, essayText }) => {
-    const [viewMode, setViewMode] = useState('showAll'); // 'showAll' or 'focus'
+    // Initialize from localStorage to avoid setState in effect
+    const [viewMode, setViewMode] = useState(() => {
+        return localStorage.getItem('correctionViewMode') || 'showAll';
+    });
     const [selectedErrorType, setSelectedErrorType] = useState(currentWeakness);
-
-    // Load user preference from localStorage on mount
-    useEffect(() => {
-        const savedMode = localStorage.getItem('correctionViewMode');
-        if (savedMode) {
-            setViewMode(savedMode);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []); // Only run once on mount
 
     // Save preference when changed
     const handleModeChange = (mode) => {

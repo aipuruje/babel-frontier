@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import RecordRTC from 'recordrtc';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion'; // eslint-disable-line no-unused-vars
 import UzbekPattern from './UzbekPattern';
 import PaymentModal from './PaymentModal';
 

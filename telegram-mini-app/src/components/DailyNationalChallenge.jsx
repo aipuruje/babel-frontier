@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const DailyNationalChallenge = ({ userId }) => {
+const DailyNationalChallenge = () => { // userId removed - will be added when needed for user-specific data
     const [challenge, setChallenge] = useState(null);
     const [userParticipation, setUserParticipation] = useState(null);
     const [loading, setLoading] = useState(true);

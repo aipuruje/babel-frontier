@@ -12,8 +12,8 @@ export async function handleHealthCheck(request, env, corsHeaders) {
     try {
         // 1. D1 Health: Can we read?
         if (env.DB) {
-            const dbCheck = await env.DB.prepare("PRAGMA quick_check").get();
-            checks.d1 = dbCheck.quick_check === "ok";
+            const dbCheck = await env.DB.prepare("SELECT 1 as test").first();
+            checks.d1 = dbCheck && dbCheck.test === 1;
         }
 
         // 2. R2 Health: Can we list objects?
