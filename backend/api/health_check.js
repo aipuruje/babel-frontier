@@ -22,14 +22,11 @@ export async function handleHealthCheck(request, env, corsHeaders) {
             checks.r2 = true;
         }
 
-        // 3. AI Health: Is the Gateway responsive? (Gemini check as we migrated from Llama)
+        // 3. AI Health: Check if API key is configured
+        // Note: We check key existence rather than making actual API calls
+        // to avoid quota usage and latency on health checks
         if (env.GEMINI_API_KEY) {
-            const aiRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-exp:generateContent?key=${env.GEMINI_API_KEY}`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: [{ parts: [{ text: "ping" }] }] })
-            });
-            checks.ai = aiRes.ok;
+            checks.ai = env.GEMINI_API_KEY.length > 0;
         }
 
         const allOk = Object.values(checks).every(Boolean);
