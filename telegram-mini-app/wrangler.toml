@@ -1,0 +1,34 @@
+name = "babel-frontier"
+compatibility_date = "2026-01-08"
+compatibility_flags = ["nodejs_compat"]
+pages_build_output_dir = "dist"
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "babel-frontier-db"
+database_id = "f6eda8be-9212-4e22-b741-4485d0d4f6b5"
+
+# R2 Storage
+[[r2_buckets]]
+binding = "AUDIO_BUCKET"
+bucket_name = "babel-frontier-audio"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "DRAFTS_KV"
+id = "98112d87baed4ec180164d7e10a10cc3"
+
+[[kv_namespaces]]
+binding = "LEADERBOARD_KV"
+id = "c9a848930869475585a919a5259696d5"
+
+# Queue
+[[queues.producers]]
+binding = "GRADING_QUEUE"
+queue = "ielts-grading-tasks"
+
+# Environment Variables
+[env.production]
+REGION = "eu-central"
+TARGET_LATENCY_MS = "15"
