@@ -20,11 +20,11 @@ bucket_name = "babel-frontier-audio"
 # 3. High-Speed Cache (Drafts & Leaderboards)
 [[kv_namespaces]]
 binding = "DRAFTS_KV"
-id = "PASTE_KV_DRAFTS_ID_HERE"
+id = "98112d87baed4ec180164d7e10a10cc3"
 
 [[kv_namespaces]]
 binding = "LEADERBOARD_KV"
-id = "PASTE_KV_LEADERBOARD_ID_HERE"
+id = "c9a848930869475585a919a5259696d5"
 
 # 4. Async Processing (AI Grading)
 [[queues.producers]]

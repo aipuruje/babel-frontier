@@ -3,8 +3,9 @@
  * Serves both API endpoints and static frontend assets
  */
 
-import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
-import manifestJSON from '__STATIC_CONTENT_MANIFEST';
+// Static asset serving disabled for API-only deployment
+// import { getAssetFromKV } from '@cloudflare/kv-asset-handler';
+// import manifestJSON from '__STATIC_CONTENT_MANIFEST';
 
 // Import Neural Cross-Pollination Handlers
 import {
@@ -66,10 +67,10 @@ import {
     handleSpeakingInit,
     handleChunkUpload,
     handleSpeakingFinalize,
-    handleSpeakingStatus,
-    handleGetUploadUrl
+    handleSpeakingStatus
 } from './speaking_r2_handler.js';
 
+import { handleGetUploadUrl } from './speaking/get_upload_url.js';
 import { handleHealthCheck } from './health_check.js';
 
 // Import Async Grading Queue Handlers (Antigravity Architecture)
@@ -90,7 +91,7 @@ import { handleMiniGameValidate } from './minigames/sentence_architect.js';
 // Import Social Antigravity (Step 5)
 import { handleSocial } from './social_handler.js';
 
-const assetManifest = JSON.parse(manifestJSON);
+// const assetManifest = JSON.parse(manifestJSON);
 
 // Pedagogy Manifest (IELTS Band System)
 const PEDAGOGY_MANIFEST = {
@@ -191,7 +192,14 @@ export default {
             return handleApiRoutes(url, request, env, corsHeaders);
         }
 
-        // Serve static frontend assets using Workers Sites
+        // Static asset serving disabled - API-only deployment
+        // For full-stack deployment, uncomment the code below and configure wrangler.toml with site configuration
+        return new Response('404 Not Found - API endpoints only. Use /api/* routes.', {
+            status: 404,
+            headers: corsHeaders
+        });
+
+        /* Original static asset code (disabled):
         try {
             return await getAssetFromKV(
                 {
@@ -205,7 +213,6 @@ export default {
             );
         } catch (e) {
             console.error('Asset serving error:', e.message);
-            // If the asset is not found, serve index.html for SPA routing
             if (e.status === 404) {
                 try {
                     return await getAssetFromKV(
@@ -218,6 +225,7 @@ export default {
             }
             return new Response(`Error loading page: ${e.message}`, { status: 500 });
         }
+        */
     },
 
     /**
