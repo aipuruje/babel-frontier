@@ -1,0 +1,115 @@
+/* Zone Map Styles */
+
+.zone-map {
+    padding-bottom: var(--space-2xl);
+}
+
+.zone-map-title {
+    text-align: center;
+    margin-bottom: var(--space-sm);
+}
+
+.zone-map-subtitle {
+    text-align: center;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-2xl);
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+}
+
+.zones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: var(--space-xl);
+}
+
+.zone-card {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    border: 2px solid transparent;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.zone-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-magic-purple), var(--color-magic-blue));
+    opacity: 0;
+    transition: opacity var(--transition-base);
+}
+
+.zone-card.unlocked {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.zone-card.unlocked:hover {
+    transform: translateY(-8px);
+    border-color: var(--color-magic-purple);
+    box-shadow: var(--shadow-lg), var(--shadow-glow-purple);
+}
+
+.zone-card.unlocked:hover::before {
+    opacity: 1;
+}
+
+.zone-card.locked {
+    opacity: 0.6;
+    filter: grayscale(0.5);
+}
+
+.zone-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-md);
+    gap: var(--space-md);
+}
+
+.zone-card-title {
+    font-size: 1.5rem;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.lock-badge {
+    background: var(--color-bg-primary);
+    color: var(--color-text-muted);
+    padding: var(--space-xs) var(--space-sm);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.zone-theme {
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: var(--space-lg);
+    min-height: 60px;
+}
+
+.zone-quest-count {
+    font-family: var(--font-display);
+    color: var(--color-magic-cyan);
+    margin-bottom: var(--space-lg);
+    font-size: 0.9rem;
+}
+
+.zone-enter-btn {
+    width: 100%;
+    margin-top: auto;
+}
+
+@media (max-width: 768px) {
+    .zones-grid {
+        grid-template-columns: 1fr;
+    }
+}

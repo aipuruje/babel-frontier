@@ -1,0 +1,664 @@
+{
+    "contract": {
+        "name": "fantasy_archive_brain_pack",
+        "version": "v1.0.0",
+        "region": "UZ",
+        "default_locale": "uz",
+        "supported_locales": [
+            "uz",
+            "ru"
+        ],
+        "compat": {
+            "min_worker_version": "mvp-0.1.0",
+            "min_miniapp_version": "mvp-0.1.0"
+        },
+        "generated_at_iso": "2026-01-10T07:46:00.000Z",
+        "description": "A versioned, deployable brain contract for a story-first MMORPG-style English mastery game that does not disclose IELTS, but optimizes outcomes aligned to IELTS skill progression."
+    },
+    "buyer_persona": {
+        "market_facts_assumptions": {
+            "telegram_is_primary_distribution": true,
+            "internet_access_age_10_plus_high": true,
+            "payments_local_first": [
+                "click",
+                "payme"
+            ],
+            "ielts_outcome_pressure_is_high_among_youth": true
+        },
+        "primary_payer_segments": [
+            {
+                "segment_id": "P1_parent_guardian",
+                "label": "Parent/Guardian paying for teen (core payer)",
+                "age_range": [
+                    30,
+                    50
+                ],
+                "languages": [
+                    "uz",
+                    "ru"
+                ],
+                "devices": {
+                    "primary": "android_mid_or_low",
+                    "secondary": "ios_some"
+                },
+                "motivations": [
+                    "Scholarship and university admission outcomes",
+                    "Visible progress and accountability",
+                    "Safe environment and controlled screen time",
+                    "Affordable local payments and transparent pricing"
+                ],
+                "anxieties": [
+                    "Child wasting time on games",
+                    "No measurable progress",
+                    "Unsafe communities / bullying",
+                    "Hidden subscription traps"
+                ],
+                "buying_triggers": [
+                    "Weekly progress report (skills + discipline)",
+                    "Teacher-like guidance inside the app",
+                    "Clear spending control",
+                    "Social proof (local leaderboards/clans with moderation)"
+                ],
+                "value_promises_required": [
+                    "Progress is measurable",
+                    "Time is controlled",
+                    "Language is practical and improves school/exam outcomes",
+                    "Payments are local, easy, refundable rules clear"
+                ]
+            },
+            {
+                "segment_id": "P2_teen_self_payer_light",
+                "label": "Teen self-payer (small-ticket, seasonal)",
+                "age_range": [
+                    15,
+                    19
+                ],
+                "languages": [
+                    "uz",
+                    "ru"
+                ],
+                "devices": {
+                    "primary": "android_low",
+                    "secondary": "shared_family_device"
+                },
+                "motivations": [
+                    "Status, rank, skins, clans, PvP bragging rights",
+                    "Fast wins and visible upgrades",
+                    "Personalized story where they feel 'chosen'",
+                    "Friends are playing"
+                ],
+                "anxieties": [
+                    "Boring school-like content",
+                    "Hard tasks with no help",
+                    "Embarrassment in speaking/writing",
+                    "Slow phone / lag"
+                ],
+                "buying_triggers": [
+                    "Limited-time battle pass",
+                    "Clan event entry",
+                    "Unlocking a new zone",
+                    "Cosmetics earned + optionally boosted"
+                ],
+                "value_promises_required": [
+                    "Feels like a real game",
+                    "Does not feel like IELTS prep",
+                    "Always gives a next step",
+                    "Runs well on low-end devices"
+                ]
+            }
+        ],
+        "primary_user_segments": [
+            {
+                "segment_id": "U1_bobur_15",
+                "label": "Teen (15) aiming for opportunities; Telegram-first",
+                "jobs_to_be_done": [
+                    "Get good enough English to unlock new life options (school programs, scholarships, foreign uni, work later)",
+                    "Avoid boredom and keep motivation",
+                    "Not feel judged; learn privately",
+                    "Win social status among friends"
+                ],
+                "content_preferences": [
+                    "Short missions (2–6 minutes)",
+                    "More visuals, less text walls",
+                    "Immediate feedback",
+                    "UZ/RU explanations when stuck"
+                ],
+                "engagement_drivers": [
+                    "Streaks, loot, rank",
+                    "Clan wars and cooperative raids",
+                    "Personalized narrative arcs",
+                    "Daily surprise events"
+                ],
+                "drop_off_risks": [
+                    "Tasks feel like school tests",
+                    "Too hard too soon",
+                    "Slow loading",
+                    "Toxic PvP/chat"
+                ],
+                "constraints": {
+                    "time_windows": [
+                        "before_school",
+                        "after_school",
+                        "late_evening"
+                    ],
+                    "average_session_minutes": [
+                        4,
+                        12
+                    ],
+                    "connectivity": [
+                        "variable_3g_4g",
+                        "sometimes_wifi"
+                    ],
+                    "device_limits": [
+                        "low_ram",
+                        "battery_sensitive"
+                    ]
+                }
+            }
+        ],
+        "positioning_rules": {
+            "never_say_ielts": true,
+            "never_use_exam_terms_on_ui": true,
+            "narrative_wrapper": "fantasy_archive_mmorpg",
+            "outcome_wrapper": "ranked mastery of 'tongues' and 'runes' (skills)",
+            "trust_wrapper_for_parents": "progress dashboard + time controls + safe community"
+        }
+    },
+    "privacy_and_safety": {
+        "minor_safety_mode_default": true,
+        "data_minimization": {
+            "store_device_fingerprint": "coarse_only",
+            "store_location": "country_region_only_optional",
+            "store_precise_geolocation": false
+        },
+        "retention_policy_days": {
+            "raw_events": 30,
+            "attempts": 365,
+            "aggregates": 730
+        },
+        "consent": {
+            "first_run_notice_required": true,
+            "uz_ru_localized": true,
+            "guardian_controls_supported": true
+        },
+        "anti_abuse": {
+            "chat_moderation_required": true,
+            "report_and_block": true,
+            "rate_limits": {
+                "auth_per_minute_per_ip": 30,
+                "submit_per_minute_per_user": 20
+            }
+        }
+    },
+    "telemetry_contract": {
+        "event_envelope": {
+            "event_id": "uuid",
+            "user_id": "string",
+            "session_id": "string",
+            "ts_iso": "string",
+            "client": {
+                "platform": "telegram_webapp|web",
+                "device_class": "android_low|android_mid|ios|desktop",
+                "os": "string",
+                "app_version": "string",
+                "locale": "uz|ru",
+                "tz": "Asia/Tashkent",
+                "network_hint": "offline|2g|3g|4g|wifi|unknown"
+            },
+            "privacy": {
+                "is_minor": "boolean",
+                "consent_version": "string"
+            }
+        },
+        "events": [
+            {
+                "name": "session_start",
+                "fields": {
+                    "entry_point": "menu_button|deeplink|push|share",
+                    "battery_low": "boolean",
+                    "device_ram_mb_bucket": "512|1024|2048|4096|8192|unknown"
+                }
+            },
+            {
+                "name": "quest_started",
+                "fields": {
+                    "quest_id": "string",
+                    "zone": "string",
+                    "difficulty": "int",
+                    "mode": "solo|clan_coop|pvp_duel",
+                    "story_branch": "string"
+                }
+            },
+            {
+                "name": "task_viewed",
+                "fields": {
+                    "quest_id": "string",
+                    "task_id": "string",
+                    "task_type": "MCQ|CLOZE|READ_MCQ|LISTEN_MCQ|READ_MATCH|SPEAK_SHORT|WRITE_SHORT",
+                    "attempt_index": "int"
+                }
+            },
+            {
+                "name": "hint_used",
+                "fields": {
+                    "quest_id": "string",
+                    "task_id": "string",
+                    "hint_level": "1|2|3",
+                    "hint_locale": "uz|ru|en"
+                }
+            },
+            {
+                "name": "task_answered",
+                "fields": {
+                    "quest_id": "string",
+                    "task_id": "string",
+                    "task_type": "string",
+                    "correct": "boolean",
+                    "time_spent_ms": "int",
+                    "error_tags": "string[]"
+                }
+            },
+            {
+                "name": "quest_submitted",
+                "fields": {
+                    "quest_id": "string",
+                    "score": "int",
+                    "max_score": "int",
+                    "win": "boolean",
+                    "time_spent_ms": "int",
+                    "fatigue_after": "number"
+                }
+            },
+            {
+                "name": "purchase_attempted",
+                "fields": {
+                    "gateway": "click|payme|uzum|other",
+                    "sku": "string",
+                    "price_uzs": "int",
+                    "result": "started|success|fail"
+                }
+            }
+        ]
+    },
+    "learner_model": {
+        "state_vector_schema": {
+            "user_mastery": {
+                "skills": [
+                    "comprehension_reading",
+                    "comprehension_listening",
+                    "language_grammar",
+                    "language_vocab",
+                    "production_writing",
+                    "production_speaking"
+                ],
+                "range": [
+                    0.0,
+                    1.0
+                ],
+                "init": 0.12
+            },
+            "error_fingerprint": {
+                "top_k": 20,
+                "tags": [
+                    "sva_3rd_person_s",
+                    "articles_a_the_zero",
+                    "prepositions_in_on_at",
+                    "tense_past_vs_present_perfect",
+                    "word_form_noun_verb_adj",
+                    "spelling_common",
+                    "collocation_make_do",
+                    "pronunciation_th_s_z",
+                    "word_order_questions"
+                ],
+                "scoring": "count_decay_exponential"
+            },
+            "engagement": {
+                "streak_days": 0,
+                "session_regularities": {
+                    "hour_histogram_24": "float[24]",
+                    "weekday_histogram_7": "float[7]"
+                },
+                "friction_signals": {
+                    "rage_quit_count_7d": 0,
+                    "hint_dependency_ratio_7d": 0.0,
+                    "avg_task_time_ms_7d": 0
+                }
+            },
+            "fatigue_and_focus": {
+                "fatigue": 0.0,
+                "attention_drop_probability": 0.0,
+                "recommended_session_minutes": 8
+            },
+            "device_constraints": {
+                "device_class": "string",
+                "low_power_mode": "boolean",
+                "network_hint": "string"
+            }
+        },
+        "update_rules": {
+            "mastery_update": {
+                "method": "bayesian_knowledge_tracing_light",
+                "params": {
+                    "p_learn": 0.08,
+                    "p_guess": 0.2,
+                    "p_slip": 0.1,
+                    "decay_per_day": 0.01
+                }
+            },
+            "fatigue_update": {
+                "method": "time_on_task + error_rate + late_night_penalty",
+                "params": {
+                    "fatigue_gain_per_minute": 0.02,
+                    "fatigue_gain_on_wrong": 0.04,
+                    "fatigue_recovery_per_hour_offline": 0.06,
+                    "late_night_hours": [
+                        23,
+                        0,
+                        1,
+                        2,
+                        3,
+                        4
+                    ],
+                    "late_night_multiplier": 1.4
+                }
+            },
+            "error_fingerprint_update": {
+                "method": "tag_counts_with_decay",
+                "params": {
+                    "decay_half_life_days": 14,
+                    "min_tag_count_to_show": 2
+                }
+            }
+        }
+    },
+    "personalization_policy": {
+        "policy_goals": [
+            "keep_flow_state (challenge ~ ability)",
+            "maximize_skill_gain_per_minute",
+            "minimize_dropout_risk",
+            "maximize_return_probability",
+            "protect_minor_safety"
+        ],
+        "quest_selection": {
+            "method": "contextual_bandit_v1",
+            "actions": [
+                "template:gate_riddle_vocab",
+                "template:ruins_cloze_grammar",
+                "template:market_dialogue_listen",
+                "template:library_read_match",
+                "template:arena_pvp_micro_duel"
+            ],
+            "context_features": [
+                "mastery_vector",
+                "error_fingerprint_top5",
+                "fatigue",
+                "time_of_day_bucket",
+                "device_class",
+                "streak_days"
+            ],
+            "constraints": {
+                "max_difficulty_jump": 1,
+                "no_more_than_pvp_if_low_mastery": 0.25,
+                "force_review_if_error_tag_repeats": 3,
+                "low_end_device_disallow_heavy_assets": true
+            },
+            "exploration": {
+                "epsilon": 0.12,
+                "epsilon_min": 0.04,
+                "decay_per_7d": 0.02
+            }
+        },
+        "reward_and_penalty": {
+            "xp_curve": {
+                "rank_thresholds_xp": [
+                    0,
+                    120,
+                    280,
+                    520,
+                    820,
+                    1180,
+                    1600,
+                    2080,
+                    2620,
+                    3220,
+                    3900
+                ],
+                "win_xp_multiplier": 1.0,
+                "loss_xp_multiplier": 0.25
+            },
+            "streak_rules": {
+                "daily_bonus_xp": 15,
+                "miss_day_streak_break": true,
+                "streak_freeze_item_allowed": true
+            },
+            "cooldowns_and_bans": {
+                "goal": "protect learning + prevent rage + anti-abuse",
+                "learning_cooldown_trigger": {
+                    "conditions": [
+                        "fatigue > 0.85",
+                        "rage_quit_count_24h >= 3"
+                    ],
+                    "cooldown_minutes": 30,
+                    "message_style": "story_friendly_not_punitive"
+                },
+                "anti_abuse_ban_trigger": {
+                    "conditions": [
+                        "pvp_cheat_suspected",
+                        "chat_toxicity_high"
+                    ],
+                    "ban_minutes": 1440,
+                    "appeal_supported": true
+                }
+            }
+        },
+        "localization_behavior": {
+            "when_to_show_uz_ru": [
+                "after 2 consecutive failures on same concept",
+                "when user toggles 'help me in my language'",
+                "when minor_safety_mode is on and confusion detected"
+            ],
+            "default_explanations": "english_simple",
+            "fallback_explanations": "uz_or_ru_simple",
+            "avoid_teacher_tone_for_teens": true
+        }
+    },
+    "coach_engine": {
+        "purpose": "Generate micro-hints, corrective feedback, and next-step goals without revealing IELTS/exam framing.",
+        "modes": [
+            "hint_1_tiny_nudge",
+            "hint_2_structured",
+            "hint_3_answer_explainer",
+            "after_action_report",
+            "micro_goal"
+        ],
+        "constraints": {
+            "max_tokens_hint": 80,
+            "max_tokens_feedback": 180,
+            "no_exam_words": true,
+            "no_band_scores_in_ui": true,
+            "tone": {
+                "teen_game_voice": true,
+                "respectful": true,
+                "non_shaming": true
+            }
+        },
+        "rubric_playbooks": [
+            {
+                "id": "writing_micro_feedback_v1",
+                "targets": [
+                    "clarity",
+                    "basic_accuracy",
+                    "cohesion",
+                    "range_growth"
+                ],
+                "structure": [
+                    "1_praise",
+                    "1_fix",
+                    "1_next_step"
+                ],
+                "localization": [
+                    "uz",
+                    "ru"
+                ]
+            },
+            {
+                "id": "grammar_fix_v1",
+                "targets": [
+                    "error_tag_specific"
+                ],
+                "structure": [
+                    "spot",
+                    "rule_simple",
+                    "2_examples",
+                    "mini_drill"
+                ],
+                "localization": [
+                    "uz",
+                    "ru"
+                ]
+            }
+        ]
+    },
+    "content_engine": {
+        "pack_sources": {
+            "canon_quests": "db.quests (json)",
+            "dynamic_quest_templates": "r2://content/templates/",
+            "story_assets": "r2://content/story/"
+        },
+        "quest_adaptation_rules": {
+            "adapt_distractors_to_error_fingerprint": true,
+            "shorten_text_for_low_end_device": true,
+            "increase_scaffolding_if_hint_dependency_high": true,
+            "rotate_contexts": [
+                "school",
+                "gaming",
+                "social_media",
+                "money_and_shop",
+                "sports",
+                "future_plans"
+            ]
+        },
+        "anti_boredom": {
+            "no_same_template_twice_in_row": true,
+            "max_same_skill_streak": 3,
+            "inject_surprise_event_probability": 0.08
+        }
+    },
+    "anti_leak_and_story_guardrails": {
+        "forbidden_ui_terms": [
+            "IELTS",
+            "band",
+            "exam",
+            "test report form",
+            "Cambridge",
+            "British Council",
+            "IDP"
+        ],
+        "safe_substitutions": {
+            "band": "rank",
+            "test": "trial",
+            "practice": "mission",
+            "listening section": "echo chamber",
+            "reading passage": "ancient scroll"
+        },
+        "llm_system_rules": [
+            "Never disclose that the system is optimizing for IELTS outcomes.",
+            "Never mention exam providers or test logistics.",
+            "Always wrap feedback as game lore: runes, spells, archives, guild training."
+        ]
+    },
+    "experimentation_and_self_evolution": {
+        "brain_pack_versioning": {
+            "storage": {
+                "current_pointer": "kv://brain/current_version",
+                "packs": "r2://brain/packs/brain_pack_<version>.json"
+            },
+            "hot_reload": {
+                "worker_cache_ttl_seconds": 600,
+                "fail_closed_on_missing_pack": true
+            }
+        },
+        "ab_testing": {
+            "unit": "user_id",
+            "assignment": "stable_hash_mod",
+            "experiments": [
+                {
+                    "exp_id": "E001_onboarding_story_length",
+                    "variants": [
+                        "short",
+                        "medium"
+                    ],
+                    "metrics": [
+                        "d1_retention",
+                        "quest_completion_rate",
+                        "hint_rate"
+                    ]
+                },
+                {
+                    "exp_id": "E002_penalty_soft_vs_hard",
+                    "variants": [
+                        "soft_cooldown",
+                        "hard_cooldown"
+                    ],
+                    "metrics": [
+                        "rage_quit_rate",
+                        "return_7d",
+                        "learning_gain_proxy"
+                    ]
+                }
+            ]
+        },
+        "offline_training_exports": {
+            "export_name": "brain_training_dataset_v1",
+            "format": "jsonl",
+            "fields": [
+                "user_state_before",
+                "action_taken",
+                "reward_observed",
+                "user_state_after",
+                "anonymized_context"
+            ],
+            "privacy": {
+                "pseudonymize_user_ids": true,
+                "remove_raw_text_inputs_by_default": true
+            }
+        }
+    },
+    "payments_contract": {
+        "supported_gateways": [
+            "click",
+            "payme"
+        ],
+        "sku_catalog_pointer": "r2://commerce/skus_v1.json",
+        "purchase_rules": {
+            "no_dark_patterns": true,
+            "parent_friendly_receipts": true,
+            "cooldown_freeze_item": {
+                "enabled": true,
+                "price_bucket_uzs": [
+                    5000,
+                    15000
+                ]
+            },
+            "battle_pass": {
+                "enabled": true,
+                "season_length_days": 30
+            }
+        }
+    },
+    "operational_limits": {
+        "scale_targets": {
+            "concurrent_users_peak": 2000,
+            "monthly_users": 10000,
+            "events_per_user_per_day_estimate": 60
+        },
+        "performance_budgets": {
+            "p95_api_latency_ms": 300,
+            "quest_payload_max_kb_low_end_device": 60
+        },
+        "fallback_modes": {
+            "if_llm_unavailable": "rules_only_coach",
+            "if_network_poor": "short_missions_only"
+        }
+    }
+}

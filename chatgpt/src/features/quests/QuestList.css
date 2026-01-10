@@ -1,0 +1,177 @@
+/* Quest List Styles */
+
+.quest-list {
+    padding-bottom: var(--space-2xl);
+}
+
+.quest-list-header {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    flex-wrap: wrap;
+}
+
+.back-btn {
+    margin-top: var(--space-xs);
+    flex-shrink: 0;
+}
+
+.zone-title {
+    margin-bottom: var(--space-xs);
+}
+
+.zone-description {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+}
+
+.quests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: var(--space-xl);
+}
+
+.quest-card {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.quest-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-gold), var(--color-gold-dark));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+}
+
+.quest-card:hover {
+    border-color: var(--color-gold);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg), var(--shadow-glow-gold);
+}
+
+.quest-card:hover::before {
+    transform: scaleX(1);
+}
+
+.quest-icon {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.quest-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.quest-title {
+    font-size: 1.3rem;
+    margin: 0;
+    color: var(--color-text-primary);
+}
+
+.quest-summary {
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.quest-meta {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+}
+
+.quest-npc,
+.quest-difficulty {
+    font-family: var(--font-display);
+}
+
+.quest-enemy {
+    background: var(--color-bg-primary);
+    padding: var(--space-md);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--color-danger);
+}
+
+.enemy-name {
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
+    font-weight: 600;
+    margin-bottom: var(--space-xs);
+}
+
+.enemy-intro {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+.quest-rewards {
+    display: flex;
+    gap: var(--space-lg);
+    padding: var(--space-sm) 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: var(--space-sm);
+}
+
+.reward-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+}
+
+.reward-label {
+    color: var(--color-text-muted);
+}
+
+.reward-value {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.quest-start-btn {
+    width: 100%;
+    margin-top: auto;
+}
+
+.empty-state,
+.error-state {
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--color-text-secondary);
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .quests-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quest-list-header {
+        flex-direction: column;
+        gap: var(--space-md);
+    }
+}

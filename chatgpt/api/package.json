@@ -1,0 +1,21 @@
+{
+  "name": "archive-of-tongues-mvp",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev --local",
+    "dev:remote": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "db:schema:local": "wrangler d1 execute DB --local --file=./db/schema.sql",
+    "db:seed:local": "wrangler d1 execute DB --local --file=./db/seed.sql",
+    "db:schema": "wrangler d1 execute DB --file=./db/schema.sql",
+    "db:seed": "wrangler d1 execute DB --file=./db/seed.sql",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "typescript": "^5.6.3",
+    "@cloudflare/workers-types": "^4.20250129.0"
+  }
+}

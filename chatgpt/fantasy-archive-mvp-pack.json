@@ -1,0 +1,3450 @@
+{
+  "meta": {
+    "product": "Archive of Tongues (Fantasy Archive) MVP Pack",
+    "version": "0.9.0",
+    "generated_at": "2026-01-09T12:00:00",
+    "locale_defaults": [
+      "uz",
+      "ru"
+    ],
+    "notes": [
+      "This pack is designed for a Website + Telegram Mini App (Telegram Web Apps) front-end.",
+      "Backend assumptions: Cloudflare Workers + D1 + KV + R2 + Queues (+ optional Durable Objects)."
+    ]
+  },
+  "schemas": {
+    "QuestV1": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/schemas/quest-v1.json",
+      "title": "QuestV1",
+      "type": "object",
+      "required": [
+        "id",
+        "zone",
+        "template",
+        "difficulty",
+        "story",
+        "tasks",
+        "battle",
+        "rewards",
+        "antiLeak"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "zone": {
+          "type": "string"
+        },
+        "template": {
+          "type": "string",
+          "enum": [
+            "RUNE_SCAN",
+            "ECHO_HUNT",
+            "SPELL_FORGE",
+            "TRADE_PACT",
+            "GATE_SPEAK"
+          ]
+        },
+        "difficulty": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "canon": {
+          "type": "boolean",
+          "default": false
+        },
+        "story": {
+          "type": "object",
+          "required": [
+            "title",
+            "summary",
+            "npc"
+          ],
+          "properties": {
+            "title": {
+              "type": "object",
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "uz": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "en",
+                "uz",
+                "ru"
+              ]
+            },
+            "summary": {
+              "type": "object",
+              "properties": {
+                "en": {
+                  "type": "string"
+                },
+                "uz": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "en",
+                "uz",
+                "ru"
+              ]
+            },
+            "npc": {
+              "type": "string"
+            },
+            "cutscene_key": {
+              "type": "string"
+            },
+            "lore_unlock": {
+              "type": "string"
+            }
+          }
+        },
+        "tasks": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "type",
+              "prompt",
+              "expected",
+              "scoring",
+              "supportsLocales"
+            ],
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "enum": [
+                  "MCQ",
+                  "CLOZE",
+                  "MATCH",
+                  "SHORT_TEXT",
+                  "SPEAK",
+                  "LISTEN_MCQ",
+                  "LISTEN_CLOZE",
+                  "READ_MCQ",
+                  "READ_MATCH"
+                ]
+              },
+              "prompt": {
+                "type": "object",
+                "properties": {
+                  "en": {
+                    "type": "string"
+                  },
+                  "uz": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "en",
+                  "uz",
+                  "ru"
+                ]
+              },
+              "media": {
+                "type": "object",
+                "properties": {
+                  "audio_r2_key": {
+                    "type": "string"
+                  },
+                  "image_r2_key": {
+                    "type": "string"
+                  }
+                }
+              },
+              "choices": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "text": {
+                      "type": "object",
+                      "properties": {
+                        "en": {
+                          "type": "string"
+                        },
+                        "uz": {
+                          "type": "string"
+                        },
+                        "ru": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "expected": {
+                "type": "object",
+                "description": "Answer key; never shown to players."
+              },
+              "scoring": {
+                "type": "object",
+                "required": [
+                  "maxPoints",
+                  "partial",
+                  "tags"
+                ],
+                "properties": {
+                  "maxPoints": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 10
+                  },
+                  "partial": {
+                    "type": "boolean"
+                  },
+                  "tags": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "supportsLocales": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "en",
+                    "uz",
+                    "ru"
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "battle": {
+          "type": "object",
+          "required": [
+            "enemy",
+            "playerHP",
+            "enemyHP",
+            "timeLimitSec",
+            "attackPerCorrect",
+            "damagePerWrong"
+          ],
+          "properties": {
+            "enemy": {
+              "type": "object",
+              "required": [
+                "name",
+                "archetype"
+              ],
+              "properties": {
+                "name": {
+                  "type": "object",
+                  "properties": {
+                    "en": {
+                      "type": "string"
+                    },
+                    "uz": {
+                      "type": "string"
+                    },
+                    "ru": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "en",
+                    "uz",
+                    "ru"
+                  ]
+                },
+                "archetype": {
+                  "type": "string",
+                  "enum": [
+                    "SENTINEL",
+                    "SHADE",
+                    "WRAITH",
+                    "GOLEM",
+                    "DRAGONLING"
+                  ]
+                },
+                "introLine": {
+                  "type": "object",
+                  "properties": {
+                    "en": {
+                      "type": "string"
+                    },
+                    "uz": {
+                      "type": "string"
+                    },
+                    "ru": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "en",
+                    "uz",
+                    "ru"
+                  ]
+                }
+              }
+            },
+            "playerHP": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "enemyHP": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 10
+            },
+            "timeLimitSec": {
+              "type": "integer",
+              "minimum": 20,
+              "maximum": 600
+            },
+            "attackPerCorrect": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            },
+            "damagePerWrong": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 5
+            }
+          }
+        },
+        "rewards": {
+          "type": "object",
+          "required": [
+            "xp",
+            "shards",
+            "items",
+            "badgeKey"
+          ],
+          "properties": {
+            "xp": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "shards": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "badgeKey": {
+              "type": "string"
+            }
+          }
+        },
+        "antiLeak": {
+          "type": "object",
+          "required": [
+            "forbiddenTerms",
+            "uiNeverShow"
+          ],
+          "properties": {
+            "forbiddenTerms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "uiNeverShow": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "PlayerStateV1": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/schemas/player-state-v1.json",
+      "title": "PlayerStateV1",
+      "type": "object",
+      "required": [
+        "userId",
+        "rank",
+        "xp",
+        "streak",
+        "fatigue",
+        "mastery",
+        "errorFingerprint",
+        "cooldowns",
+        "inventory"
+      ],
+      "properties": {
+        "userId": {
+          "type": "string"
+        },
+        "rank": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "xp": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "streak": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "fatigue": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "mastery": {
+          "type": "object",
+          "required": [
+            "reading",
+            "listening",
+            "grammar",
+            "writing",
+            "speaking"
+          ],
+          "properties": {
+            "reading": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "listening": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "grammar": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "writing": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            },
+            "speaking": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 1
+            }
+          }
+        },
+        "errorFingerprint": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "tag",
+              "weight"
+            ],
+            "properties": {
+              "tag": {
+                "type": "string"
+              },
+              "weight": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              }
+            }
+          }
+        },
+        "cooldowns": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": [
+              "type",
+              "endsAt"
+            ],
+            "properties": {
+              "type": {
+                "type": "string",
+                "enum": [
+                  "BATTLE_COOLDOWN",
+                  "CHAT_MUTE",
+                  "DUEL_LOCK"
+                ]
+              },
+              "endsAt": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "inventory": {
+          "type": "object",
+          "required": [
+            "shards",
+            "items"
+          ],
+          "properties": {
+            "shards": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": [
+                  "itemId",
+                  "qty"
+                ],
+                "properties": {
+                  "itemId": {
+                    "type": "string"
+                  },
+                  "qty": {
+                    "type": "integer",
+                    "minimum": 1
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "QuestTemplateV1": {
+      "$schema": "https://json-schema.org/draft/2020-12/schema",
+      "$id": "https://example.com/schemas/quest-template-v1.json",
+      "title": "QuestTemplateV1",
+      "type": "object",
+      "required": [
+        "template",
+        "objective",
+        "taskBlueprint",
+        "generationConstraints",
+        "rubricTags"
+      ],
+      "properties": {
+        "template": {
+          "type": "string",
+          "enum": [
+            "RUNE_SCAN",
+            "ECHO_HUNT",
+            "SPELL_FORGE",
+            "TRADE_PACT",
+            "GATE_SPEAK"
+          ]
+        },
+        "objective": {
+          "type": "string"
+        },
+        "taskBlueprint": {
+          "type": "object"
+        },
+        "generationConstraints": {
+          "type": "object"
+        },
+        "rubricTags": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "design": {
+    "world": {
+      "title": {
+        "en": "The Archive of Tongues",
+        "uz": "Tillar Arxivi",
+        "ru": "Архив Языков"
+      },
+      "premise": {
+        "en": "A buried library powers the city. Gates open only when runes are spoken correctly.",
+        "uz": "Shahar ostida ko‘milgan kutubxona bor. Darvozalar faqat rune so‘zlari to‘g‘ri aytilganda ochiladi.",
+        "ru": "Под городом скрыта библиотека. Врата открываются только если руны произнесены верно."
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    "progression": {
+      "rankCurve": [
+        {
+          "rank": 0,
+          "name": {
+            "en": "Awakened",
+            "uz": "Uyg‘ongan",
+            "ru": "Пробуждённый"
+          },
+          "xpRequired": 0
+        },
+        {
+          "rank": 1,
+          "name": {
+            "en": "Page Runner",
+            "uz": "Sahifa Yuguruvchisi",
+            "ru": "Бегун Страниц"
+          },
+          "xpRequired": 120
+        },
+        {
+          "rank": 2,
+          "name": {
+            "en": "Ink Scout",
+            "uz": "Siyoh Razvedkachisi",
+            "ru": "Разведчик Чернил"
+          },
+          "xpRequired": 280
+        },
+        {
+          "rank": 3,
+          "name": {
+            "en": "Rune Adept",
+            "uz": "Rune Shogirdi",
+            "ru": "Адепт Рун"
+          },
+          "xpRequired": 520
+        },
+        {
+          "rank": 4,
+          "name": {
+            "en": "Cipher Duelist",
+            "uz": "Shifr Duelchisi",
+            "ru": "Дуэлянт Шифров"
+          },
+          "xpRequired": 820
+        },
+        {
+          "rank": 5,
+          "name": {
+            "en": "Archive Agent",
+            "uz": "Arxiv Agent",
+            "ru": "Агент Архива"
+          },
+          "xpRequired": 1180
+        },
+        {
+          "rank": 6,
+          "name": {
+            "en": "Gate Warden",
+            "uz": "Darvoza Qo‘riqchisi",
+            "ru": "Страж Врат"
+          },
+          "xpRequired": 1600
+        },
+        {
+          "rank": 7,
+          "name": {
+            "en": "Lore Binder",
+            "uz": "Afsona Bog‘lovchi",
+            "ru": "Скрепитель Лора"
+          },
+          "xpRequired": 2080
+        },
+        {
+          "rank": 8,
+          "name": {
+            "en": "Glyph Captain",
+            "uz": "Glif Kapitan",
+            "ru": "Капитан Глифов"
+          },
+          "xpRequired": 2620
+        },
+        {
+          "rank": 9,
+          "name": {
+            "en": "Chronicle Master",
+            "uz": "Yilnoma Ustasi",
+            "ru": "Мастер Хроник"
+          },
+          "xpRequired": 3220
+        },
+        {
+          "rank": 10,
+          "name": {
+            "en": "Rune Warden",
+            "uz": "Rune Qo‘riqchisi",
+            "ru": "Хранитель Рун"
+          },
+          "xpRequired": 3900
+        }
+      ],
+      "flowTarget": {
+        "minSuccessRate": 0.7,
+        "maxSuccessRate": 0.85
+      },
+      "spacedRepetition": {
+        "intervalDays": [
+          1,
+          3,
+          7
+        ],
+        "maxDailyReviews": 6
+      },
+      "cooldownPolicy": {
+        "trigger": {
+          "failBattlesInWindow": 3,
+          "windowMinutes": 20,
+          "guessingHeuristic": {
+            "minAnswerTimeMs": 900,
+            "maxWrongStreak": 6
+          }
+        },
+        "cooldownMinutesBySeverity": [
+          15,
+          30,
+          60
+        ],
+        "allowDuringCooldown": [
+          "HEAL_QUEST",
+          "LORE_READ"
+        ]
+      }
+    },
+    "economy": {
+      "currency": {
+        "name": {
+          "en": "Rune Shards",
+          "uz": "Rune Bo‘laklari",
+          "ru": "Осколки Рун"
+        },
+        "symbol": "✦"
+      },
+      "mvpShopSKUs": [
+        {
+          "sku": "PREMIUM_PASS_30D",
+          "name": {
+            "en": "Archivist Pass (30 days)",
+            "uz": "Arxivchi Pass (30 kun)",
+            "ru": "Пасс Архивариуса (30 дней)"
+          },
+          "benefits": [
+            "+1 daily story quest",
+            "Cooldown -30%",
+            "Cosmetic badge glow"
+          ],
+          "price_hint_uzs": 39000
+        },
+        {
+          "sku": "SHARDS_PACK_S",
+          "name": {
+            "en": "Shards x600",
+            "uz": "Bo‘laklar x600",
+            "ru": "Осколки x600"
+          },
+          "benefits": [
+            "Cosmetics + minor QoL"
+          ],
+          "price_hint_uzs": 19000
+        }
+      ],
+      "nonPayToWinRule": "No paid item increases learning score directly; only cosmetics and time-savers."
+    }
+  },
+  "mastery_tags": [
+    {
+      "tag": "ARTICLES_A_AN_THE",
+      "category": "grammar"
+    },
+    {
+      "tag": "PRESENT_SIMPLE_AFF_NEG_Q",
+      "category": "grammar"
+    },
+    {
+      "tag": "PRESENT_CONTINUOUS_NOW",
+      "category": "grammar"
+    },
+    {
+      "tag": "PAST_SIMPLE_REGULAR",
+      "category": "grammar"
+    },
+    {
+      "tag": "IRREGULAR_VERBS_CORE",
+      "category": "grammar"
+    },
+    {
+      "tag": "COUNT_UNCOUNT_SOME_ANY",
+      "category": "grammar"
+    },
+    {
+      "tag": "PREPOSITIONS_TIME_AT_ON_IN",
+      "category": "grammar"
+    },
+    {
+      "tag": "PREPOSITIONS_PLACE_IN_ON_UNDER",
+      "category": "grammar"
+    },
+    {
+      "tag": "BASIC_CONNECTORS_AND_BUT_BECAUSE",
+      "category": "writing"
+    },
+    {
+      "tag": "PRONUN_CORE_VOWELS",
+      "category": "speaking"
+    },
+    {
+      "tag": "LISTEN_NUMBERS_TIME",
+      "category": "listening"
+    },
+    {
+      "tag": "READ_SCAN_FOR_DETAILS",
+      "category": "reading"
+    }
+  ],
+  "quest_templates": [
+    {
+      "template": "RUNE_SCAN",
+      "objective": "Read a short in-world note and extract meaning or details.",
+      "taskBlueprint": {
+        "taskTypes": [
+          "READ_MCQ",
+          "READ_MATCH"
+        ],
+        "textLengthWordsByDifficulty": {
+          "1": [
+            20,
+            35
+          ],
+          "5": [
+            60,
+            90
+          ],
+          "10": [
+            120,
+            160
+          ]
+        },
+        "questionCountByDifficulty": {
+          "1": 2,
+          "5": 3,
+          "10": 4
+        }
+      },
+      "generationConstraints": {
+        "avoidExamTone": true,
+        "useStoryObjects": [
+          "gate",
+          "scroll",
+          "market receipt",
+          "notice board",
+          "letter"
+        ],
+        "localeHintPolicy": "Hints allowed in uz/ru; task text primarily in en."
+      },
+      "rubricTags": [
+        "READ_SCAN_FOR_DETAILS"
+      ]
+    },
+    {
+      "template": "ECHO_HUNT",
+      "objective": "Listen to an NPC voice line and respond accurately.",
+      "taskBlueprint": {
+        "taskTypes": [
+          "LISTEN_MCQ",
+          "LISTEN_CLOZE"
+        ],
+        "audioSecondsByDifficulty": {
+          "1": [
+            4,
+            7
+          ],
+          "5": [
+            8,
+            12
+          ],
+          "10": [
+            12,
+            18
+          ]
+        },
+        "questionCountByDifficulty": {
+          "1": 2,
+          "5": 3,
+          "10": 4
+        }
+      },
+      "generationConstraints": {
+        "ttsVoices": [
+          "en-US",
+          "en-GB",
+          "en-AU"
+        ],
+        "noiseTolerance": "MVP: transcript-based scoring; no phoneme scoring."
+      },
+      "rubricTags": [
+        "LISTEN_NUMBERS_TIME"
+      ]
+    },
+    {
+      "template": "SPELL_FORGE",
+      "objective": "Fix grammar to cast a spell (gap-fill/cloze).",
+      "taskBlueprint": {
+        "taskTypes": [
+          "CLOZE",
+          "MCQ"
+        ],
+        "itemsByDifficulty": {
+          "1": 4,
+          "5": 6,
+          "10": 8
+        }
+      },
+      "generationConstraints": {
+        "focusTags": [
+          "ARTICLES_A_AN_THE",
+          "PRESENT_SIMPLE_AFF_NEG_Q",
+          "PRESENT_CONTINUOUS_NOW",
+          "PAST_SIMPLE_REGULAR",
+          "COUNT_UNCOUNT_SOME_ANY"
+        ],
+        "keepSentencesShortAtLowLevels": true
+      },
+      "rubricTags": [
+        "ARTICLES_A_AN_THE",
+        "PRESENT_SIMPLE_AFF_NEG_Q",
+        "PRESENT_CONTINUOUS_NOW"
+      ]
+    },
+    {
+      "template": "TRADE_PACT",
+      "objective": "Write 1–2 sentences to solve a negotiation/problem.",
+      "taskBlueprint": {
+        "taskTypes": [
+          "SHORT_TEXT"
+        ],
+        "outputConstraints": {
+          "sentencesMin": 1,
+          "sentencesMax": 2,
+          "wordsMax": 28
+        }
+      },
+      "generationConstraints": {
+        "scaffoldsAtLowLevels": [
+          "starter_phrases",
+          "sentence_frames"
+        ],
+        "feedbackStyle": "1 fix + 1 example (UZ/RU optional)."
+      },
+      "rubricTags": [
+        "BASIC_CONNECTORS_AND_BUT_BECAUSE"
+      ]
+    },
+    {
+      "template": "GATE_SPEAK",
+      "objective": "Speak a phrase/sentence to open a gate or calm a creature.",
+      "taskBlueprint": {
+        "taskTypes": [
+          "SPEAK"
+        ],
+        "outputConstraints": {
+          "secondsMin": 2,
+          "secondsMax": 10,
+          "targetWordsByDifficulty": {
+            "1": 3,
+            "5": 7,
+            "10": 12
+          }
+        }
+      },
+      "generationConstraints": {
+        "scoringMVP": "keyword coverage + intelligibility score; no accent penalty.",
+        "allowRepeatAfterHint": true
+      },
+      "rubricTags": [
+        "PRONUN_CORE_VOWELS"
+      ]
+    }
+  ],
+  "zones": [
+    {
+      "id": "Z1_GATE_DISTRICT",
+      "title": {
+        "en": "Gate District",
+        "uz": "Darvoza Mahallasi",
+        "ru": "Квартал Врат"
+      },
+      "theme": "onboarding, survival English, identity, places",
+      "unlockRank": 0,
+      "canonQuestIds": [
+        "Q001",
+        "Q002",
+        "Q003",
+        "Q004",
+        "Q005"
+      ]
+    },
+    {
+      "id": "Z2_MARKET_SHADOWS",
+      "title": {
+        "en": "Market Shadows",
+        "uz": "Bozor Soyasi",
+        "ru": "Тени Рынка"
+      },
+      "theme": "requests, shopping, time, numbers, transactions",
+      "unlockRank": 2,
+      "canonQuestIds": [
+        "Q006",
+        "Q007",
+        "Q008",
+        "Q009",
+        "Q010"
+      ]
+    },
+    {
+      "id": "Z3_TOWER_OF_TIME",
+      "title": {
+        "en": "Tower of Time",
+        "uz": "Vaqt Minorasi",
+        "ru": "Башня Времени"
+      },
+      "theme": "core grammar puzzles (present/past), short dialogues, micro-writing",
+      "unlockRank": 4,
+      "canonQuestIds": [
+        "Q011",
+        "Q012",
+        "Q013",
+        "Q014",
+        "Q015"
+      ]
+    }
+  ],
+  "canon_quests": [
+    {
+      "id": "Q001",
+      "zone": "Z1_GATE_DISTRICT",
+      "template": "RUNE_SCAN",
+      "difficulty": 1,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "The Flickering Nameplate",
+          "uz": "Miltiqlayotgan Ism Taxtachasi",
+          "ru": "Мерцающая Табличка"
+        },
+        "summary": {
+          "en": "A gate sign changes letters. You must read it to enter the Archive City.",
+          "uz": "Darvoza yozuvi harflarini o‘zgartiryapti. Kirish uchun uni o‘qing.",
+          "ru": "Надпись на воротах меняется. Прочти её, чтобы войти."
+        },
+        "npc": "Gate Sentinel Lumen",
+        "cutscene_key": "cs_gate_arrival",
+        "lore_unlock": "lore_gate_district_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "READ_MCQ",
+          "prompt": {
+            "en": "Read the sign: 'WELCOME. SHOW YOUR NAME.' What does it ask?",
+            "uz": "Belgini o‘qing: 'WELCOME. SHOW YOUR NAME.' U nimani so‘rayapti?",
+            "ru": "Прочти табличку: 'WELCOME. SHOW YOUR NAME.' Что она просит?"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "Your name",
+                "uz": "Ismingiz",
+                "ru": "Ваше имя"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "Your age",
+                "uz": "Yoshingiz",
+                "ru": "Ваш возраст"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "Your phone",
+                "uz": "Telefoningiz",
+                "ru": "Ваш телефон"
+              }
+            },
+            {
+              "id": "D",
+              "text": {
+                "en": "Your job",
+                "uz": "Ishingiz",
+                "ru": "Ваша работа"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 3,
+            "partial": false,
+            "tags": [
+              "READ_SCAN_FOR_DETAILS"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Complete: 'My name ___ Ulugbek.' (am / is)",
+            "uz": "To‘ldiring: 'My name ___ Ulugbek.' (am / is)",
+            "ru": "Заполни: 'My name ___ Ulugbek.' (am / is)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "am",
+                "uz": "am",
+                "ru": "am"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "is",
+                "uz": "is",
+                "ru": "is"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 2,
+            "partial": false,
+            "tags": [
+              "PRESENT_SIMPLE_AFF_NEG_Q"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Gate Sentinel",
+            "uz": "Darvoza Qo‘riqchisi",
+            "ru": "Страж Врат"
+          },
+          "archetype": "SENTINEL",
+          "introLine": {
+            "en": "State the runes clearly.",
+            "uz": "Runnlarni aniq ayting.",
+            "ru": "Произнеси руны ясно."
+          }
+        },
+        "playerHP": 5,
+        "enemyHP": 4,
+        "timeLimitSec": 90,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 1
+      },
+      "rewards": {
+        "xp": 45,
+        "shards": 20,
+        "items": [
+          "ITEM_RUNE_CHALK"
+        ],
+        "badgeKey": "badge_first_rune"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q002",
+      "zone": "Z1_GATE_DISTRICT",
+      "template": "SPELL_FORGE",
+      "difficulty": 1,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Ink and Identity",
+          "uz": "Siyoh va Shaxs",
+          "ru": "Чернила и Личность"
+        },
+        "summary": {
+          "en": "An Archivist asks you to fix a greeting spell.",
+          "uz": "Arxivchi sizdan salomlashish sehrini tuzatishni so‘raydi.",
+          "ru": "Архивариус просит починить заклинание приветствия."
+        },
+        "npc": "Archivist Mira",
+        "cutscene_key": "cs_archivist_intro",
+        "lore_unlock": "lore_archive_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Choose: 'I ___ from Tashkent.' (am / is / are)",
+            "uz": "Tanlang: 'I ___ from Tashkent.' (am / is / are)",
+            "ru": "Выбери: 'I ___ from Tashkent.' (am / is / are)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "am",
+                "uz": "am",
+                "ru": "am"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "is",
+                "uz": "is",
+                "ru": "is"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "are",
+                "uz": "are",
+                "ru": "are"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 3,
+            "partial": false,
+            "tags": [
+              "PRESENT_SIMPLE_AFF_NEG_Q"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "MCQ",
+          "prompt": {
+            "en": "Pick the correct question:",
+            "uz": "To‘g‘ri savolni tanlang:",
+            "ru": "Выбери правильный вопрос:"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "Where you are?",
+                "uz": "Qayerdasiz?",
+                "ru": "Где ты?"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "Where are you?",
+                "uz": "Qayerdasiz?",
+                "ru": "Где ты?"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "Where is you?",
+                "uz": "Qayerdasiz?",
+                "ru": "Где ты?"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 3,
+            "partial": false,
+            "tags": [
+              "PRESENT_SIMPLE_AFF_NEG_Q"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Ink Wraith",
+            "uz": "Siyoh Arvohi",
+            "ru": "Чернильный Призрак"
+          },
+          "archetype": "WRAITH",
+          "introLine": {
+            "en": "Your words shape the ink.",
+            "uz": "So‘zlaringiz siyohni shakllantiradi.",
+            "ru": "Твои слова формируют чернила."
+          }
+        },
+        "playerHP": 5,
+        "enemyHP": 5,
+        "timeLimitSec": 100,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 1
+      },
+      "rewards": {
+        "xp": 55,
+        "shards": 25,
+        "items": [
+          "ITEM_GREETING_SIGIL"
+        ],
+        "badgeKey": "badge_spell_forge_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q003",
+      "zone": "Z1_GATE_DISTRICT",
+      "template": "RUNE_SCAN",
+      "difficulty": 2,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "The Notice Board",
+          "uz": "E’lonlar Taxtasi",
+          "ru": "Доска Объявлений"
+        },
+        "summary": {
+          "en": "You read a board to find a safe path to the Hub.",
+          "uz": "Markazga xavfsiz yo‘l topish uchun e’lonlarni o‘qing.",
+          "ru": "Прочти объявления, чтобы найти безопасный путь в Хаб."
+        },
+        "npc": "Runner Kai",
+        "cutscene_key": "cs_runner_kai",
+        "lore_unlock": "lore_gate_district_02"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "READ_MCQ",
+          "prompt": {
+            "en": "Board: 'CLOSES AT 7 PM'. When does it close?",
+            "uz": "Taxta: 'CLOSES AT 7 PM'. Qachon yopiladi?",
+            "ru": "Табличка: 'CLOSES AT 7 PM'. Во сколько закрывается?"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "7 PM",
+                "uz": "7 PM",
+                "ru": "7 PM"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "7 AM",
+                "uz": "7 AM",
+                "ru": "7 AM"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "5 PM",
+                "uz": "5 PM",
+                "ru": "5 PM"
+              }
+            },
+            {
+              "id": "D",
+              "text": {
+                "en": "9 PM",
+                "uz": "9 PM",
+                "ru": "9 PM"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 3,
+            "partial": false,
+            "tags": [
+              "LISTEN_NUMBERS_TIME",
+              "READ_SCAN_FOR_DETAILS"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "MCQ",
+          "prompt": {
+            "en": "Choose the correct preposition: '___ Monday'",
+            "uz": "To‘g‘ri predlogni tanlang: '___ Monday'",
+            "ru": "Выбери предлог: '___ Monday'"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "in",
+                "uz": "in",
+                "ru": "in"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "on",
+                "uz": "on",
+                "ru": "on"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "at",
+                "uz": "at",
+                "ru": "at"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 2,
+            "partial": false,
+            "tags": [
+              "PREPOSITIONS_TIME_AT_ON_IN"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Paper Shade",
+            "uz": "Qog‘oz Soya",
+            "ru": "Бумажная Тень"
+          },
+          "archetype": "SHADE",
+          "introLine": {
+            "en": "Read fast. Choose wisely.",
+            "uz": "Tez o‘qing. To‘g‘ri tanlang.",
+            "ru": "Читай быстро. Выбирай верно."
+          }
+        },
+        "playerHP": 6,
+        "enemyHP": 5,
+        "timeLimitSec": 110,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 1
+      },
+      "rewards": {
+        "xp": 65,
+        "shards": 30,
+        "items": [
+          "ITEM_TIME_COMPASS"
+        ],
+        "badgeKey": "badge_notice_board"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q004",
+      "zone": "Z1_GATE_DISTRICT",
+      "template": "GATE_SPEAK",
+      "difficulty": 2,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Speak to the Lantern",
+          "uz": "Chiroqqa Gapiring",
+          "ru": "Поговори с Фонарём"
+        },
+        "summary": {
+          "en": "A living lantern responds only to spoken runes.",
+          "uz": "Tirik chiroq faqat aytilgan runelarga javob beradi.",
+          "ru": "Живой фонарь отвечает только на произнесённые руны."
+        },
+        "npc": "Lantern Luma",
+        "cutscene_key": "cs_lantern",
+        "lore_unlock": "lore_magic_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SPEAK",
+          "prompt": {
+            "en": "Say: 'I am here. I am ready.'",
+            "uz": "Ayting: 'I am here. I am ready.'",
+            "ru": "Скажи: 'I am here. I am ready.'"
+          },
+          "expected": {
+            "targetPhraseEn": "I am here. I am ready.",
+            "keywords": [
+              "i",
+              "am",
+              "here",
+              "ready"
+            ]
+          },
+          "scoring": {
+            "maxPoints": 6,
+            "partial": true,
+            "tags": [
+              "PRONUN_CORE_VOWELS",
+              "PRESENT_SIMPLE_AFF_NEG_Q"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Lantern Sprite",
+            "uz": "Chiroq Ruhchasi",
+            "ru": "Дух Фонаря"
+          },
+          "archetype": "DRAGONLING",
+          "introLine": {
+            "en": "Let your voice light the rune.",
+            "uz": "Ovozingiz runeni yoritadi.",
+            "ru": "Пусть голос зажжёт руну."
+          }
+        },
+        "playerHP": 5,
+        "enemyHP": 4,
+        "timeLimitSec": 45,
+        "attackPerCorrect": 4,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 70,
+        "shards": 40,
+        "items": [
+          "ITEM_LANTERN_CHARM"
+        ],
+        "badgeKey": "badge_gate_speak_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q005",
+      "zone": "Z1_GATE_DISTRICT",
+      "template": "TRADE_PACT",
+      "difficulty": 2,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "A Small Promise",
+          "uz": "Kichik Va’da",
+          "ru": "Маленькое Обещание"
+        },
+        "summary": {
+          "en": "You write a short promise to enter the Hub peacefully.",
+          "uz": "Markazga tinch kirish uchun qisqa va’da yozing.",
+          "ru": "Напиши короткое обещание, чтобы войти в Хаб мирно."
+        },
+        "npc": "Archivist Mira",
+        "cutscene_key": "cs_hub_access",
+        "lore_unlock": "lore_hub_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SHORT_TEXT",
+          "prompt": {
+            "en": "Write 1–2 sentences: Promise you will help the Archive today. Use because.",
+            "uz": "1–2 gap yozing: Bugun Arxivga yordam berishingizni va’da qiling. because ishlating.",
+            "ru": "Напиши 1–2 предложения: пообещай помочь Архиву сегодня. Используй because."
+          },
+          "expected": {
+            "rubric": {
+              "mustInclude": [
+                "because"
+              ],
+              "maxWords": 28
+            }
+          },
+          "scoring": {
+            "maxPoints": 8,
+            "partial": true,
+            "tags": [
+              "BASIC_CONNECTORS_AND_BUT_BECAUSE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Oath Golem",
+            "uz": "Qasam Golemi",
+            "ru": "Голем Клятвы"
+          },
+          "archetype": "GOLEM",
+          "introLine": {
+            "en": "Write it true. Write it clear.",
+            "uz": "Rost yozing. Aniq yozing.",
+            "ru": "Пиши честно. Пиши ясно."
+          }
+        },
+        "playerHP": 7,
+        "enemyHP": 6,
+        "timeLimitSec": 180,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 85,
+        "shards": 60,
+        "items": [
+          "ITEM_OATH_SEAL"
+        ],
+        "badgeKey": "badge_trade_pact_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q006",
+      "zone": "Z2_MARKET_SHADOWS",
+      "template": "RUNE_SCAN",
+      "difficulty": 3,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Receipt of Shadows",
+          "uz": "Chek Soyasi",
+          "ru": "Чек Теней"
+        },
+        "summary": {
+          "en": "A market receipt hides a clue. Find the item and price.",
+          "uz": "Bozor cheki ichida ishora bor. Mahsulot va narxni toping.",
+          "ru": "В чеке спрятана подсказка. Найди товар и цену."
+        },
+        "npc": "Merchant Sayeed",
+        "cutscene_key": "cs_market_intro",
+        "lore_unlock": "lore_market_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "READ_MATCH",
+          "prompt": {
+            "en": "Match items to prices: Bread $2, Milk $3, Apples $4",
+            "uz": "Mahsulotlarni narxlarga moslang: Bread $2, Milk $3, Apples $4",
+            "ru": "Соотнеси товары и цены: Bread $2, Milk $3, Apples $4"
+          },
+          "expected": {
+            "pairs": {
+              "bread": "2",
+              "milk": "3",
+              "apples": "4"
+            }
+          },
+          "scoring": {
+            "maxPoints": 5,
+            "partial": true,
+            "tags": [
+              "READ_SCAN_FOR_DETAILS"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "MCQ",
+          "prompt": {
+            "en": "Choose: 'I want ___ apple.'",
+            "uz": "Tanlang: 'I want ___ apple.'",
+            "ru": "Выбери: 'I want ___ apple.'"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "a",
+                "uz": "a",
+                "ru": "a"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "an",
+                "uz": "an",
+                "ru": "an"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "the",
+                "uz": "the",
+                "ru": "the"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 3,
+            "partial": false,
+            "tags": [
+              "ARTICLES_A_AN_THE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Receipt Shade",
+            "uz": "Chek Soyasi",
+            "ru": "Тень Чека"
+          },
+          "archetype": "SHADE",
+          "introLine": {
+            "en": "Numbers whisper. Catch them.",
+            "uz": "Sonlar pichirlaydi. Tuting.",
+            "ru": "Числа шепчут. Поймай их."
+          }
+        },
+        "playerHP": 7,
+        "enemyHP": 6,
+        "timeLimitSec": 150,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 1
+      },
+      "rewards": {
+        "xp": 95,
+        "shards": 70,
+        "items": [
+          "ITEM_MARKET_MAP"
+        ],
+        "badgeKey": "badge_market_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q007",
+      "zone": "Z2_MARKET_SHADOWS",
+      "template": "ECHO_HUNT",
+      "difficulty": 3,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "The Vendor’s Voice",
+          "uz": "Sotuvchining Ovozi",
+          "ru": "Голос Продавца"
+        },
+        "summary": {
+          "en": "Listen to the vendor. Choose the correct order.",
+          "uz": "Sotuvchini tinglang. To‘g‘ri buyurtmani tanlang.",
+          "ru": "Слушай продавца. Выбери правильный заказ."
+        },
+        "npc": "Vendor Nila",
+        "cutscene_key": "cs_vendor",
+        "lore_unlock": "lore_listening_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "LISTEN_MCQ",
+          "prompt": {
+            "en": "Audio: 'Two teas, one water.' What is the order?",
+            "uz": "Audio: 'Two teas, one water.' Buyurtma nima?",
+            "ru": "Аудио: 'Two teas, one water.' Что заказано?"
+          },
+          "media": {
+            "audio_r2_key": "audio/mvp/q007_vendor_order_01.mp3"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "2 teas + 1 water",
+                "uz": "2 ta choy + 1 ta suv",
+                "ru": "2 чая + 1 вода"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "1 tea + 2 waters",
+                "uz": "1 ta choy + 2 ta suv",
+                "ru": "1 чай + 2 воды"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "2 waters + 1 tea",
+                "uz": "2 ta suv + 1 ta choy",
+                "ru": "2 воды + 1 чай"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 5,
+            "partial": false,
+            "tags": [
+              "LISTEN_NUMBERS_TIME"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Echo Wraith",
+            "uz": "Aks-Sado Arvohi",
+            "ru": "Призрак Эха"
+          },
+          "archetype": "WRAITH",
+          "introLine": {
+            "en": "Listen once. Strike true.",
+            "uz": "Bir marta tinglang. To‘g‘ri uring.",
+            "ru": "Слушай один раз. Ударь верно."
+          }
+        },
+        "playerHP": 6,
+        "enemyHP": 6,
+        "timeLimitSec": 90,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 90,
+        "shards": 65,
+        "items": [
+          "ITEM_ECHO_RING"
+        ],
+        "badgeKey": "badge_echo_hunt_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q008",
+      "zone": "Z2_MARKET_SHADOWS",
+      "template": "SPELL_FORGE",
+      "difficulty": 4,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Some, Any, or None",
+          "uz": "Some, Any yoki Hech Narsa",
+          "ru": "Some, Any или Ничего"
+        },
+        "summary": {
+          "en": "A pantry spell fails. Fix the quantifiers.",
+          "uz": "Oshxona sehri ishlamayapti. Miqdor so‘zlarini tuzating.",
+          "ru": "Заклинание кладовой сломано. Исправь количественные слова."
+        },
+        "npc": "Cook Juno",
+        "cutscene_key": "cs_pantry",
+        "lore_unlock": "lore_quantifiers_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Complete: 'Do you have ___ sugar?' (any / some)",
+            "uz": "To‘ldiring: 'Do you have ___ sugar?' (any / some)",
+            "ru": "Заполни: 'Do you have ___ sugar?' (any / some)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "any",
+                "uz": "any",
+                "ru": "any"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "some",
+                "uz": "some",
+                "ru": "some"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 4,
+            "partial": false,
+            "tags": [
+              "COUNT_UNCOUNT_SOME_ANY"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Complete: 'I have ___ money.' (some / any)",
+            "uz": "To‘ldiring: 'I have ___ money.' (some / any)",
+            "ru": "Заполни: 'I have ___ money.' (some / any)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "some",
+                "uz": "some",
+                "ru": "some"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "any",
+                "uz": "any",
+                "ru": "any"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 4,
+            "partial": false,
+            "tags": [
+              "COUNT_UNCOUNT_SOME_ANY"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Pantry Golem",
+            "uz": "Ombor Golemi",
+            "ru": "Голем Кладовой"
+          },
+          "archetype": "GOLEM",
+          "introLine": {
+            "en": "Measure the words.",
+            "uz": "So‘zlarni o‘lchang.",
+            "ru": "Измерь слова."
+          }
+        },
+        "playerHP": 7,
+        "enemyHP": 7,
+        "timeLimitSec": 120,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 110,
+        "shards": 80,
+        "items": [
+          "ITEM_SUGAR_SPOON"
+        ],
+        "badgeKey": "badge_spell_forge_02"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q009",
+      "zone": "Z2_MARKET_SHADOWS",
+      "template": "TRADE_PACT",
+      "difficulty": 4,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Bargain Letter",
+          "uz": "Savdo Xati",
+          "ru": "Письмо Торга"
+        },
+        "summary": {
+          "en": "Write a short request to get a fair price.",
+          "uz": "Adolatli narx uchun qisqa so‘rov yozing.",
+          "ru": "Напиши короткую просьбу, чтобы получить честную цену."
+        },
+        "npc": "Merchant Sayeed",
+        "cutscene_key": "cs_bargain",
+        "lore_unlock": "lore_writing_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SHORT_TEXT",
+          "prompt": {
+            "en": "Write 1–2 sentences: Ask for a discount because you buy two items.",
+            "uz": "1–2 gap yozing: Ikki mahsulot olganingiz uchun chegirma so‘rang (because).",
+            "ru": "Напиши 1–2 предложения: попроси скидку потому что покупаешь два товара (because)."
+          },
+          "expected": {
+            "rubric": {
+              "mustInclude": [
+                "because"
+              ],
+              "maxWords": 28
+            }
+          },
+          "scoring": {
+            "maxPoints": 9,
+            "partial": true,
+            "tags": [
+              "BASIC_CONNECTORS_AND_BUT_BECAUSE",
+              "ARTICLES_A_AN_THE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Bargain Shade",
+            "uz": "Savdo Soyasi",
+            "ru": "Тень Торга"
+          },
+          "archetype": "SHADE",
+          "introLine": {
+            "en": "Make your case.",
+            "uz": "Dalilingizni ayting.",
+            "ru": "Обоснуй просьбу."
+          }
+        },
+        "playerHP": 7,
+        "enemyHP": 7,
+        "timeLimitSec": 180,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 120,
+        "shards": 90,
+        "items": [
+          "ITEM_DISCOUNT_CHARM"
+        ],
+        "badgeKey": "badge_trade_pact_02"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q010",
+      "zone": "Z2_MARKET_SHADOWS",
+      "template": "GATE_SPEAK",
+      "difficulty": 4,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Ask for Directions",
+          "uz": "Yo‘l so‘rang",
+          "ru": "Спроси дорогу"
+        },
+        "summary": {
+          "en": "Speak politely to find the Tower road.",
+          "uz": "Minoraga yo‘l topish uchun muloyim gapiring.",
+          "ru": "Скажи вежливо, чтобы найти путь к Башне."
+        },
+        "npc": "Street Guide Pax",
+        "cutscene_key": "cs_directions",
+        "lore_unlock": "lore_speaking_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SPEAK",
+          "prompt": {
+            "en": "Say: 'Excuse me, where is the tower?'",
+            "uz": "Ayting: 'Excuse me, where is the tower?'",
+            "ru": "Скажи: 'Excuse me, where is the tower?'"
+          },
+          "expected": {
+            "targetPhraseEn": "Excuse me, where is the tower?",
+            "keywords": [
+              "excuse",
+              "me",
+              "where",
+              "tower"
+            ]
+          },
+          "scoring": {
+            "maxPoints": 8,
+            "partial": true,
+            "tags": [
+              "PRONUN_CORE_VOWELS"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Street Wraith",
+            "uz": "Ko‘cha Arvohi",
+            "ru": "Призрак Улицы"
+          },
+          "archetype": "WRAITH",
+          "introLine": {
+            "en": "Be clear. Be polite.",
+            "uz": "Aniq gapiring. Muloyim bo‘ling.",
+            "ru": "Говори ясно. Будь вежлив."
+          }
+        },
+        "playerHP": 7,
+        "enemyHP": 6,
+        "timeLimitSec": 60,
+        "attackPerCorrect": 4,
+        "damagePerWrong": 3
+      },
+      "rewards": {
+        "xp": 125,
+        "shards": 95,
+        "items": [
+          "ITEM_POLITE_PIN"
+        ],
+        "badgeKey": "badge_gate_speak_02"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q011",
+      "zone": "Z3_TOWER_OF_TIME",
+      "template": "SPELL_FORGE",
+      "difficulty": 5,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Now vs Every Day",
+          "uz": "Hozir vs Har Kuni",
+          "ru": "Сейчас vs Каждый День"
+        },
+        "summary": {
+          "en": "Fix tense runes to stabilize the tower clock.",
+          "uz": "Minora soatini barqaror qilish uchun zamon runelarini tuzating.",
+          "ru": "Исправь руны времени, чтобы стабилизировать часы башни."
+        },
+        "npc": "Chronist Sol",
+        "cutscene_key": "cs_tower_arrival",
+        "lore_unlock": "lore_tenses_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Choose: 'I ___ English every day.' (study / am studying)",
+            "uz": "Tanlang: 'I ___ English every day.' (study / am studying)",
+            "ru": "Выбери: 'I ___ English every day.' (study / am studying)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "study",
+                "uz": "study",
+                "ru": "study"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "am studying",
+                "uz": "am studying",
+                "ru": "am studying"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 5,
+            "partial": false,
+            "tags": [
+              "PRESENT_SIMPLE_AFF_NEG_Q"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "CLOZE",
+          "prompt": {
+            "en": "Choose: 'I ___ English now.' (study / am studying)",
+            "uz": "Tanlang: 'I ___ English now.' (study / am studying)",
+            "ru": "Выбери: 'I ___ English now.' (study / am studying)"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "study",
+                "uz": "study",
+                "ru": "study"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "am studying",
+                "uz": "am studying",
+                "ru": "am studying"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 5,
+            "partial": false,
+            "tags": [
+              "PRESENT_CONTINUOUS_NOW"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Clock Golem",
+            "uz": "Soat Golemi",
+            "ru": "Голем Часов"
+          },
+          "archetype": "GOLEM",
+          "introLine": {
+            "en": "Time is grammar.",
+            "uz": "Vaqt — grammatika.",
+            "ru": "Время — это грамматика."
+          }
+        },
+        "playerHP": 8,
+        "enemyHP": 8,
+        "timeLimitSec": 140,
+        "attackPerCorrect": 2,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 140,
+        "shards": 110,
+        "items": [
+          "ITEM_CLOCK_KEY"
+        ],
+        "badgeKey": "badge_tenses_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q012",
+      "zone": "Z3_TOWER_OF_TIME",
+      "template": "RUNE_SCAN",
+      "difficulty": 5,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "The Lost Diary",
+          "uz": "Yo‘qolgan Kundalik",
+          "ru": "Потерянный Дневник"
+        },
+        "summary": {
+          "en": "Read a diary page to find what happened yesterday.",
+          "uz": "Kecha nima bo‘lganini bilish uchun kundalikni o‘qing.",
+          "ru": "Прочти дневник, чтобы узнать, что было вчера."
+        },
+        "npc": "Chronist Sol",
+        "cutscene_key": "cs_diary",
+        "lore_unlock": "lore_past_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "READ_MCQ",
+          "prompt": {
+            "en": "Diary: 'Yesterday I walked to the tower.' What did I do?",
+            "uz": "Kundalik: 'Yesterday I walked to the tower.' Men nima qildim?",
+            "ru": "Дневник: 'Yesterday I walked to the tower.' Что я сделал?"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "walked to the tower",
+                "uz": "minoraga piyoda bordim",
+                "ru": "пошёл к башне"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "walk to the tower",
+                "uz": "minoraga piyoda boraman",
+                "ru": "иду к башне"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "am walking to the tower",
+                "uz": "minoraga ketayapman",
+                "ru": "иду сейчас к башне"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "A"
+          },
+          "scoring": {
+            "maxPoints": 5,
+            "partial": false,
+            "tags": [
+              "PAST_SIMPLE_REGULAR",
+              "READ_SCAN_FOR_DETAILS"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Diary Shade",
+            "uz": "Kundalik Soyasi",
+            "ru": "Тень Дневника"
+          },
+          "archetype": "SHADE",
+          "introLine": {
+            "en": "Yesterday leaves traces.",
+            "uz": "Kecha iz qoldiradi.",
+            "ru": "Вчера оставляет следы."
+          }
+        },
+        "playerHP": 8,
+        "enemyHP": 7,
+        "timeLimitSec": 120,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 2
+      },
+      "rewards": {
+        "xp": 135,
+        "shards": 105,
+        "items": [
+          "ITEM_DIARY_PAGE"
+        ],
+        "badgeKey": "badge_reading_02"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q013",
+      "zone": "Z3_TOWER_OF_TIME",
+      "template": "SPELL_FORGE",
+      "difficulty": 6,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Irregular Sparks",
+          "uz": "Noqonuniy Uchqunlar",
+          "ru": "Искры Неправильных"
+        },
+        "summary": {
+          "en": "Fix the core irregular verbs to stop the sparks.",
+          "uz": "Uchqunlarni to‘xtatish uchun asosiy irregular fe’llarni tuzating.",
+          "ru": "Исправь основные неправильные глаголы, чтобы остановить искры."
+        },
+        "npc": "Chronist Sol",
+        "cutscene_key": "cs_irregular",
+        "lore_unlock": "lore_irregular_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "MCQ",
+          "prompt": {
+            "en": "Choose past: go → ___",
+            "uz": "O‘tgan zamonini tanlang: go → ___",
+            "ru": "Выбери прошедшее: go → ___"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "goed",
+                "uz": "goed",
+                "ru": "goed"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "went",
+                "uz": "went",
+                "ru": "went"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "gone",
+                "uz": "gone",
+                "ru": "gone"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 4,
+            "partial": false,
+            "tags": [
+              "IRREGULAR_VERBS_CORE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        },
+        {
+          "id": "T2",
+          "type": "MCQ",
+          "prompt": {
+            "en": "Choose past: have → ___",
+            "uz": "O‘tgan zamonini tanlang: have → ___",
+            "ru": "Выбери прошедшее: have → ___"
+          },
+          "choices": [
+            {
+              "id": "A",
+              "text": {
+                "en": "haved",
+                "uz": "haved",
+                "ru": "haved"
+              }
+            },
+            {
+              "id": "B",
+              "text": {
+                "en": "had",
+                "uz": "had",
+                "ru": "had"
+              }
+            },
+            {
+              "id": "C",
+              "text": {
+                "en": "have",
+                "uz": "have",
+                "ru": "have"
+              }
+            }
+          ],
+          "expected": {
+            "choiceId": "B"
+          },
+          "scoring": {
+            "maxPoints": 4,
+            "partial": false,
+            "tags": [
+              "IRREGULAR_VERBS_CORE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Spark Wraith",
+            "uz": "Uchqun Arvohi",
+            "ru": "Призрак Искр"
+          },
+          "archetype": "WRAITH",
+          "introLine": {
+            "en": "Wrong past forms burn.",
+            "uz": "Noto‘g‘ri o‘tgan zamon kuydiradi.",
+            "ru": "Неверные формы обжигают."
+          }
+        },
+        "playerHP": 8,
+        "enemyHP": 8,
+        "timeLimitSec": 120,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 3
+      },
+      "rewards": {
+        "xp": 160,
+        "shards": 130,
+        "items": [
+          "ITEM_IRREGULAR_TALISMAN"
+        ],
+        "badgeKey": "badge_irregular_01"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q014",
+      "zone": "Z3_TOWER_OF_TIME",
+      "template": "TRADE_PACT",
+      "difficulty": 6,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "Report to the Chronist",
+          "uz": "Xronistga Hisobot",
+          "ru": "Отчёт Хрониста"
+        },
+        "summary": {
+          "en": "Write 2 sentences: what you did and what you are doing now.",
+          "uz": "2 gap yozing: kecha nima qildingiz va hozir nima qilyapsiz.",
+          "ru": "Напиши 2 предложения: что сделал и что делаешь сейчас."
+        },
+        "npc": "Chronist Sol",
+        "cutscene_key": "cs_report",
+        "lore_unlock": "lore_writing_02"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SHORT_TEXT",
+          "prompt": {
+            "en": "Write 2 sentences. Sentence 1: Yesterday… (past). Sentence 2: Now… (present continuous).",
+            "uz": "2 gap yozing. 1-gap: Yesterday… (past). 2-gap: Now… (present continuous).",
+            "ru": "Напиши 2 предложения. 1: Yesterday… (past). 2: Now… (present continuous)."
+          },
+          "expected": {
+            "rubric": {
+              "mustIncludeAny": [
+                "yesterday"
+              ],
+              "mustIncludeAny2": [
+                "now"
+              ],
+              "maxWords": 28
+            }
+          },
+          "scoring": {
+            "maxPoints": 10,
+            "partial": true,
+            "tags": [
+              "PAST_SIMPLE_REGULAR",
+              "PRESENT_CONTINUOUS_NOW",
+              "BASIC_CONNECTORS_AND_BUT_BECAUSE"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Chronicle Shade",
+            "uz": "Yilnoma Soyasi",
+            "ru": "Тень Хроник"
+          },
+          "archetype": "SHADE",
+          "introLine": {
+            "en": "Two times. Two sentences.",
+            "uz": "Ikki vaqt. Ikki gap.",
+            "ru": "Два времени. Два предложения."
+          }
+        },
+        "playerHP": 9,
+        "enemyHP": 8,
+        "timeLimitSec": 200,
+        "attackPerCorrect": 3,
+        "damagePerWrong": 3
+      },
+      "rewards": {
+        "xp": 175,
+        "shards": 145,
+        "items": [
+          "ITEM_CHRONIST_SEAL"
+        ],
+        "badgeKey": "badge_writing_03"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "id": "Q015",
+      "zone": "Z3_TOWER_OF_TIME",
+      "template": "GATE_SPEAK",
+      "difficulty": 6,
+      "canon": true,
+      "story": {
+        "title": {
+          "en": "The Tower Gate",
+          "uz": "Minora Darvozasi",
+          "ru": "Врата Башни"
+        },
+        "summary": {
+          "en": "Speak a longer line to open the final MVP gate.",
+          "uz": "MVP yakuniy darvozasini ochish uchun uzunroq gap ayting.",
+          "ru": "Скажи длинную фразу, чтобы открыть финальные ворота MVP."
+        },
+        "npc": "Gate Sentinel Lumen",
+        "cutscene_key": "cs_mvp_gate",
+        "lore_unlock": "lore_tower_01"
+      },
+      "tasks": [
+        {
+          "id": "T1",
+          "type": "SPEAK",
+          "prompt": {
+            "en": "Say: 'Yesterday I walked here, and now I am studying.'",
+            "uz": "Ayting: 'Yesterday I walked here, and now I am studying.'",
+            "ru": "Скажи: 'Yesterday I walked here, and now I am studying.'"
+          },
+          "expected": {
+            "targetPhraseEn": "Yesterday I walked here, and now I am studying.",
+            "keywords": [
+              "yesterday",
+              "walked",
+              "now",
+              "am",
+              "studying"
+            ]
+          },
+          "scoring": {
+            "maxPoints": 10,
+            "partial": true,
+            "tags": [
+              "PRONUN_CORE_VOWELS",
+              "PAST_SIMPLE_REGULAR",
+              "PRESENT_CONTINUOUS_NOW"
+            ]
+          },
+          "supportsLocales": [
+            "en",
+            "uz",
+            "ru"
+          ]
+        }
+      ],
+      "battle": {
+        "enemy": {
+          "name": {
+            "en": "Glyph Sentinel",
+            "uz": "Glif Qo‘riqchi",
+            "ru": "Страж Глифов"
+          },
+          "archetype": "SENTINEL",
+          "introLine": {
+            "en": "Speak the timeline.",
+            "uz": "Vaqt chizig‘ini ayting.",
+            "ru": "Произнеси линию времени."
+          }
+        },
+        "playerHP": 9,
+        "enemyHP": 9,
+        "timeLimitSec": 75,
+        "attackPerCorrect": 4,
+        "damagePerWrong": 4
+      },
+      "rewards": {
+        "xp": 200,
+        "shards": 180,
+        "items": [
+          "ITEM_TOWER_PASS"
+        ],
+        "badgeKey": "badge_mvp_complete"
+      },
+      "antiLeak": {
+        "forbiddenTerms": [
+          "IELTS",
+          "band",
+          "Cambridge",
+          "British Council",
+          "IDP",
+          "test",
+          "exam",
+          "task 2",
+          "listening section"
+        ],
+        "uiNeverShow": [
+          "CEFR",
+          "A1",
+          "A2",
+          "B1",
+          "B2",
+          "C1",
+          "C2"
+        ]
+      }
+    }
+  ],
+  "ai_prompts": {
+    "system_guardrails": {
+      "en": "You are generating content for a fantasy MMORPG. NEVER mention IELTS, exams, bands, CEFR, Cambridge, British Council, IDP. Do not use classroom tone. Keep content immersive. Output strict JSON only.",
+      "uz": "Siz fantaziya MMORPG o‘yini uchun kontent yaratyapsiz. IELTS, imtihon, band, CEFR, Cambridge, British Council, IDP so‘zlarini HECH QACHON ishlatmang. Dars ohangida yozmang. Faqat JSON chiqaring.",
+      "ru": "Вы создаёте контент для фэнтези MMORPG. НИКОГДА не упоминайте IELTS, экзамены, band, CEFR, Cambridge, British Council, IDP. Не используйте школьный тон. Только JSON."
+    },
+    "generate_quest_variant_v1": {
+      "input_contract": {
+        "player_state": "PlayerStateV1",
+        "template": "QuestTemplateV1",
+        "zone_id": "string",
+        "difficulty": "1-10",
+        "must_include_tags": [
+          "string"
+        ],
+        "avoid_tags": [
+          "string"
+        ],
+        "locale": "uz|ru",
+        "seed": "string"
+      },
+      "prompt_en": "{SYSTEM_GUARDRAILS_EN}\nGenerate ONE quest JSON compatible with QuestV1.\n\nContext:\n- World: The Archive of Tongues (fantasy city over a buried library).\n- Zone: {zone_id}\n- Template: {template}\n- Difficulty: {difficulty}/10\n- MustIncludeTags: {must_include_tags}\n- AvoidTags: {avoid_tags}\n\nPlayer profile summary:\n- Mastery: reading {mastery.reading}, listening {mastery.listening}, grammar {mastery.grammar}, writing {mastery.writing}, speaking {mastery.speaking}\n- Top errors: {error_fingerprint_top}\n\nRules:\n- Task text must be primarily English, but prompts may include short Uzbek/Russian hints if locale={locale}.\n- Provide answer keys in expected.* (never visible).\n- Keep battle fun: enemy archetype + intro line.\n- Provide 2–4 tasks depending on difficulty.\n- Avoid any exam/test wording.\n\nOutput: strict JSON only (QuestV1).\nSeed: {seed}"
+    },
+    "hint_generator_v1": {
+      "prompt_en": "{SYSTEM_GUARDRAILS_EN}\nYou are an in-world NPC (Archivist Mentor). Provide ONE short hint that helps the player succeed without giving the full answer.\n- Keep it under 18 words.\n- Provide in {locale} plus a very short English micro-example (<= 8 words).\nReturn JSON: {\"hint_locale\":\"...\",\"micro_example_en\":\"...\"}.\nPlayer error tags: {error_tags}.\nTask prompt: {task_prompt_en}"
+    },
+    "evaluate_writing_micro_v1": {
+      "prompt_en": "{SYSTEM_GUARDRAILS_EN}\nEvaluate the player's 1–2 sentence response for clarity and correctness at their level.\nReturn JSON ONLY with:\n{\n \"ok\": true/false,\n \"score_0_100\": number,\n \"tags\": [error_or_strength_tags],\n \"one_fix_locale\": \"...\",   // {locale}\n \"one_fix_example_en\": \"...\"\n}\nConstraints:\n- one_fix_locale <= 18 words\n- one_fix_example_en <= 10 words\n- Do NOT mention exams or scoring rubrics explicitly.\nPlayer level rank: {rank}\nLocale: {locale}\nPrompt context: {task_prompt_en}\nPlayer answer: {player_text}"
+    },
+    "evaluate_speaking_micro_v1": {
+      "prompt_en": "{SYSTEM_GUARDRAILS_EN}\nYou receive ASR transcript from the player's voice. Evaluate intelligibility and keyword coverage for the target phrase.\nReturn JSON ONLY:\n{\n \"ok\": true/false,\n \"coverage_0_1\": number,\n \"intelligibility_0_1\": number,\n \"tags\":[...],\n \"one_fix_locale\":\"...\",     // {locale}\n \"one_fix_example_en\":\"...\"\n}\nConstraints:\n- Keep feedback friendly, story-themed.\nTarget phrase: {target_phrase_en}\nASR transcript: {asr_transcript}\nLocale: {locale}"
+    }
+  },
+  "api_contract": {
+    "openapi": "3.0.3",
+    "info": {
+      "title": "Archive of Tongues MVP API",
+      "version": "0.1.0"
+    },
+    "paths": {
+      "/auth/telegram": {
+        "post": {
+          "summary": "Validate Telegram initData, create session",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/me": {
+        "get": {
+          "summary": "Get player profile",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/placement/start": {
+        "post": {
+          "summary": "Start placement quest",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/quest/next": {
+        "post": {
+          "summary": "Get next quest (canon or generated)",
+          "responses": {
+            "200": {
+              "description": "QuestV1"
+            }
+          }
+        }
+      },
+      "/quest/submit": {
+        "post": {
+          "summary": "Submit attempt, compute battle result, enqueue AI eval if needed",
+          "responses": {
+            "200": {
+              "description": "Result + rewards"
+            }
+          }
+        }
+      },
+      "/clan/create": {
+        "post": {
+          "summary": "Create clan",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/clan/join": {
+        "post": {
+          "summary": "Join clan",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/leaderboard/local": {
+        "get": {
+          "summary": "Local leaderboard",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/leaderboard/global": {
+        "get": {
+          "summary": "Global leaderboard",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/pay/init": {
+        "post": {
+          "summary": "Start payment flow",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      },
+      "/pay/webhook": {
+        "post": {
+          "summary": "Payment gateway callback",
+          "responses": {
+            "200": {
+              "description": "OK"
+            }
+          }
+        }
+      }
+    }
+  },
+  "items": [
+    {
+      "itemId": "ITEM_RUNE_CHALK",
+      "rarity": "common",
+      "name": {
+        "en": "Rune Chalk",
+        "uz": "Rune Bo‘r",
+        "ru": "Rune Mel"
+      },
+      "effects": {
+        "cosmetic": "chalk_trail"
+      }
+    },
+    {
+      "itemId": "ITEM_GREETING_SIGIL",
+      "rarity": "common",
+      "name": {
+        "en": "Greeting Sigil",
+        "uz": "Salomlashish Belgisi",
+        "ru": "Сигил Приветствия"
+      },
+      "effects": {
+        "qol": "+1 hint/day"
+      }
+    },
+    {
+      "itemId": "ITEM_TIME_COMPASS",
+      "rarity": "common",
+      "name": {
+        "en": "Time Compass",
+        "uz": "Vaqt Kompasi",
+        "ru": "Компас Времени"
+      },
+      "effects": {
+        "qol": "cooldown -5%"
+      }
+    },
+    {
+      "itemId": "ITEM_LANTERN_CHARM",
+      "rarity": "rare",
+      "name": {
+        "en": "Lantern Charm",
+        "uz": "Chiroq Tumori",
+        "ru": "Амулет Фонаря"
+      },
+      "effects": {
+        "cosmetic": "lantern_glow"
+      }
+    },
+    {
+      "itemId": "ITEM_OATH_SEAL",
+      "rarity": "rare",
+      "name": {
+        "en": "Oath Seal",
+        "uz": "Va’da Muhr",
+        "ru": "Печать Клятвы"
+      },
+      "effects": {
+        "qol": "+1 heal-quest/day"
+      }
+    },
+    {
+      "itemId": "ITEM_MARKET_MAP",
+      "rarity": "common",
+      "name": {
+        "en": "Market Map",
+        "uz": "Bozor Xaritasi",
+        "ru": "Карта Рынка"
+      },
+      "effects": {
+        "cosmetic": "map_skin_market"
+      }
+    },
+    {
+      "itemId": "ITEM_ECHO_RING",
+      "rarity": "common",
+      "name": {
+        "en": "Echo Ring",
+        "uz": "Aks-sado Uzugi",
+        "ru": "Кольцо Эха"
+      },
+      "effects": {
+        "qol": "listening retry token"
+      }
+    },
+    {
+      "itemId": "ITEM_SUGAR_SPOON",
+      "rarity": "common",
+      "name": {
+        "en": "Sugar Spoon",
+        "uz": "Shakar Qoshiq",
+        "ru": "Ложка Сахара"
+      },
+      "effects": {
+        "cosmetic": "spoon_emote"
+      }
+    },
+    {
+      "itemId": "ITEM_DISCOUNT_CHARM",
+      "rarity": "rare",
+      "name": {
+        "en": "Discount Charm",
+        "uz": "Chegirma Tumori",
+        "ru": "Амулет Скидки"
+      },
+      "effects": {
+        "qol": "shop cosmetic discount"
+      }
+    },
+    {
+      "itemId": "ITEM_POLITE_PIN",
+      "rarity": "common",
+      "name": {
+        "en": "Polite Pin",
+        "uz": "Muloyim Nishon",
+        "ru": "Значок Вежливости"
+      },
+      "effects": {
+        "cosmetic": "pin_polite"
+      }
+    },
+    {
+      "itemId": "ITEM_CLOCK_KEY",
+      "rarity": "rare",
+      "name": {
+        "en": "Clock Key",
+        "uz": "Soat Kaliti",
+        "ru": "Ключ Часов"
+      },
+      "effects": {
+        "qol": "unlock tower cosmetic"
+      }
+    },
+    {
+      "itemId": "ITEM_DIARY_PAGE",
+      "rarity": "common",
+      "name": {
+        "en": "Diary Page",
+        "uz": "Kundalik Sahifasi",
+        "ru": "Страница Дневника"
+      },
+      "effects": {
+        "lore": "lore_diary_01"
+      }
+    },
+    {
+      "itemId": "ITEM_IRREGULAR_TALISMAN",
+      "rarity": "rare",
+      "name": {
+        "en": "Irregular Talisman",
+        "uz": "Irregular Tumor",
+        "ru": "Талисман Неправильных"
+      },
+      "effects": {
+        "qol": "extra irregular drill"
+      }
+    },
+    {
+      "itemId": "ITEM_CHRONIST_SEAL",
+      "rarity": "epic",
+      "name": {
+        "en": "Chronist Seal",
+        "uz": "Xronist Muhr",
+        "ru": "Печать Хрониста"
+      },
+      "effects": {
+        "cosmetic": "seal_epic_glow"
+      }
+    },
+    {
+      "itemId": "ITEM_TOWER_PASS",
+      "rarity": "epic",
+      "name": {
+        "en": "Tower Pass",
+        "uz": "Minora Ruxsatnomasi",
+        "ru": "Пропуск в Башню"
+      },
+      "effects": {
+        "unlock": "next_world_stub"
+      }
+    }
+  ]
+}

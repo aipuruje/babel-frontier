@@ -1,0 +1,215 @@
+/* Dashboard Styles */
+
+.dashboard {
+    padding-bottom: var(--space-2xl);
+}
+
+.welcome-section {
+    margin-bottom: var(--space-2xl);
+    text-align: center;
+}
+
+.welcome-title {
+    margin-bottom: var(--space-sm);
+}
+
+.welcome-subtitle {
+    font-family: var(--font-display);
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-lg);
+}
+
+/* Rank Progress Card */
+.rank-progress-card {
+    grid-column: span 2;
+}
+
+.rank-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-xl);
+    margin: var(--space-lg) 0;
+}
+
+.current-rank,
+.next-rank {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-sm);
+}
+
+.rank-number {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-gold);
+}
+
+.rank-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+}
+
+.progress-arrow {
+    font-size: 2rem;
+    color: var(--color-magic-purple);
+}
+
+.xp-progress {
+    margin-top: var(--space-lg);
+}
+
+.xp-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--space-sm);
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+/* Mastery Card */
+.mastery-bars {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+}
+
+.mastery-item {
+    display: grid;
+    grid-template-columns: 100px 1fr 60px;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.mastery-label {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    text-transform: capitalize;
+}
+
+.mastery-bar {
+    height: 8px;
+}
+
+.mastery-value {
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    text-align: right;
+}
+
+/* Quick Stats Card */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-md);
+}
+
+.stat-box {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-icon {
+    font-size: 2rem;
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-box .stat-value {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stat-box .stat-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-xs);
+}
+
+/* Available Zones Card */
+.zones-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+    margin-top: var(--space-md);
+}
+
+.zone-link {
+    display: block;
+    padding: var(--space-md);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-decoration: none;
+    transition: all var(--transition-base);
+}
+
+.zone-link:hover {
+    border-color: var(--color-magic-purple);
+    transform: translateX(4px);
+    box-shadow: var(--shadow-md);
+}
+
+.zone-name {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+}
+
+.zone-theme {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.loading-state {
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--color-text-secondary);
+    padding: var(--space-3xl);
+}
+
+@media (max-width: 1024px) {
+    .rank-progress-card {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .rank-display {
+        flex-direction: column;
+        gap: var(--space-lg);
+    }
+
+    .progress-arrow {
+        transform: rotate(90deg);
+    }
+
+    .mastery-item {
+        grid-template-columns: 80px 1fr 50px;
+        gap: var(--space-sm);
+    }
+}

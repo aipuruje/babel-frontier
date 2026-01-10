@@ -1,0 +1,197 @@
+/* Battle Result Styles */
+
+.battle-result {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: var(--space-2xl);
+    text-align: center;
+}
+
+.result-icon {
+    font-size: 6rem;
+    margin-bottom: var(--space-lg);
+    animation: bounce 0.6s ease-in-out;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+.result-title {
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-xl);
+}
+
+.victory .result-title {
+    background: linear-gradient(135deg, var(--color-gold) 0%, var(--color-gold-dark) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.defeat .result-title {
+    color: var(--color-danger);
+}
+
+.result-message {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+}
+
+.rewards-section {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    border: 2px solid var(--color-gold);
+}
+
+.rewards-section h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-lg);
+    color: var(--color-gold);
+}
+
+.rewards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: var(--space-md);
+}
+
+.reward-card {
+    background: var(--color-bg-primary);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.reward-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--space-sm);
+}
+
+.reward-label {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
+}
+
+.reward-value {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+
+.battle-stats {
+    background: var(--color-bg-secondary);
+    border-radius: var(--radius-md);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-sm) 0;
+    font-family: var(--font-display);
+    color: var(--color-text-secondary);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.stat-row:last-child {
+    border-bottom: none;
+}
+
+.stat-row span:last-child {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+
+.encourage-text {
+    font-family: var(--font-display);
+    color: var(--color-text-secondary);
+    font-style: italic;
+    margin-bottom: var(--space-xl);
+}
+
+.result-btn {
+    min-width: 200px;
+}
+
+/* Reward Animations */
+.fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.slide-in {
+    animation: slideIn 0.4s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.reward-shine {
+    animation: shine 2s ease-in-out infinite;
+}
+
+@keyframes shine {
+
+    0%,
+    100% {
+        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.6));
+    }
+}
+
+.xp-gain {
+    animation: xpPulse 1s ease-in-out infinite;
+}
+
+@keyframes xpPulse {
+
+    0%,
+    100% {
+        transform: scale(1);
+        color: var(--color-text-primary);
+    }
+
+    50% {
+        transform: scale(1.1);
+        color: var(--color-gold);
+    }
+}
