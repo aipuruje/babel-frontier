@@ -1,0 +1,398 @@
+/* ===================================
+   Global Styles & Reset
+   IELTS Reading Mastery
+   =================================== */
+
+@import './tokens.css';
+
+/* ========== CSS Reset ========== */
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-primary);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-primary);
+    overflow-x: hidden;
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+
+    /* Telegram WebApp adjustments */
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+
+    /* Disable pull-to-refresh on mobile */
+    overscroll-behavior-y: contain;
+}
+
+#root {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ========== Typography ========== */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    color: var(--color-text-primary);
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: var(--text-4xl);
+    font-weight: var(--font-extrabold);
+}
+
+h2 {
+    font-size: var(--text-3xl);
+}
+
+h3 {
+    font-size: var(--text-2xl);
+}
+
+h4 {
+    font-size: var(--text-xl);
+}
+
+h5 {
+    font-size: var(--text-lg);
+}
+
+h6 {
+    font-size: var(--text-base);
+    font-weight: var(--font-semibold);
+}
+
+p {
+    margin-bottom: var(--space-4);
+    color: var(--color-text-secondary);
+    line-height: var(--leading-relaxed);
+}
+
+p:last-child {
+    margin-bottom: 0;
+}
+
+a {
+    color: var(--color-primary-start);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-primary-end);
+}
+
+strong {
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+}
+
+small {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* ========== Utility Classes ========== */
+
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+    width: 100%;
+}
+
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.text-success {
+    color: var(--color-success);
+}
+
+.text-warning {
+    color: var(--color-warning);
+}
+
+.text-danger {
+    color: var(--color-danger);
+}
+
+.text-info {
+    color: var(--color-info);
+}
+
+/* Truncate text with ellipsis */
+.truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Center content */
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ========== Glass Morphism ========== */
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
+}
+
+/* ========== Animations ========== */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        transform: scale(0.9);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Fade animations */
+.fade-in {
+    animation: fadeIn var(--duration-normal) ease-out;
+}
+
+.fade-out {
+    animation: fadeOut var(--duration-normal) ease-out;
+}
+
+/* Slide animations */
+.slide-up {
+    animation: slideUp var(--duration-normal) ease-out;
+}
+
+.slide-down {
+    animation: slideDown var(--duration-normal) ease-out;
+}
+
+/* Scale animation */
+.scale-in {
+    animation: scaleIn var(--duration-normal) ease-out;
+}
+
+/* ========== Scrollbar Styling ========== */
+
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-border-secondary);
+}
+
+/* ========== Focus Styles ========== */
+
+*:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid var(--color-border-focus);
+    outline-offset: 2px;
+    border-radius: var(--radius-md);
+}
+
+/* ========== Loading States ========== */
+
+.skeleton {
+    background: linear-gradient(90deg,
+            var(--color-bg-secondary) 0%,
+            var(--color-bg-tertiary) 50%,
+            var(--color-bg-secondary) 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: var(--radius-md);
+}
+
+.spinner {
+    border: 3px solid var(--color-bg-tertiary);
+    border-top-color: var(--color-primary-start);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* ========== Responsive Utilities ========== */
+
+.hide-mobile {
+    display: none;
+}
+
+@media (min-width: 640px) {
+    .hide-mobile {
+        display: block;
+    }
+
+    .hide-desktop {
+        display: none;
+    }
+}
+
+/* ========== Safe Area Support ========== */
+
+.safe-top {
+    padding-top: max(var(--space-4), var(--safe-area-top));
+}
+
+.safe-bottom {
+    padding-bottom: max(var(--space-4), var(--safe-area-bottom));
+}
+
+.safe-left {
+    padding-left: max(var(--container-padding), var(--safe-area-left));
+}
+
+.safe-right {
+    padding-right: max(var(--container-padding), var(--safe-area-right));
+}
+
+/* ========== Print Styles ========== */
+
+@media print {
+    body {
+        background: white;
+        color: black;
+    }
+
+    .no-print {
+        display: none !important;
+    }
+}

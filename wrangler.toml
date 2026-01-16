@@ -1,0 +1,19 @@
+name = "ielts-reading-api"
+main = "api/src/index.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database
+[[d1_databases]]
+binding = "DB"
+database_name = "ielts-reading-db"
+database_id = "8e55d606-7d40-4410-9ba9-271a9625ea1b"
+
+# KV Namespace for sessions
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "deca7553efce48d288b85c19461f9306"
+
+# Environment variables
+[vars]
+ENVIRONMENT = "development"

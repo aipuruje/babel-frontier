@@ -1,0 +1,21 @@
+{
+    "name": "ielts-reading-api",
+    "private": true,
+    "version": "1.0.0",
+    "scripts": {
+        "dev": "wrangler dev",
+        "deploy": "wrangler deploy",
+        "db:create": "wrangler d1 create ielts-reading-db",
+        "db:schema": "wrangler d1 execute ielts-reading-db --file=../api/schema.sql",
+        "db:migrate": "wrangler d1 migrations apply ielts-reading-db",
+        "kv:create": "wrangler kv:namespace create SESSIONS"
+    },
+    "dependencies": {
+        "itty-router": "^4.0.0"
+    },
+    "devDependencies": {
+        "@cloudflare/workers-types": "^4.20240512.0",
+        "wrangler": "^3.48.0",
+        "typescript": "^5.3.3"
+    }
+}
