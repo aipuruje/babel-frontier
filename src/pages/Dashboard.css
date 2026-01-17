@@ -31,14 +31,13 @@
 
 /* Band Score Display */
 .dashboard-band-score {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-2xl);
     padding: var(--space-6);
     text-align: center;
     margin-bottom: var(--space-6);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--card-shadow);
 }
 
 .band-score-label {
@@ -100,7 +99,7 @@
     height: 100%;
     background: var(--gradient-primary);
     border-radius: var(--radius-full);
-    box-shadow: 0 0 12px var(--color-primary-start);
+    box-shadow: none;
     position: relative;
 }
 
@@ -131,22 +130,21 @@
 }
 
 .stat-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-4);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--card-shadow);
     transition: all var(--transition-base);
 }
 
 .stat-card:hover {
     transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
+    box-shadow: var(--card-shadow-hover);
 }
 
 .stat-icon {
@@ -210,16 +208,15 @@
 
 /* Module Card */
 .module-card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     cursor: pointer;
     transition: all var(--transition-base);
     position: relative;
     overflow: hidden;
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--card-shadow);
 }
 
 .module-card::before {
@@ -240,7 +237,8 @@
 
 .module-card:hover {
     border-color: var(--color-primary-start);
-    box-shadow: var(--shadow-xl), 0 0 20px rgba(102, 126, 234, 0.2);
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
 }
 
 .module-card.locked {
@@ -251,8 +249,8 @@
 
 .module-card.locked:hover {
     transform: none;
-    box-shadow: var(--shadow-md);
-    border-color: var(--glass-border);
+    box-shadow: var(--card-shadow);
+    border-color: var(--card-border);
 }
 
 .module-card.completed {
@@ -274,7 +272,7 @@
 
 .lock-icon {
     font-size: var(--text-xl);
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+    filter: none;
 }
 
 /* Completion Badge */
@@ -299,7 +297,7 @@
 .module-icon {
     font-size: 3rem;
     margin-bottom: var(--space-4);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    filter: none;
 }
 
 /* Module Info */

@@ -15,7 +15,7 @@
 }
 
 .time-item {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     border: 2px solid;
     border-radius: var(--radius-xl);
     padding: var(--space-5);
@@ -59,8 +59,8 @@
 }
 
 .hierarchy-level {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     display: flex;
@@ -140,8 +140,8 @@
 }
 
 .rule-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     display: flex;
@@ -185,8 +185,8 @@
 }
 
 .strategy-step {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     display: flex;
@@ -222,8 +222,8 @@
 
 /* Interactive Example */
 .interactive-example {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-top: var(--space-6);
@@ -292,8 +292,8 @@
 /* ===== PRACTICE EXERCISE ===== */
 
 .heading-instructions {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-6);
@@ -317,8 +317,8 @@
 }
 
 .headings-list {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-6);
@@ -380,8 +380,8 @@
 }
 
 .paragraph-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
 }

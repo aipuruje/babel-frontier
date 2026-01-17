@@ -191,7 +191,7 @@ export default function TheoryContent() {
                         <div className="step-number">Step 2</div>
                         <div className="step-content">
                             <h4>Strategic Question Triage (2 minutes)</h4>
-                            <p>
+                            <div>
                                 Scan all 13-14 questions and categorize them by cognitive cost:
                                 <ul>
                                     <li><strong>LOW:</strong> Name matching, number matching, simple True/False (do these first)</li>
@@ -199,7 +199,7 @@ export default function TheoryContent() {
                                     <li><strong>HIGH:</strong> TFNG with complex inference, matching headings</li>
                                 </ul>
                                 Do LOW → MEDIUM → HIGH. Never do them in passage order.
-                            </p>
+                            </div>
                         </div>
                     </div>
 
@@ -207,7 +207,7 @@ export default function TheoryContent() {
                         <div className="step-number">Step 3</div>
                         <div className="step-content">
                             <h4>Aggressive Skimming (3 minutes max)</h4>
-                            <p>
+                            <div>
                                 You don't have time to "understand" Passage 3. Skim for structure only:
                                 <ul>
                                     <li>Read first sentence of each paragraph (topic sentences)</li>
@@ -215,7 +215,7 @@ export default function TheoryContent() {
                                     <li>Identify where examples begin (for instance, such as)</li>
                                 </ul>
                                 Goal: Create a mental map of where information lives, not what it means.
-                            </p>
+                            </div>
                         </div>
                     </div>
 
@@ -223,14 +223,14 @@ export default function TheoryContent() {
                         <div className="step-number">Step 4</div>
                         <div className="step-content">
                             <h4>Surgical Strike Answering (15 minutes)</h4>
-                            <p>
+                            <div>
                                 Attack questions with precision:
                                 <ul>
                                     <li><strong>90-Second Rule:</strong> If you can't solve it in 90 seconds, mark your best guess and move on</li>
                                     <li><strong>Keyword Anchoring:</strong> Use keywords to locate the relevant paragraph, then read ONLY that paragraph</li>
                                     <li><strong>No Backtracking:</strong> Once you've answered, don't second-guess unless you have 2+ minutes left</li>
                                 </ul>
-                            </p>
+                            </div>
                         </div>
                     </div>
                 </div>

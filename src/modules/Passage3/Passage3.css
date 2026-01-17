@@ -15,7 +15,7 @@
 }
 
 .passage-difficulty {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     border: 2px solid;
     border-radius: var(--radius-xl);
     padding: var(--space-5);
@@ -72,8 +72,8 @@
 }
 
 .killer-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-left: 4px solid var(--color-danger);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
@@ -126,8 +126,8 @@
 
 /* Energy Model */
 .energy-model {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-top: var(--space-6);
@@ -206,8 +206,8 @@
 }
 
 .protocol-step {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     display: flex;
@@ -258,8 +258,8 @@
 
 /* Mindset Card */
 .mindset-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-top: var(--space-6);
@@ -323,8 +323,8 @@
 /* ===== PRACTICE EXERCISE ===== */
 
 .passage-header {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-4);
@@ -391,8 +391,8 @@
 }
 
 .protocol-reminder {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-left: 4px solid var(--color-primary-start);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
@@ -441,8 +441,8 @@
 }
 
 .timer-display {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
     margin-bottom: var(--space-5);
@@ -480,8 +480,8 @@
 }
 
 .passage-content {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-5);
@@ -500,8 +500,8 @@
 }
 
 .question-card.passage3 {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-left: 3px solid var(--color-danger);
     border-radius: var(--radius-lg);
     padding: var(--space-5);

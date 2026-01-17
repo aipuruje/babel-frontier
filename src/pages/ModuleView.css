@@ -8,13 +8,13 @@
 
 /* Header */
 .module-header {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--card-border);
     padding: var(--space-4);
     position: sticky;
     top: 0;
     z-index: 100;
+    box-shadow: var(--shadow-sm);
 }
 
 .back-button {
@@ -44,7 +44,7 @@
 
 .module-icon-large {
     font-size: 3rem;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    filter: none;
 }
 
 .module-header-text h1 {

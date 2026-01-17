@@ -22,8 +22,8 @@
 }
 
 .theory-intro {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-8);
@@ -99,8 +99,8 @@
 }
 
 .stat-card-theory {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
     text-align: center;
@@ -131,8 +131,8 @@
 }
 
 .strategy-breakdown {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-bottom: var(--space-6);
@@ -209,8 +209,8 @@
 .technique-list li {
     padding: var(--space-3);
     margin-bottom: var(--space-3);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-md);
     color: var(--color-text-secondary);
     line-height: var(--leading-relaxed);
@@ -245,8 +245,8 @@
 }
 
 .practice-timer {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-6);
@@ -326,8 +326,8 @@
 }
 
 .practice-passage {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-bottom: var(--space-8);
@@ -452,7 +452,7 @@
 }
 
 .results-card {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     border: 2px solid var(--color-success);
     border-radius: var(--radius-2xl);
     padding: var(--space-8);

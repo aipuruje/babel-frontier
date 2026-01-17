@@ -15,7 +15,7 @@
 }
 
 .timeline-stage {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     border: 2px solid;
     border-radius: var(--radius-xl);
     padding: var(--space-5);
@@ -65,8 +65,8 @@
 }
 
 .load-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-left: 4px solid;
     border-radius: var(--radius-xl);
     padding: var(--space-6);
@@ -132,8 +132,8 @@
 }
 
 .tactic-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
 }
@@ -199,8 +199,8 @@
 /* ===== PRACTICE EXERCISE ===== */
 
 .scenario-header {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-4);
@@ -293,8 +293,8 @@
 }
 
 .timer-bar {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
     margin-bottom: var(--space-5);
@@ -323,8 +323,8 @@
 }
 
 .passage-box {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     margin-bottom: var(--space-5);

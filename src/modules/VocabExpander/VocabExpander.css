@@ -15,8 +15,8 @@
 }
 
 .trap-item {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-left: 4px solid var(--color-warning);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
@@ -78,8 +78,8 @@
 }
 
 .method-step {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
     display: flex;
@@ -126,7 +126,7 @@
 
 .inference {
     padding-top: var(--space-2);
-    border-top: 1px dashed var(--glass-border);
+    border-top: 1px dashed var(--card-border);
     font-size: var(--text-sm);
     color: var(--color-success);
 }
@@ -140,8 +140,8 @@
 }
 
 .word-category {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
 }
@@ -161,8 +161,8 @@
 
 /* Strategy Card */
 .strategy-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-top: var(--space-6);
@@ -246,8 +246,8 @@
 }
 
 .vocab-progress {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-5);
 }
@@ -311,8 +311,8 @@
     width: 100%;
     height: 100%;
     backface-visibility: hidden;
-    background: var(--glass-bg);
-    border: 2px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     overflow-y: auto;
@@ -477,7 +477,7 @@
 }
 
 .control-btn.secondary:hover:not(:disabled) {
-    background: var(--glass-bg);
+    background: var(--card-bg);
 }
 
 .control-btn:disabled {
@@ -511,8 +511,8 @@
 
 /* Completion Card */
 .completion-card {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-6);
     margin-bottom: var(--space-6);

@@ -73,7 +73,7 @@
 }
 
 .matrix-card {
-    background: var(--glass-bg);
+    background: var(--card-bg);
     border: 2px solid;
     border-radius: var(--radius-xl);
     padding: var(--space-6);
@@ -377,8 +377,8 @@
 .strategy-step {
     display: flex;
     gap: var(--space-4);
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-lg);
     padding: var(--space-4);
     align-items: flex-start;
@@ -412,8 +412,8 @@
 /* ===== PRACTICE EXERCISE ===== */
 
 .feature-toggle {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
     border-radius: var(--radius-xl);
     padding: var(--space-4);
     margin-bottom: var(--space-6);

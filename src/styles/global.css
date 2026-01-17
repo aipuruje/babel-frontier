@@ -48,6 +48,48 @@ body {
     flex-direction: column;
 }
 
+/* ========== Light Theme Text Color Overrides ========== */
+
+/* Ensure all text is visible on light backgrounds */
+* {
+    color: inherit;
+}
+
+/* Force headings to use dark text */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--color-text-primary) !important;
+}
+
+/* Force paragraph text to be visible */
+p,
+li,
+span,
+div {
+    color: inherit;
+}
+
+/* Theory content text visibility */
+.theory-content h1,
+.theory-content h2,
+.theory-content h3,
+.theory-content h4 {
+    color: var(--color-text-primary) !important;
+}
+
+.theory-content p,
+.theory-content li {
+    color: var(--color-text-secondary) !important;
+}
+
+.theory-content strong {
+    color: var(--color-text-primary) !important;
+}
+
 /* ========== Typography ========== */
 
 h1,
@@ -164,14 +206,20 @@ small {
     justify-content: center;
 }
 
-/* ========== Glass Morphism ========== */
+/* ========== Card Styling (Simplified for Light Theme) ========== */
 
-.glass {
-    background: var(--glass-bg);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid var(--glass-border);
-    box-shadow: var(--glass-shadow);
+.glass,
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    box-shadow: var(--card-shadow);
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.glass:hover,
+.card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
 }
 
 /* ========== Animations ========== */
@@ -289,7 +337,7 @@ small {
     animation: scaleIn var(--duration-normal) ease-out;
 }
 
-/* ========== Scrollbar Styling ========== */
+/* ========== Scrollbar Styling (Light Theme) ========== */
 
 ::-webkit-scrollbar {
     width: 8px;
@@ -301,12 +349,12 @@ small {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--color-bg-elevated);
+    background: var(--color-border-secondary);
     border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--color-border-secondary);
+    background: var(--color-text-tertiary);
 }
 
 /* ========== Focus Styles ========== */
@@ -327,16 +375,16 @@ a:focus-visible {
 
 .skeleton {
     background: linear-gradient(90deg,
-            var(--color-bg-secondary) 0%,
-            var(--color-bg-tertiary) 50%,
-            var(--color-bg-secondary) 100%);
+            #f3f4f6 0%,
+            #e5e7eb 50%,
+            #f3f4f6 100%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
     border-radius: var(--radius-md);
 }
 
 .spinner {
-    border: 3px solid var(--color-bg-tertiary);
+    border: 3px solid var(--color-border-primary);
     border-top-color: var(--color-primary-start);
     border-radius: 50%;
     width: 24px;
