@@ -35,7 +35,7 @@
 }
 
 .profile-username {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 14px;
     margin-bottom: 16px;
 }
@@ -62,7 +62,7 @@
 
 .profile-stat-label {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 0.5px;
     margin-top: 4px;
@@ -108,7 +108,7 @@
 }
 
 .profile-info-label {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 14px;
 }
 
@@ -142,7 +142,7 @@
 }
 
 .setting-description {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 12px;
 }
 
@@ -192,7 +192,7 @@
 
 .join-date {
     text-align: center;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.9);
     font-size: 12px;
     padding: 16px 0;
 }
@@ -240,7 +240,7 @@
 .referral-stat-label {
     display: block;
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.9);
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }

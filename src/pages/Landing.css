@@ -59,8 +59,8 @@
     top: 20px;
     right: 20px;
     padding: 8px 20px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     color: rgba(255, 255, 255, 0.7);
     font-size: 14px;
@@ -70,7 +70,7 @@
 }
 
 .landing-skip:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
     color: #fff;
 }
 
@@ -90,7 +90,7 @@
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.9);
     transition: all 0.4s ease;
 }
 
@@ -143,7 +143,7 @@
 
 .landing-subtext {
     font-size: 1.125rem;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.9);
     font-style: italic;
 }
 
@@ -173,7 +173,7 @@
     font-size: 0.875rem;
     color: rgba(255, 255, 255, 0.7);
     background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.9);
     border-radius: 20px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -181,7 +181,7 @@
 
 .landing-replay:hover {
     color: #fff;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.9);
 }
 
 /* Social Proof Section */

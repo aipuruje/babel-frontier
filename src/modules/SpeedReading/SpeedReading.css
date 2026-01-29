@@ -497,7 +497,7 @@
 
 .battle-intro p {
     font-size: 1.1rem;
-    color: #cbd5e0;
+    color: #e2e8f0;
     line-height: 1.7;
 }
 
@@ -589,7 +589,7 @@
 
 .challenge-description {
     font-size: 0.95rem;
-    color: #cbd5e0;
+    color: #e2e8f0;
     margin-bottom: 1.25rem;
     line-height: 1.5;
 }
@@ -606,7 +606,7 @@
     align-items: center;
     gap: 0.5rem;
     font-size: 0.9rem;
-    color: #94a3b8;
+    color: #cbd5e0;
 }
 
 .personal-best-mini {
@@ -713,7 +713,7 @@
 
 .challenge-name {
     font-size: 1.2rem;
-    color: #cbd5e0;
+    color: #e2e8f0;
 }
 
 .battle-stats {
@@ -744,7 +744,7 @@
 
 .battle-stat .stat-label {
     font-size: 0.9rem;
-    color: #94a3b8;
+    color: #cbd5e0;
 }
 
 .personal-best {
@@ -819,7 +819,7 @@
 }
 
 .battle-progress p {
-    color: #cbd5e0;
+    color: #e2e8f0;
     line-height: 1.7;
     margin-bottom: 2rem;
 }
