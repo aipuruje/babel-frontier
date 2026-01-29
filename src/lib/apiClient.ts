@@ -3,7 +3,7 @@
  * Handles all backend communication with Cloudflare Workers API
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8787/api';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8787/api';
 
 export class APIError extends Error {
     constructor(public status: number, message: string) {
