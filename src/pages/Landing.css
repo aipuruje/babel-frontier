@@ -1,8 +1,3 @@
-/* ===================================
-   Landing Page Styles
-   Cinematic Storytelling Experience
-   =================================== */
-
 .landing-container {
     min-height: 100vh;
     display: flex;
@@ -11,254 +6,242 @@
     justify-content: center;
     position: relative;
     overflow: hidden;
-    padding: var(--space-6);
-    transition: background-color var(--transition-slow);
+    transition: background-color 0.6s ease;
 }
 
-/* Theme variations (Light Mode) */
+/* Theme-based backgrounds */
 .landing-theme-dark {
-    background-color: var(--color-bg-primary);
-    color: var(--color-text-primary);
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
 }
 
 .landing-theme-danger {
-    background: radial-gradient(circle at center, #fff5f5 0%, var(--color-bg-primary) 100%);
-    color: var(--color-danger);
+    background: linear-gradient(135deg, #2d1b1f 0%, #1f1416 100%);
 }
 
 .landing-theme-info {
-    background: radial-gradient(circle at center, #f0f9ff 0%, var(--color-bg-primary) 100%);
-    color: var(--color-info);
+    background: linear-gradient(135deg, #1b2d3f 0%, #14202e 100%);
 }
 
 .landing-theme-success {
-    background: radial-gradient(circle at center, #f0fdf4 0%, var(--color-bg-primary) 100%);
-    color: var(--color-success);
+    background: linear-gradient(135deg, #1b2f1f 0%, #14211a 100%);
 }
 
 .landing-theme-gradient {
-    background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 50%, #e9ecef 100%);
-    color: var(--color-text-primary);
+    background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3f 50%, #1b2d3f 100%);
 }
 
 /* Background gradient animation */
 .landing-bg-gradient {
     position: absolute;
     inset: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle at 50% 50%,
-            var(--color-primary-start) 0%,
-            transparent 70%);
-    opacity: 0.1;
-    animation: pulse 4s ease-in-out infinite;
+    background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+    animation: pulse-gradient 4s ease-in-out infinite;
     pointer-events: none;
-    z-index: 0;
+}
+
+@keyframes pulse-gradient {
+
+    0%,
+    100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
 }
 
 /* Skip button */
 .landing-skip {
     position: absolute;
-    top: max(var(--space-4), var(--safe-area-top));
-    right: var(--space-4);
-    background: transparent;
-    border: 1px solid var(--color-border-primary);
-    color: var(--color-text-secondary);
-    padding: var(--space-2) var(--space-4);
-    border-radius: var(--radius-full);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
+    top: 20px;
+    right: 20px;
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 14px;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    z-index: 10;
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
-.landing-skip:hover,
-.landing-skip:active {
-    background: var(--color-bg-secondary);
-    border-color: var(--color-border-secondary);
-    color: var(--color-text-primary);
-    transform: scale(1.05);
+.landing-skip:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
 }
 
 /* Progress indicator */
 .landing-progress {
     position: absolute;
     top: 50%;
-    right: var(--space-6);
+    left: 20px;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    z-index: 10;
+    gap: 12px;
+    z-index: 100;
 }
 
 .landing-progress-dot {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: var(--color-border-primary);
-    transition: all var(--transition-base);
+    background: rgba(255, 255, 255, 0.2);
+    transition: all 0.4s ease;
 }
 
 .landing-progress-dot.active {
-    background: var(--color-primary-start);
-    box-shadow: 0 0 8px var(--color-primary-start);
+    background: rgba(99, 102, 241, 0.8);
+    box-shadow: 0 0 10px rgba(99, 102, 241, 0.5);
     transform: scale(1.5);
 }
 
 .landing-progress-dot.completed {
-    background: var(--color-primary-end);
+    background: rgba(34, 197, 94, 0.8);
 }
 
-/* Content wrapper */
+/* Content container */
 .landing-content {
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
-    z-index: 5;
     position: relative;
+    z-index: 10;
+    max-width: 900px;
+    width: 100%;
+    padding: 40px;
 }
 
 .landing-phase {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-6);
+    text-align: center;
 }
 
 /* Icon */
 .landing-icon {
-    font-size: clamp(4rem, 10vw, 8rem);
-    filter: none;
-    user-select: none;
+    font-size: 6rem;
+    margin-bottom: 24px;
+    display: inline-block;
 }
 
 /* Title */
 .landing-title {
-    font-size: var(--text-3xl);
-    font-weight: var(--font-extrabold);
-    letter-spacing: -0.03em;
-    margin: 0;
-    text-transform: uppercase;
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    line-height: 1.2;
 }
 
-/* Main text */
+/* Text */
 .landing-text {
-    font-size: var(--text-xl);
-    font-weight: var(--font-semibold);
-    line-height: var(--leading-snug);
-    color: var(--color-text-primary);
-    margin: 0;
-    max-width: 500px;
+    font-size: 1.5rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 16px;
+    font-weight: 500;
 }
 
-/* Subtext */
 .landing-subtext {
-    font-size: var(--text-lg);
-    font-weight: var(--font-normal);
-    color: var(--color-text-secondary);
-    margin: 0;
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.6);
     font-style: italic;
 }
 
 /* CTA Button */
 .landing-cta {
-    margin-top: var(--space-8);
-    padding: var(--space-5) var(--space-10);
-    font-size: var(--text-lg);
-    font-weight: var(--font-bold);
-    color: white;
-    background: var(--gradient-primary);
+    margin-top: 40px;
+    padding: 18px 48px;
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     border: none;
-    border-radius: var(--radius-xl);
+    border-radius: 50px;
     cursor: pointer;
-    transition: all var(--transition-base);
-    box-shadow: var(--shadow-xl);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    position: relative;
-    overflow: hidden;
+    transition: all 0.3s ease;
 }
 
-.landing-cta::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg,
-            rgba(255, 255, 255, 0.2) 0%,
-            transparent 50%,
-            rgba(255, 255, 255, 0.2) 100%);
-    background-size: 200% 100%;
-    animation: shimmer 3s linear infinite;
-    opacity: 0;
-    transition: opacity var(--transition-base);
-}
-
-.landing-cta:hover::before,
-.landing-cta:active::before {
-    opacity: 1;
-}
-
-.landing-cta:hover,
-.landing-cta:active {
-    transform: translateY(-2px) scale(1.05);
-    box-shadow: var(--shadow-xl);
+.landing-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
 }
 
 /* Replay button */
 .landing-replay {
-    margin-top: var(--space-4);
+    margin-top: 20px;
+    padding: 10px 24px;
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
     background: transparent;
-    border: none;
-    color: var(--color-text-tertiary);
-    font-size: var(--text-sm);
-    font-weight: var(--font-medium);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
     cursor: pointer;
-    transition: all var(--transition-fast);
-    padding: var(--space-2) var(--space-4);
+    transition: all 0.3s ease;
 }
 
-.landing-replay:hover,
-.landing-replay:active {
-    color: var(--color-text-primary);
-    transform: scale(1.1);
+.landing-replay:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.1);
 }
 
-/* Responsive adjustments */
-@media (max-width: 640px) {
-    .landing-progress {
-        top: auto;
-        bottom: max(var(--space-6), var(--safe-area-bottom));
-        left: 50%;
-        right: auto;
-        transform: translateX(-50%);
-        flex-direction: row;
+/* Social Proof Section */
+.landing-social-proof {
+    padding: 60px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.landing-testimonials-section {
+    margin-top: 60px;
+}
+
+.section-title {
+    font-size: 2rem;
+    font-weight: 700;
+    text-align: center;
+    color: #fff;
+    margin-bottom: 40px;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+    .landing-icon {
+        font-size: 4rem;
     }
 
-    .landing-icon {
-        font-size: clamp(3rem, 15vw, 6rem);
+    .landing-title {
+        font-size: 1.75rem;
+    }
+
+    .landing-text {
+        font-size: 1.1rem;
     }
 
     .landing-cta {
-        width: 100%;
-        max-width: 320px;
-    }
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-
-    .landing-bg-gradient,
-    .landing-icon {
-        animation: none;
+        padding: 14px 32px;
+        font-size: 0.9375rem;
     }
 
-    .landing-cta::before {
-        animation: none;
+    .landing-social-proof {
+        padding: 40px 16px;
+    }
+
+    .landing-testimonials-section {
+        margin-top: 40px;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
+        margin-bottom: 24px;
+    }
+
+    .landing-progress {
+        left: 10px;
+    }
+
+    .landing-progress-dot {
+        width: 8px;
+        height: 8px;
     }
 }

@@ -397,3 +397,101 @@
         font-size: var(--text-xl);
     }
 }
+
+/* Power Hour Challenge Button */
+.dashboard-power-hour {
+    margin-bottom: var(--space-8);
+}
+
+.power-hour-cta {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: var(--radius-2xl);
+    padding: var(--space-6);
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.power-hour-cta::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.power-hour-cta:hover::before {
+    left: 100%;
+}
+
+.power-hour-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(102, 126, 234, 0.4);
+}
+
+.power-hour-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-xl);
+    background: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+}
+
+.power-hour-content {
+    flex: 1;
+    text-align: left;
+}
+
+.power-hour-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-bold);
+    color: #fff;
+    margin: 0 0 var(--space-1) 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.power-hour-desc {
+    font-size: var(--text-sm);
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+}
+
+.power-hour-arrow {
+    font-size: var(--text-2xl);
+    color: #fff;
+    transition: transform var(--transition-base);
+}
+
+.power-hour-cta:hover .power-hour-arrow {
+    transform: translateX(4px);
+}
+
+@media (max-width: 640px) {
+    .power-hour-cta {
+        padding: var(--space-5);
+        gap: var(--space-3);
+    }
+
+    .power-hour-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .power-hour-title {
+        font-size: var(--text-lg);
+    }
+}

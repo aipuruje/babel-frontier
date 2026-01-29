@@ -1,0 +1,251 @@
+.tutorial-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-bg-primary);
+    padding: 40px 20px;
+    position: relative;
+}
+
+/* Skip button */
+.tutorial-skip {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: 1px solid var(--card-border);
+    color: var(--color-text-tertiary);
+    padding: 8px 20px;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    cursor: pointer;
+    transition: all 0.2s;
+    z-index: 100;
+}
+
+.tutorial-skip:hover {
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
+}
+
+/* Progress dots */
+.tutorial-progress {
+    position: absolute;
+    bottom: 40px;
+    display: flex;
+    gap: 12px;
+}
+
+.tutorial-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--color-bg-tertiary);
+    transition: all 0.3s;
+}
+
+.tutorial-dot.active {
+    width: 28px;
+    border-radius: 5px;
+    background: var(--gradient-primary);
+}
+
+.tutorial-dot.completed {
+    background: var(--color-success);
+}
+
+/* Content */
+.tutorial-content {
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.tutorial-icon {
+    margin-bottom: 16px;
+}
+
+.tutorial-title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+.tutorial-description {
+    font-size: var(--text-xl);
+    color: var(--color-text-primary);
+    font-weight: var(--font-semibold);
+    margin: 0;
+}
+
+.tutorial-detail {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Visual Example */
+.tutorial-example {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px 0;
+}
+
+.example-card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-2xl);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.example-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.example-badge {
+    background: var(--gradient-primary);
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    text-transform: uppercase;
+}
+
+.example-timer {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+    color: var(--color-warning);
+}
+
+.example-question {
+    text-align: left;
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    line-height: 1.6;
+}
+
+.example-options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.example-option {
+    background: var(--color-bg-secondary);
+    border: 2px solid var(--card-border);
+    padding: 12px 16px;
+    border-radius: var(--radius-lg);
+    text-align: left;
+    font-size: var(--text-sm);
+    color: var(--color-text-primary);
+    transition: all 0.2s;
+}
+
+.example-option:hover {
+    border-color: var(--color-primary-start);
+}
+
+.example-footer {
+    text-align: right;
+}
+
+.example-xp {
+    background: rgba(34, 197, 94, 0.1);
+    color: var(--color-success);
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: var(--font-bold);
+}
+
+/* Benefits List */
+.tutorial-benefits {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+}
+
+.benefit-item svg {
+    color: var(--color-success);
+    flex-shrink: 0;
+}
+
+/* CTA Button */
+.tutorial-cta {
+    margin-top: 16px;
+    padding: 16px 48px;
+    background: var(--gradient-primary);
+    border: none;
+    color: #fff;
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    border-radius: var(--radius-xl);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+    transition: all 0.3s ease;
+}
+
+.tutorial-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .tutorial-container {
+        padding: 20px 16px;
+    }
+
+    .tutorial-title {
+        font-size: var(--text-2xl);
+    }
+
+    .tutorial-description {
+        font-size: var(--text-lg);
+    }
+
+    .example-card {
+        padding: 16px;
+    }
+
+    .tutorial-cta {
+        width: 100%;
+        max-width: 320px;
+    }
+
+    .tutorial-progress {
+        bottom: 20px;
+    }
+}

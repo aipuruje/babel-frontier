@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Swords, Timer, Target, TrendingUp, Trophy, BookOpen } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { useModuleStore } from '@/store/moduleStore';
 import { useUserStore } from '@/store/userStore';
 import { triggerHaptic } from '@/utils/telegram';
 
 interface BattleChallenge {
     id: number;
-    name: string;
-    description: string;
+    translationKey: string;
     timeLimit: number;
     wordCount: number;
     difficulty: 'Easy' | 'Medium' | 'Hard';
@@ -16,13 +16,14 @@ interface BattleChallenge {
 }
 
 const BATTLE_CHALLENGES: BattleChallenge[] = [
-    { id: 1, name: 'Flash Drill', description: '15 words in 2 minutes', timeLimit: 120, wordCount: 15, difficulty: 'Easy', xpReward: 20 },
-    { id: 2, name: 'Word Sprint', description: '30 words in 5 minutes', timeLimit: 300, wordCount: 30, difficulty: 'Medium', xpReward: 45 },
-    { id: 3, name: 'Vocabulary Blitz', description: '50 words in 8 minutes', timeLimit: 480, wordCount: 50, difficulty: 'Medium', xpReward: 70 },
-    { id: 4, name: 'Master Challenge', description: '75 words in 12 minutes', timeLimit: 720, wordCount: 75, difficulty: 'Hard', xpReward: 100 }
+    { id: 1, translationKey: 'flashDrill', timeLimit: 120, wordCount: 15, difficulty: 'Easy', xpReward: 20 },
+    { id: 2, translationKey: 'wordSprint', timeLimit: 300, wordCount: 30, difficulty: 'Medium', xpReward: 45 },
+    { id: 3, translationKey: 'vocabBlitz', timeLimit: 480, wordCount: 50, difficulty: 'Medium', xpReward: 70 },
+    { id: 4, translationKey: 'masterChallenge', timeLimit: 720, wordCount: 75, difficulty: 'Hard', xpReward: 100 }
 ];
 
 export default function BattleMode() {
+    const { t } = useTranslation();
     const { updateProgress } = useModuleStore();
     const { updateXP } = useUserStore();
     const [selectedChallenge, setSelectedChallenge] = useState<BattleChallenge | null>(null);
@@ -73,19 +74,19 @@ export default function BattleMode() {
             <motion.div className="battle-complete" initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }}>
                 <div className="battle-result-header">
                     <BookOpen size={64} className={`result-trophy ${isNewBest ? 'new-best' : ''}`} />
-                    {isNewBest && <motion.div className="new-best-badge" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring' }}>🎉 NEW BEST!</motion.div>}
-                    <h2>Battle Complete!</h2>
-                    <p className="challenge-name">{selectedChallenge.name}</p>
+                    {isNewBest && <motion.div className="new-best-badge" initial={{ scale: 0 }} animate={{ scale: 1 }} transition={{ delay: 0.3, type: 'spring' }}>🎉 {t('modules.vocabulary.battle.newBest')}</motion.div>}
+                    <h2>{t('modules.vocabulary.battle.battleComplete')}</h2>
+                    <p className="challenge-name">{t(`modules.vocabulary.battle.challenges.${selectedChallenge.translationKey}`)}</p>
                 </div>
                 <div className="battle-stats">
-                    <div className="battle-stat"><div className="stat-icon"><Target /></div><div className="stat-value">{Math.round(accuracy)}%</div><div className="stat-label">Accuracy</div></div>
-                    <div className="battle-stat"><div className="stat-icon"><Timer /></div><div className="stat-value">{formatTime(selectedChallenge.timeLimit - timeRemaining)}</div><div className="stat-label">Time Used</div></div>
-                    <div className="battle-stat"><div className="stat-icon"><TrendingUp /></div><div className="stat-value">+{Math.floor(selectedChallenge.xpReward * (accuracy / 100))}</div><div className="stat-label">XP Earned</div></div>
+                    <div className="battle-stat"><div className="stat-icon"><Target /></div><div className="stat-value">{Math.round(accuracy)}%</div><div className="stat-label">{t('modules.vocabulary.battle.accuracy')}</div></div>
+                    <div className="battle-stat"><div className="stat-icon"><Timer /></div><div className="stat-value">{formatTime(selectedChallenge.timeLimit - timeRemaining)}</div><div className="stat-label">{t('modules.vocabulary.battle.timeUsed')}</div></div>
+                    <div className="battle-stat"><div className="stat-icon"><TrendingUp /></div><div className="stat-value">+{Math.floor(selectedChallenge.xpReward * (accuracy / 100))}</div><div className="stat-label">{t('modules.vocabulary.battle.xpEarned')}</div></div>
                 </div>
-                <div className="personal-best"><strong>Personal Best:</strong><span className="best-score">{personalBest[selectedChallenge.id] ? `${Math.round(personalBest[selectedChallenge.id])}%` : 'First Attempt'}</span></div>
+                <div className="personal-best"><strong>{t('modules.vocabulary.battle.personalBest')}:</strong><span className="best-score">{personalBest[selectedChallenge.id] ? `${Math.round(personalBest[selectedChallenge.id])}%` : 'First Attempt'}</span></div>
                 <div className="battle-actions">
-                    <button className="btn-secondary" onClick={() => { setSelectedChallenge(null); setBattleComplete(false); }}>Back to Challenges</button>
-                    <button className="btn-primary" onClick={() => { setBattleComplete(false); setBattleActive(true); }}>Retry Challenge</button>
+                    <button className="btn-secondary" onClick={() => { setSelectedChallenge(null); setBattleComplete(false); }}>{t('modules.vocabulary.battle.backToChallenges')}</button>
+                    <button className="btn-primary" onClick={() => { setBattleComplete(false); setBattleActive(true); }}>{t('modules.vocabulary.battle.retryChallenge')}</button>
                 </div>
             </motion.div>
         );
@@ -96,10 +97,10 @@ export default function BattleMode() {
             <div className="battle-active">
                 <div className="battle-timer"><Timer size={32} /><div className={`time-display ${timeRemaining < 60 ? 'time-critical' : ''}`}>{formatTime(timeRemaining)}</div></div>
                 <div className="battle-progress">
-                    <h3>{selectedChallenge.name}</h3>
-                    <p className="simulation-note">📚 <strong>Vocabulary Speed Challenge!</strong></p>
-                    <p>Recall {selectedChallenge.wordCount} academic words as fast as possible. Click below to simulate completion.</p>
-                    <button className="btn-primary simulate-btn" onClick={handleBattleComplete}>Complete Battle (Simulation)</button>
+                    <h3>{t(`modules.vocabulary.battle.challenges.${selectedChallenge.translationKey}`)}</h3>
+                    <p className="simulation-note">📚 <strong>{t('modules.vocabulary.battle.simulationNote')}</strong></p>
+                    <p>{t('modules.vocabulary.battle.instr', { count: selectedChallenge.wordCount })}</p>
+                    <button className="btn-primary simulate-btn" onClick={handleBattleComplete}>{t('modules.vocabulary.battle.completeSim')}</button>
                 </div>
             </div>
         );
@@ -107,35 +108,35 @@ export default function BattleMode() {
 
     return (
         <motion.div className="battle-mode" initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
-            <div className="battle-intro"><Swords size={48} className="battle-icon" /><h2>Battle Mode</h2><p>Rapid vocabulary recall! Test your memory of academic words under intense time pressure.</p></div>
+            <div className="battle-intro"><Swords size={48} className="battle-icon" /><h2>{t('modules.vocabulary.battle.title')}</h2><p>{t('modules.vocabulary.battle.intro')}</p></div>
             <div className="challenges-grid">
                 {BATTLE_CHALLENGES.map((challenge) => {
                     const bestScore = personalBest[challenge.id];
                     return (
                         <motion.div key={challenge.id} className={`challenge-card difficulty-${challenge.difficulty.toLowerCase()}`} whileHover={{ scale: 1.02 }} onClick={() => { triggerHaptic('selection'); setSelectedChallenge(challenge); setTimeRemaining(challenge.timeLimit); setBattleComplete(false); }}>
-                            <div className="challenge-header"><h4>{challenge.name}</h4><div className={`difficulty-badge badge-${challenge.difficulty.toLowerCase()}`}>{challenge.difficulty}</div></div>
-                            <p className="challenge-description">{challenge.description}</p>
+                            <div className="challenge-header"><h4>{t(`modules.vocabulary.battle.challenges.${challenge.translationKey}`)}</h4><div className={`difficulty-badge badge-${challenge.difficulty.toLowerCase()}`}>{t(`modules.vocabulary.battle.difficulty.${challenge.difficulty.toLowerCase()}`)}</div></div>
+                            <p className="challenge-description">{t(`modules.vocabulary.battle.challenges.${challenge.translationKey}Desc`)}</p>
                             <div className="challenge-meta">
-                                <div className="meta-item"><Timer size={16} /><span>{Math.floor(challenge.timeLimit / 60)} min</span></div>
-                                <div className="meta-item"><BookOpen size={16} /><span>{challenge.wordCount} words</span></div>
+                                <div className="meta-item"><Timer size={16} /><span>{Math.floor(challenge.timeLimit / 60)} {t('modules.vocabulary.battle.statMinutes')}</span></div>
+                                <div className="meta-item"><BookOpen size={16} /><span>{challenge.wordCount} {t('modules.vocabulary.battle.statWords')}</span></div>
                                 <div className="meta-item"><Trophy size={16} /><span>+{challenge.xpReward} XP</span></div>
                             </div>
-                            {bestScore && <div className="personal-best-mini">Best: {Math.round(bestScore)}%</div>}
+                            {bestScore && <div className="personal-best-mini">{t('modules.vocabulary.battle.best')}: {Math.round(bestScore)}%</div>}
                         </motion.div>
                     );
                 })}
             </div>
             {selectedChallenge && !battleActive && (
                 <motion.div className="challenge-details" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
-                    <h3>Ready for {selectedChallenge.name}?</h3>
+                    <h3>{t('modules.vocabulary.battle.readyFor', { name: t(`modules.vocabulary.battle.challenges.${selectedChallenge.translationKey}`) })}</h3>
                     <div className="detail-stats">
-                        <div className="detail-stat"><strong>{Math.floor(selectedChallenge.timeLimit / 60)}</strong> minutes</div>
-                        <div className="detail-stat"><strong>{selectedChallenge.wordCount}</strong> words</div>
-                        <div className="detail-stat"><strong>{(selectedChallenge.timeLimit / selectedChallenge.wordCount).toFixed(1)}</strong> sec/word</div>
+                        <div className="detail-stat"><strong>{Math.floor(selectedChallenge.timeLimit / 60)}</strong> {t('modules.vocabulary.battle.statMinutes')}</div>
+                        <div className="detail-stat"><strong>{selectedChallenge.wordCount}</strong> {t('modules.vocabulary.battle.statWords')}</div>
+                        <div className="detail-stat"><strong>{(selectedChallenge.timeLimit / selectedChallenge.wordCount).toFixed(1)}</strong> {t('modules.vocabulary.battle.statSecPerWord')}</div>
                     </div>
                     <div className="challenge-actions">
-                        <button className="btn-secondary" onClick={() => setSelectedChallenge(null)}>Cancel</button>
-                        <button className="btn-primary btn-start-battle" onClick={() => { triggerHaptic('success'); setBattleActive(true); }}><Swords size={16} /> Start Battle</button>
+                        <button className="btn-secondary" onClick={() => setSelectedChallenge(null)}>{t('modules.vocabulary.battle.cancel')}</button>
+                        <button className="btn-primary btn-start-battle" onClick={() => { triggerHaptic('success'); setBattleActive(true); }}><Swords size={16} /> {t('modules.vocabulary.battle.startBattle')}</button>
                     </div>
                 </motion.div>
             )}

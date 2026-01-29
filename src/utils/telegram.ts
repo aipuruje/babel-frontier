@@ -52,10 +52,39 @@ export const initTelegramWebApp = (): TelegramWebApp | null => {
 
 /**
  * Get current Telegram user
+ * Returns mock user in development mode for browser testing
  */
 export const getTelegramUser = () => {
     const telegram = getTelegramWebApp();
-    return telegram?.initDataUnsafe.user || null;
+    const telegramUser = telegram?.initDataUnsafe.user;
+
+    // Return actual Telegram user if available
+    if (telegramUser) {
+        return telegramUser;
+    }
+
+    // Development mode fallback for browser testing
+    // IMPORTANT: Only return mock data if BOTH conditions are true:
+    // 1. Running in development mode
+    // 2. No real Telegram user data available
+    if (import.meta.env.DEV && !telegramUser) {
+        console.warn('[Telegram] Using mock user data (development mode only)');
+        return {
+            id: 123456789,
+            first_name: 'Test',
+            last_name: 'User',
+            username: 'testuser',
+            language_code: 'en',
+            is_premium: false
+        };
+    }
+
+    // Production mode without Telegram user - return null
+    if (import.meta.env.PROD && !telegramUser) {
+        console.error('[Telegram] No user data available in production mode');
+    }
+
+    return null;
 };
 
 /**
@@ -253,4 +282,56 @@ export const closeMiniApp = (): void => {
     } else {
         window.close();
     }
+};
+
+/**
+ * Setup Telegram viewport height for proper content display
+ * Handles safe areas and stable viewport height
+ */
+export const setupTelegramViewport = (): (() => void) | undefined => {
+    const telegram = getTelegramWebApp();
+
+    if (telegram) {
+        const setViewportHeight = () => {
+            // Use Telegram's stable viewport height (excludes keyboard)
+            const vh = telegram.viewportStableHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+            document.documentElement.style.setProperty(
+                '--tg-viewport-stable-height',
+                `${telegram.viewportStableHeight}px`
+            );
+
+            // Set viewport height in pixels for calculations
+            document.documentElement.style.setProperty(
+                '--tg-viewport-height',
+                `${telegram.viewportHeight}px`
+            );
+        };
+
+        // Set initial values
+        setViewportHeight();
+
+        // Update on window resize (Telegram triggers this on viewport changes)
+        const handleResize = () => {
+            setViewportHeight();
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        // Cleanup function
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }
+
+    // Fallback for browser testing
+    const setFallbackVH = () => {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    };
+
+    setFallbackVH();
+    window.addEventListener('resize', setFallbackVH);
+
+    return () => window.removeEventListener('resize', setFallbackVH);
 };

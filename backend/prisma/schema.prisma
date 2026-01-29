@@ -1,0 +1,112 @@
+// This is your Prisma schema file
+// Learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int      @id @default(autoincrement())
+  telegramId    String   @unique @map("telegram_id")
+  username      String?
+  firstName     String   @map("first_name")
+  lastName      String?  @map("last_name")
+  authMethod    String?  @map("auth_method") // 'phone' or 'email'
+  phoneNumber   String?  @unique @map("phone_number")
+  email         String?  @unique
+  referralCode  String?  @unique @map("referral_code")  // For viral growth
+  referredBy    String?  @map("referred_by")            // Who invited them
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+  lastActive    DateTime @default(now()) @map("last_active")
+
+  // Relations
+  progress            ModuleProgress[]
+  subscription        Subscription?
+  referralsMade       Referral[]        @relation("Referrer")
+  referralsReceived   Referral[]        @relation("Referee")
+  analyticsSessions   AnalyticsSession[]
+
+  @@map("users")
+  @@index([telegramId])
+  @@index([referralCode])
+}
+
+model ModuleProgress {
+  id                  Int      @id @default(autoincrement())
+  userId              String   @map("user_id")
+  moduleId            String   @map("module_id")
+  accuracy            Float    @default(0)
+  timeSpent           Int      @default(0)  // minutes
+  questionsCompleted  Int      @default(0) @map("questions_completed")
+  masteryLevel        Float    @default(0) @map("mastery_level")
+  lastAttempt         DateTime @default(now()) @map("last_attempt")
+  createdAt           DateTime @default(now()) @map("created_at")
+  updatedAt           DateTime @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [telegramId], onDelete: Cascade)
+
+  @@unique([userId, moduleId])
+  @@map("module_progress")
+  @@index([userId])
+  @@index([moduleId])
+}
+
+model Subscription {
+  id              Int       @id @default(autoincrement())
+  userId          String    @unique @map("user_id")
+  tier            String    @default("free")  // free, premium, lifetime
+  isPremium       Boolean   @default(false) @map("is_premium")
+  isLifetime      Boolean   @default(false) @map("is_lifetime")
+  expiresAt       DateTime? @map("expires_at")
+  battleModeCount Int       @default(0) @map("battle_mode_count")
+  lastBattleReset DateTime  @default(now()) @map("last_battle_reset")
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime  @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [telegramId], onDelete: Cascade)
+
+  @@map("subscriptions")
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Referral {
+  id            Int      @id @default(autoincrement())
+  referrerCode  String   @map("referrer_code")  // Referral code of inviter
+  refereeId     String   @map("referee_id")     // Telegram ID of person who signed up
+  xpAwarded     Boolean  @default(false) @map("xp_awarded")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  referrer User @relation("Referrer", fields: [referrerCode], references: [referralCode], onDelete: Cascade)
+  referee  User @relation("Referee", fields: [refereeId], references: [telegramId], onDelete: Cascade)
+
+  @@map("referrals")
+  @@index([referrerCode])
+  @@index([refereeId])
+}
+
+model AnalyticsSession {
+  id                Int      @id @default(autoincrement())
+  userId            String   @map("user_id")
+  moduleId          String?  @map("module_id")
+  duration          Int      // minutes
+  xpEarned          Int      @map("xp_earned")
+  questionsAnswered Int      @map("questions_answered")
+  accuracy          Float
+  startedAt         DateTime @map("started_at")
+  endedAt           DateTime @map("ended_at")
+  createdAt         DateTime @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [telegramId], onDelete: Cascade)
+
+  @@map("analytics_sessions")
+  @@index([userId])
+  @@index([moduleId])
+  @@index([createdAt])
+}

@@ -73,6 +73,7 @@ export interface TelegramWebApp {
     showConfirm: (message: string, callback?: (confirmed: boolean) => void) => void;
     openLink: (url: string, options?: { try_instant_view?: boolean }) => void;
     openTelegramLink: (url: string) => void;
+    openInvoice?: (url: string, callback?: (status: string) => void) => void;
     sendData: (data: string) => void;
 }
 
@@ -97,6 +98,12 @@ export interface Module {
     progress: number; // 0-100
     masteryLevel: number; // 0-100
     order: number;
+    estimatedTime: {
+        theory: number;      // minutes
+        practice: number;    // minutes
+        battle: number;      // minutes
+        total: number;       // minutes
+    };
 }
 
 export interface Question {
@@ -136,6 +143,23 @@ export interface UserProfile {
     createdAt: string;
     targetBand?: number;
     examDate?: string;
+    // Sign-up fields
+    hasCompletedSignup?: boolean;
+    authMethod?: 'phone' | 'email';
+    phoneNumber?: string;
+    email?: string;
+    // Viral Referral System
+    referralCode?: string; // Unique code for sharing (e.g., "AMR-K7X2P9")
+    referredBy?: string; // Who invited this user (referral code)
+    referralCount?: number; // Number of successful referrals
+    referralXP?: number; // Bonus XP from referrals (100 XP per friend)
+    // Subscription & Monetization
+    subscriptionTier?: 'free' | 'premium' | 'lifetime'; // Current plan
+    isPremium?: boolean; // Has active premium subscription
+    isLifetime?: boolean; // Has lifetime access
+    subscriptionExpiry?: string; // When premium expires (ISO date)
+    battleModeAttemptsToday?: number; // Track daily Battle Mode usage
+    lastBattleModeReset?: string; // Last reset date for daily limit
 }
 
 export interface ModuleProgress {
@@ -145,6 +169,7 @@ export interface ModuleProgress {
     questionsCompleted: number;
     masteryLevel: number; // 0-100
     lastAttempt: string;
+    version?: number; // For conflict resolution in multi-device sync
 }
 
 export interface Achievement {
@@ -236,9 +261,17 @@ export interface UserStore {
     profile: UserProfile | null;
     isAuthenticated: boolean;
     isLoading: boolean;
+    focusStats: FocusStats;
+    preferences: UserPreferences;
+    currentSession: FocusSession | null;
     setProfile: (profile: UserProfile) => void;
     updateXP: (xpGain: number) => void;
     incrementStreak: () => void;
+    completeSignup: (method: 'phone' | 'email', value: string) => void;
+    startFocusSession: (moduleId?: string) => void;
+    endFocusSession: () => void;
+    addBreakToSession: () => void;
+    updatePreferences: (prefs: Partial<UserPreferences>) => void;
     logout: () => void;
 }
 
@@ -273,6 +306,34 @@ export interface GamificationStore {
     updateChallengeProgress: (challengeId: string, progress: number) => void;
     joinClan: (clan: Clan) => void;
     leaveClan: () => void;
+}
+
+// Focus Session Types
+export interface FocusSession {
+    id: string;
+    startTime: string;
+    endTime?: string;
+    duration: number;        // minutes
+    moduleId?: string;
+    breaksTaken: number;
+    completed: boolean;
+}
+
+export interface FocusStats {
+    totalFocusTime: number;     // minutes, all time
+    weeklyFocusTime: number[];  // minutes, last 7 days [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
+    longestStreak: number;      // consecutive days
+    currentStreak: number;      // consecutive days
+    sessionsCompleted: number;
+    powerHoursCompleted: number;
+    lastSessionDate?: string;   // ISO date string
+}
+
+export interface UserPreferences {
+    breakRemindersEnabled: boolean;
+    breakReminderInterval: number;  // minutes (10-60)
+    focusModeEnabled: boolean;
+    soundEffectsEnabled: boolean;
 }
 
 // Utility Types

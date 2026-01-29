@@ -1,25 +1,52 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ArrowLeft, Clock, Target, Trophy } from 'lucide-react';
 import { useModuleStore } from '@/store/moduleStore';
+import { useUserStore } from '@/store/userStore';
 import { triggerHaptic, setBackButton, hideBackButton } from '@/utils/telegram';
-import TimeManagementModule from '@/modules/TimeManagement/TimeManagementModule';
-import TFNGLogicModule from '@/modules/TFNGLogic/TFNGLogicModule';
-import ParaphrasingModule from '@/modules/Paraphrasing/ParaphrasingModule';
-import HeadingMatcherModule from '@/modules/HeadingMatcher/HeadingMatcherModule';
-import SpeedReadingModule from '@/modules/SpeedReading/SpeedReadingModule';
-import CognitiveLoadModule from '@/modules/CognitiveLoad/CognitiveLoadModule';
-import Passage3Module from '@/modules/Passage3/Passage3Module';
-import VocabExpanderModule from '@/modules/VocabExpander/VocabExpanderModule';
-import MockTestsModule from '@/modules/MockTests/MockTestsModule';
+import { useBreakReminder } from '@/hooks/useBreakReminder';
+import BreakReminderModal from '@/components/BreakReminderModal';
 import './ModuleView.css';
 
+// Lazy load module components
+const TimeManagementModule = lazy(() => import('@/modules/TimeManagement/TimeManagementModule'));
+const TFNGLogicModule = lazy(() => import('@/modules/TFNGLogic/TFNGLogicModule'));
+const ParaphrasingModule = lazy(() => import('@/modules/Paraphrasing/ParaphrasingModule'));
+const HeadingMatcherModule = lazy(() => import('@/modules/HeadingMatcher/HeadingMatcherModule'));
+const SpeedReadingModule = lazy(() => import('@/modules/SpeedReading/SpeedReadingModule'));
+const CognitiveLoadModule = lazy(() => import('@/modules/CognitiveLoad/CognitiveLoadModule'));
+const Passage3Module = lazy(() => import('@/modules/Passage3/Passage3Module'));
+const VocabExpanderModule = lazy(() => import('@/modules/VocabExpander/VocabExpanderModule'));
+const MockTestsModule = lazy(() => import('@/modules/MockTests/MockTestsModule'));
+
+// Loading spinner for module content
+function ModuleLoading() {
+    return (
+        <div className="module-loading">
+            <div className="loading-spinner"></div>
+            <p>Loading module content...</p>
+        </div>
+    );
+}
+
 export default function ModuleView() {
+    const { t } = useTranslation();
     const { moduleId } = useParams<{ moduleId: string }>();
     const navigate = useNavigate();
     const { modules, selectModule } = useModuleStore();
+    const { startFocusSession, endFocusSession } = useUserStore();
     const [activeTab, setActiveTab] = useState<'theory' | 'practice' | 'battle'>('theory');
+
+    // Break reminder integration
+    const {
+        showBreakModal,
+        breakMinutes,
+        handleTakeBreak,
+        handleContinue,
+        handleDismiss,
+    } = useBreakReminder();
 
     const module = modules.find((m) => m.id === moduleId);
 
@@ -28,6 +55,19 @@ export default function ModuleView() {
             selectModule(moduleId);
         }
     }, [moduleId, selectModule]);
+
+    useEffect(() => {
+        // Start focus session when module loads
+        if (moduleId && module && !module.isLocked) {
+            startFocusSession(moduleId);
+        }
+
+        // End focus session when leaving module
+        return () => {
+            endFocusSession();
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [moduleId]);
 
     useEffect(() => {
         // Set up Telegram back button
@@ -53,8 +93,8 @@ export default function ModuleView() {
     if (!module) {
         return (
             <div className="module-not-found">
-                <p>Module not found</p>
-                <button onClick={handleBack}>← Back to Dashboard</button>
+                <p>{t('modules.notFound')}</p>
+                <button onClick={handleBack}>← {t('modules.backToDashboard')}</button>
             </div>
         );
     }
@@ -63,9 +103,9 @@ export default function ModuleView() {
         return (
             <div className="module-locked-view">
                 <div className="lock-icon-large">🔒</div>
-                <h2>Module Locked</h2>
-                <p>Complete previous modules to unlock this one.</p>
-                <button onClick={handleBack}>← Back to Dashboard</button>
+                <h2>{t('modules.lockedTitle')}</h2>
+                <p>{t('modules.lockedDesc')}</p>
+                <button onClick={handleBack}>← {t('modules.backToDashboard')}</button>
             </div>
         );
     }
@@ -81,15 +121,15 @@ export default function ModuleView() {
                 <div className="module-header-content">
                     <div className="module-icon-large">{module.icon}</div>
                     <div className="module-header-text">
-                        <h1>{module.name}</h1>
-                        <p>{module.description}</p>
+                        <h1>{t(module.name)}</h1>
+                        <p>{t(module.description)}</p>
                     </div>
                 </div>
 
                 <div className="module-header-stats">
                     <div className="stat-chip">
                         <Clock size={16} />
-                        <span>{module.duration}min</span>
+                        <span>{t('modules.estimatedTime', { count: module.duration })}</span>
                     </div>
                     <div className="stat-chip">
                         <Target size={16} />
@@ -97,7 +137,7 @@ export default function ModuleView() {
                     </div>
                     <div className="stat-chip stat-chip-xp">
                         <Trophy size={16} />
-                        <span>+{module.xpReward} XP</span>
+                        <span>{t('modules.xpReward', { count: module.xpReward })}</span>
                     </div>
                 </div>
             </header>
@@ -108,19 +148,19 @@ export default function ModuleView() {
                     className={`module-tab ${activeTab === 'theory' ? 'active' : ''}`}
                     onClick={() => handleTabChange('theory')}
                 >
-                    📖 Theory
+                    {t('modules.theory')}
                 </button>
                 <button
                     className={`module-tab ${activeTab === 'practice' ? 'active' : ''}`}
                     onClick={() => handleTabChange('practice')}
                 >
-                    ✏️ Practice
+                    {t('modules.practice')}
                 </button>
                 <button
                     className={`module-tab ${activeTab === 'battle' ? 'active' : ''}`}
                     onClick={() => handleTabChange('battle')}
                 >
-                    ⚔️ Battle
+                    {t('modules.battle')}
                 </button>
             </nav>
 
@@ -132,49 +172,61 @@ export default function ModuleView() {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.3 }}
             >
-                {moduleId === 'time-management' && (
-                    <TimeManagementModule activeTab={activeTab} />
-                )}
+                <Suspense fallback={<ModuleLoading />}>
+                    {moduleId === 'time-management' && (
+                        <TimeManagementModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'tfng-logic' && (
-                    <TFNGLogicModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'tfng-logic' && (
+                        <TFNGLogicModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'paraphrasing' && (
-                    <ParaphrasingModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'paraphrasing' && (
+                        <ParaphrasingModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'heading-matcher' && (
-                    <HeadingMatcherModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'heading-matcher' && (
+                        <HeadingMatcherModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'speed-reading' && (
-                    <SpeedReadingModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'speed-reading' && (
+                        <SpeedReadingModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'cognitive-load' && (
-                    <CognitiveLoadModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'cognitive-load' && (
+                        <CognitiveLoadModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'passage-3' && (
-                    <Passage3Module activeTab={activeTab} />
-                )}
+                    {moduleId === 'passage-3' && (
+                        <Passage3Module activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'vocabulary' && (
-                    <VocabExpanderModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'vocabulary' && (
+                        <VocabExpanderModule activeTab={activeTab} />
+                    )}
 
-                {moduleId === 'mock-tests' && (
-                    <MockTestsModule activeTab={activeTab} />
-                )}
+                    {moduleId === 'mock-tests' && (
+                        <MockTestsModule activeTab={activeTab} />
+                    )}
 
-                {moduleId !== 'time-management' && moduleId !== 'tfng-logic' && moduleId !== 'paraphrasing' && moduleId !== 'heading-matcher' && moduleId !== 'speed-reading' && moduleId !== 'cognitive-load' && moduleId !== 'passage-3' && moduleId !== 'vocabulary' && moduleId !== 'mock-tests' && (
-                    <div className="module-placeholder">
-                        <h3>Coming Soon</h3>
-                        <p>This module is under development.</p>
-                    </div>
-                )}
+                    {moduleId !== 'time-management' && moduleId !== 'tfng-logic' && moduleId !== 'paraphrasing' && moduleId !== 'heading-matcher' && moduleId !== 'speed-reading' && moduleId !== 'cognitive-load' && moduleId !== 'passage-3' && moduleId !== 'vocabulary' && moduleId !== 'mock-tests' && (
+                        <div className="module-placeholder">
+                            <h3>{t('modules.comingSoon')}</h3>
+                            <p>{t('modules.underDevelopment')}</p>
+                        </div>
+                    )}
+                </Suspense>
             </motion.div>
+
+            {/* Break Reminder Modal */}
+            {showBreakModal && (
+                <BreakReminderModal
+                    minutes={breakMinutes}
+                    onTakeBreak={handleTakeBreak}
+                    onContinue={handleContinue}
+                    onDismiss={handleDismiss}
+                />
+            )}
         </div>
     );
 }

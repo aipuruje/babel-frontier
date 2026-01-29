@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import { compression } from 'vite-plugin-compression2';
 import path from 'path';
 
 // https://vitejs.dev/config/
@@ -34,7 +35,7 @@ export default defineConfig({
                 globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
                 runtimeCaching: [
                     {
-                        urlPattern: /^https:\/\/api\.*/i,
+                        urlPattern: /^https:\/\/api\..*/i,
                         handler: 'NetworkFirst',
                         options: {
                             cacheName: 'api-cache',
@@ -49,6 +50,20 @@ export default defineConfig({
                     }
                 ]
             }
+        }),
+        // Gzip compression
+        compression({
+            algorithm: 'gzip',
+            exclude: [/\.(br)$/, /\.(gz)$/],
+            threshold: 1024, // Only compress files > 1KB
+            deleteOriginalAssets: false
+        }),
+        // Brotli compression (better than gzip)
+        compression({
+            algorithm: 'brotliCompress',
+            exclude: [/\.(br)$/, /\.(gz)$/],
+            threshold: 1024,
+            deleteOriginalAssets: false
         })
     ],
     resolve: {
@@ -71,27 +86,78 @@ export default defineConfig({
     },
     build: {
         outDir: 'dist',
-        sourcemap: false,
+        sourcemap: false, // Disable for production
         minify: 'terser',
         terserOptions: {
             compress: {
-                drop_console: true,
-                drop_debugger: true
+                drop_console: true, // Remove console.logs
+                drop_debugger: true,
+                pure_funcs: ['console.log', 'console.info'], // Remove specific functions
+                passes: 2 // Multiple passes for better compression
+            },
+            mangle: {
+                safari10: true // Safari 10+ compatibility
+            },
+            format: {
+                comments: false // Remove all comments
             }
         },
         rollupOptions: {
             output: {
-                manualChunks: {
-                    'vendor': ['react', 'react-dom', 'react-router-dom'],
-                    'ui': ['framer-motion', 'lucide-react'],
-                    'charts': ['recharts'],
-                    'state': ['zustand']
-                }
+                // Optimized chunk splitting strategy
+                manualChunks: (id) => {
+                    // Vendor libraries
+                    if (id.includes('node_modules')) {
+                        if (id.includes('react') || id.includes('react-dom') || id.includes('react-router')) {
+                            return 'vendor'; // Core React libs
+                        }
+                        if (id.includes('framer-motion') || id.includes('lucide-react')) {
+                            return 'ui'; // UI libraries
+                        }
+                        if (id.includes('recharts')) {
+                            return 'charts'; // Charts (lazy loaded with Analytics)
+                        }
+                        if (id.includes('zustand')) {
+                            return 'state'; // State management
+                        }
+                        if (id.includes('idb')) {
+                            return 'storage'; // IndexedDB (lazy loaded)
+                        }
+                        // All other node_modules
+                        return 'vendor-misc';
+                    }
+
+                    // Module-specific chunks (already lazy loaded by route)
+                    if (id.includes('/modules/')) {
+                        const moduleName = id.split('/modules/')[1].split('/')[0];
+                        return `module-${moduleName}`;
+                    }
+                },
+                // Optimized file naming
+                chunkFileNames: 'assets/[name]-[hash].js',
+                entryFileNames: 'assets/[name]-[hash].js',
+                assetFileNames: 'assets/[name]-[hash].[ext]'
+            },
+            // Tree shaking
+            treeshake: {
+                moduleSideEffects: false,
+                propertyReadSideEffects: false,
+                tryCatchDeoptimization: false
             }
         },
-        chunkSizeWarningLimit: 1000 // 1MB warning threshold
+        chunkSizeWarningLimit: 500, // Warn for chunks > 500KB
+        assetsInlineLimit: 4096, // Inline assets < 4KB as base64
+        cssCodeSplit: true, // Split CSS per route
+        reportCompressedSize: true, // Report gzipped size
+        target: 'es2015', // Support older browsers while still being modern
+        cssMinify: true
     },
     optimizeDeps: {
-        include: ['@twa-dev/sdk', 'zustand', 'framer-motion', 'recharts']
+        include: ['@twa-dev/sdk', 'zustand', 'framer-motion'], // Pre-bundle these
+        exclude: ['recharts'] // Don't pre-bundle heavy chart library
+    },
+    // Enable tree shaking for CSS
+    css: {
+        devSourcemap: false
     }
 });

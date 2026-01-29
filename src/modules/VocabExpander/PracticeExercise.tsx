@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { BookOpen, ChevronRight, ChevronLeft, CheckCircle, XCircle, RotateCcw } from 'lucide-react';
 import { triggerHaptic } from '@/utils/telegram';
 import { useUserStore } from '@/store/userStore';
+import { useTranslation } from 'react-i18next';
 
 // High-frequency IELTS academic vocabulary
 const VOCAB_WORDS = [
@@ -1064,6 +1065,7 @@ const VOCAB_WORDS = [
 ];
 
 export default function PracticeExercise() {
+    const { t } = useTranslation();
     const [currentIndex, setCurrentIndex] = useState(0);
     const [showAnswer, setShowAnswer] = useState(false);
     const [knownWords, setKnownWords] = useState<number[]>([]);
@@ -1123,7 +1125,7 @@ export default function PracticeExercise() {
             <div className="vocab-header">
                 <div className="vocab-progress">
                     <div className="progress-label">
-                        Mastered: {knownWords.length} / {VOCAB_WORDS.length} words
+                        {t('modules.vocabulary.practice.progress', { count: knownWords.length, total: VOCAB_WORDS.length })}
                     </div>
                     <div className="progress-bar">
                         <div
@@ -1148,13 +1150,13 @@ export default function PracticeExercise() {
                         <div className={`flashcard-inner ${showAnswer ? 'flipped' : ''}`}>
                             {/* Front */}
                             <div className="flashcard-front">
-                                <div className="word-number">Word {currentIndex + 1} of {VOCAB_WORDS.length}</div>
+                                <div className="word-number">{t('modules.vocabulary.practice.wordCounter', { current: currentIndex + 1, total: VOCAB_WORDS.length })}</div>
                                 <h2 className="vocab-word">{currentWord.word}</h2>
                                 <div className="pronunciation">{currentWord.pronunciation}</div>
                                 <div className="part-of-speech">{currentWord.partOfSpeech}</div>
 
                                 <div className="context-section">
-                                    <h4>📖 Context:</h4>
+                                    <h4>📖 {t('modules.vocabulary.practice.context')}</h4>
                                     <p className="context-sentence">
                                         {currentWord.context.replace(
                                             currentWord.word,
@@ -1168,22 +1170,22 @@ export default function PracticeExercise() {
                                             )
                                         )}
                                     </p>
-                                    <p className="flip-hint">👆 Tap to see definition & examples</p>
+                                    <p className="flip-hint">{t('modules.vocabulary.practice.tapHint')}</p>
                                 </div>
                             </div>
 
                             {/* Back */}
                             <div className="flashcard-back">
-                                <div className="word-number">Word {currentIndex + 1} of {VOCAB_WORDS.length}</div>
+                                <div className="word-number">{t('modules.vocabulary.practice.wordCounter', { current: currentIndex + 1, total: VOCAB_WORDS.length })}</div>
                                 <h2 className="vocab-word">{currentWord.word}</h2>
 
                                 <div className="definition-section">
-                                    <h4>Definition:</h4>
+                                    <h4>{t('modules.vocabulary.practice.definition')}</h4>
                                     <p className="definition">{currentWord.definition}</p>
                                 </div>
 
                                 <div className="synonyms-section">
-                                    <h4>Synonyms:</h4>
+                                    <h4>{t('modules.vocabulary.practice.synonyms')}</h4>
                                     <div className="synonym-tags">
                                         {currentWord.synonyms.map((syn, idx) => (
                                             <span key={idx} className="synonym-tag">{syn}</span>
@@ -1192,7 +1194,7 @@ export default function PracticeExercise() {
                                 </div>
 
                                 <div className="collocations-section">
-                                    <h4>Common Collocations:</h4>
+                                    <h4>{t('modules.vocabulary.practice.collocations')}</h4>
                                     <div className="collocation-list">
                                         {currentWord.collocations.map((col, idx) => (
                                             <div key={idx} className="collocation-item">• {col}</div>
@@ -1201,7 +1203,7 @@ export default function PracticeExercise() {
                                 </div>
 
                                 <div className="word-family-section">
-                                    <h4>Word Family:</h4>
+                                    <h4>{t('modules.vocabulary.practice.wordFamily')}</h4>
                                     <div className="family-tags">
                                         {currentWord.wordFamily.map((word, idx) => (
                                             <span key={idx} className="family-tag">{word}</span>
@@ -1210,7 +1212,7 @@ export default function PracticeExercise() {
                                 </div>
 
                                 <div className="ielts-example-section">
-                                    <h4>IELTS Example:</h4>
+                                    <h4>{t('modules.vocabulary.practice.ieltsExample')}</h4>
                                     <p className="ielts-example">{currentWord.ieltsExample}</p>
                                 </div>
                             </div>
@@ -1226,7 +1228,7 @@ export default function PracticeExercise() {
                     disabled={currentIndex === 0}
                 >
                     <ChevronLeft size={20} />
-                    Previous
+                    {t('common.previous')}
                 </button>
 
                 <div className="knowledge-buttons">
@@ -1235,14 +1237,14 @@ export default function PracticeExercise() {
                         onClick={handleReview}
                     >
                         <BookOpen size={18} />
-                        Need Review
+                        {t('modules.vocabulary.practice.needReview')}
                     </button>
                     <button
                         className="control-btn know"
                         onClick={handleKnow}
                     >
                         <CheckCircle size={18} />
-                        I Know This (+20 XP)
+                        {t('modules.vocabulary.practice.iKnowThis', { xp: 20 })}
                     </button>
                 </div>
 
@@ -1251,7 +1253,7 @@ export default function PracticeExercise() {
                     onClick={handleNext}
                     disabled={currentIndex === VOCAB_WORDS.length - 1}
                 >
-                    Next
+                    {t('common.next')}
                     <ChevronRight size={20} />
                 </button>
             </div>
@@ -1262,41 +1264,40 @@ export default function PracticeExercise() {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                 >
-                    <h3>📊 Session Summary</h3>
+                    <h3>📊 {t('modules.vocabulary.practice.sessionSummary')}</h3>
                     <div className="summary-stats">
                         <div className="stat-item">
                             <CheckCircle size={24} className="stat-icon success" />
                             <div className="stat-content">
                                 <div className="stat-value">{knownWords.length}</div>
-                                <div className="stat-label">Words Mastered</div>
+                                <div className="stat-label">{t('modules.vocabulary.practice.wordsMastered')}</div>
                             </div>
                         </div>
                         <div className="stat-item">
                             <XCircle size={24} className="stat-icon review" />
                             <div className="stat-content">
                                 <div className="stat-value">{reviewWords.length}</div>
-                                <div className="stat-label">Need Review</div>
+                                <div className="stat-label">{t('modules.vocabulary.practice.wordsReview')}</div>
                             </div>
                         </div>
                         <div className="stat-item">
                             <BookOpen size={24} className="stat-icon" />
                             <div className="stat-content">
                                 <div className="stat-value">+{knownWords.length * 20}</div>
-                                <div className="stat-label">XP Earned</div>
+                                <div className="stat-label">{t('modules.vocabulary.practice.xpEarned')}</div>
                             </div>
                         </div>
                     </div>
 
                     <button className="reset-btn" onClick={handleReset}>
                         <RotateCcw size={18} />
-                        Reset & Practice Again
+                        {t('modules.vocabulary.practice.resetPractice')}
                     </button>
                 </motion.div>
             )}
 
             <div className="practice-tip">
-                <strong>💡 Pro Tip:</strong> Don't just memorize definitions. Pay attention to collocations
-                and how the word is used in context. This is how you'll recognize it in IELTS passages.
+                {t('modules.vocabulary.practice.proTip')}
             </div>
         </div>
     );

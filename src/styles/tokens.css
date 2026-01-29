@@ -104,6 +104,26 @@
   --container-max-width: 640px;
   --container-padding: var(--space-4);
 
+  /* ========== Telegram Viewport Variables ========== */
+  /* Dynamic viewport height (set via JS, excludes Telegram UI) */
+  --vh: 1vh;
+  /* Fallback, updated by setupTelegramViewport() */
+  --tg-viewport-stable-height: 100vh;
+  /* Telegram stable viewport */
+  --tg-viewport-height: 100vh;
+  /* Current viewport height */
+
+  /* Safe Area Insets (iOS notches, Android navigation) */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* Telegram-specific UI spacing */
+  --telegram-header-height: 56px;
+  --telegram-bottom-safe: max(var(--safe-bottom), 80px);
+  /* Bottom nav + safe area */
+
   /* ========== Border Radius ========== */
 
   --radius-sm: 0.25rem;

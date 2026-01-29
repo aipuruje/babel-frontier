@@ -1,0 +1,73 @@
+.session-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.875rem;
+    color: var(--text-secondary, #6b7280);
+    transition: all 0.2s ease;
+}
+
+.session-info__icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+.session-info__text {
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+/* Card variant - shown on module cards */
+.session-info--card {
+    padding: 4px 8px;
+    background: var(--surface-card, rgba(255, 255, 255, 0.05));
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+}
+
+.session-info--card:hover {
+    background: var(--surface-card-hover, rgba(255, 255, 255, 0.1));
+    color: var(--text-primary, #f3f4f6);
+}
+
+/* Header variant - shown in module headers */
+.session-info--header {
+    font-size: 0.8125rem;
+    color: var(--text-tertiary, #9ca3af);
+}
+
+.session-info--header .session-info__icon {
+    opacity: 0.6;
+}
+
+/* Light theme adjustments */
+.light-theme .session-info--card {
+    background: rgba(0, 0, 0, 0.04);
+    color: #4b5563;
+}
+
+.light-theme .session-info--card:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #1f2937;
+}
+
+.light-theme .session-info--header {
+    color: #6b7280;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+    .session-info {
+        font-size: 0.8125rem;
+        gap: 5px;
+    }
+
+    .session-info__icon {
+        width: 14px;
+        height: 14px;
+    }
+
+    .session-info--card {
+        padding: 3px 6px;
+    }
+}

@@ -6,7 +6,7 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 
 export default [
     {
-        ignores: ['dist/**', 'node_modules/**', 'build/**', 'api/**'],
+        ignores: ['dist/**', 'node_modules/**', 'build/**', 'api/**', 'backend/dist/**', 'public/**'],
     },
     js.configs.recommended,
     {
@@ -43,6 +43,22 @@ export default [
                 __filename: 'readonly',
                 // TypeScript globals
                 RequestInit: 'readonly',
+                // Additional Browser Globals
+                navigator: 'readonly',
+                performance: 'readonly',
+                caches: 'readonly',
+                ServiceWorkerRegistration: 'readonly',
+                MessageEvent: 'readonly',
+                CustomEvent: 'readonly',
+                Event: 'readonly',
+                history: 'readonly',
+                location: 'readonly',
+                URL: 'readonly',
+                URLSearchParams: 'readonly',
+                screen: 'readonly',
+                HeadersInit: 'readonly',
+                PerformanceObserver: 'readonly',
+                self: 'readonly',
             },
         },
         plugins: {

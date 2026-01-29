@@ -624,3 +624,381 @@
         height: 450px;
     }
 }
+
+/* ===== BATTLE MODE ===== */
+
+.battle-mode {
+    padding: 1.5rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.battle-intro {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.battle-icon {
+    color: #ef4444;
+    margin-bottom: 1rem;
+    filter: drop-shadow(0 0 15px rgba(239, 68, 68, 0.5));
+}
+
+.battle-intro h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.battle-intro p {
+    font-size: 1.1rem;
+    color: #cbd5e0;
+    line-height: 1.7;
+}
+
+.challenges-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.challenge-card {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--challenge-color), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.challenge-card.difficulty-easy {
+    --challenge-color: #10b981;
+}
+
+.challenge-card.difficulty-medium {
+    --challenge-color: #f59e0b;
+}
+
+.challenge-card.difficulty-hard {
+    --challenge-color: #ef4444;
+}
+
+.challenge-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--challenge-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.challenge-card:hover::before {
+    opacity: 1;
+}
+
+.challenge-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.challenge-header h4 {
+    font-size: 1.2rem;
+    color: #f7fafc;
+}
+
+.difficulty-badge {
+    padding: 0.25rem 0.75rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
+
+.badge-easy {
+    background: rgba(16, 185, 129, 0.2);
+    color: #6ee7b7;
+}
+
+.badge-medium {
+    background: rgba(245, 158, 11, 0.2);
+    color: #fbbf24;
+}
+
+.badge-hard {
+    background: rgba(239, 68, 68, 0.2);
+    color: #fca5a5;
+}
+
+.challenge-description {
+    font-size: 0.95rem;
+    color: #cbd5e0;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+}
+
+.challenge-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.personal-best-mini {
+    padding: 0.5rem 1rem;
+    background: rgba(251, 191, 36, 0.15);
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 600;
+    color: #fbbf24;
+    font-size: 0.9rem;
+}
+
+.challenge-details {
+    margin-top: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(102, 126, 234, 0.3);
+    border-radius: 16px;
+}
+
+.challenge-details h3 {
+    font-size: 1.6rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #f7fafc;
+}
+
+.detail-stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.detail-stat {
+    text-align: center;
+}
+
+.detail-stat strong {
+    display: block;
+    font-size: 2rem;
+    color: #667eea;
+}
+
+.challenge-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.btn-start-battle {
+    background: linear-gradient(135deg, #ef4444, #dc2626) !important;
+}
+
+.btn-start-battle:hover {
+    box-shadow: 0 6px 20px rgba(239, 68, 68, 0.4) !important;
+}
+
+.battle-complete {
+    padding: 2rem;
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.battle-result-header {
+    margin-bottom: 2rem;
+}
+
+.result-trophy {
+    margin-bottom: 1rem;
+}
+
+.result-trophy.new-best {
+    color: #fbbf24;
+    animation: trophyGlow 1s ease-in-out infinite;
+}
+
+@keyframes trophyGlow {
+    0%,
+    100% {
+        filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.8));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 40px rgba(251, 191, 36, 1));
+    }
+}
+
+.new-best-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: linear-gradient(135deg, #fbbf24, #f59e0b);
+    border-radius: 20px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.battle-result-header h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: #f7fafc;
+}
+
+.challenge-name {
+    font-size: 1.2rem;
+    color: #cbd5e0;
+}
+
+.battle-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.battle-stat {
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.battle-stat .stat-icon {
+    margin-bottom: 0.75rem;
+    color: #667eea;
+}
+
+.battle-stat .stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #f7fafc;
+    margin-bottom: 0.5rem;
+}
+
+.battle-stat .stat-label {
+    font-size: 0.9rem;
+    color: #94a3b8;
+}
+
+.personal-best {
+    padding: 1rem 1.5rem;
+    background: rgba(251, 191, 36, 0.1);
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.best-score {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fbbf24;
+}
+
+.battle-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.battle-active {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.battle-timer {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.battle-timer .time-display {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #f7fafc;
+    margin-top: 1rem;
+}
+
+.time-critical {
+    color: #ef4444;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}
+
+.battle-progress {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.battle-progress h3 {
+    font-size: 1.5rem;
+    color: #a5b4fc;
+    margin-bottom: 1rem;
+}
+
+.simulation-note {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    color: #f7fafc;
+}
+
+.battle-progress p {
+    color: #cbd5e0;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.simulate-btn {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments for Battle Mode */
+@media (max-width: 768px) {
+    .challenges-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .battle-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .battle-intro h2 {
+        font-size: 2rem;
+    }
+}

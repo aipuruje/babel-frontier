@@ -1,0 +1,170 @@
+.success-metrics-badge {
+    width: 100%;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.5) 0%, rgba(18, 18, 32, 0.5) 100%);
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+}
+
+.metrics-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.metrics-title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 40px 0;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.metric-item {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    transition: all 0.3s ease;
+}
+
+.metric-item:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+}
+
+.metric-highlight {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+    border: 2px solid rgba(34, 197, 94, 0.3);
+}
+
+.metric-icon {
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: var(--radius-xl);
+}
+
+.metric-content {
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: var(--font-extrabold);
+    line-height: 1;
+    margin-bottom: 8px;
+}
+
+.metric-label {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.metrics-footer {
+    font-size: var(--text-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+    font-weight: var(--font-medium);
+}
+
+/* Compact Badge Variant */
+.success-badge-compact {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 32px;
+}
+
+.success-badge-highlight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(22, 163, 74, 0.1) 100%);
+    border: 2px solid rgba(34, 197, 94, 0.3);
+    border-radius: var(--radius-2xl);
+    padding: 20px 32px;
+    flex-wrap: wrap;
+}
+
+.success-badge-highlight svg {
+    color: var(--color-success);
+    flex-shrink: 0;
+}
+
+.success-badge-number {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-extrabold);
+    color: var(--color-success);
+}
+
+.success-badge-text {
+    font-size: var(--text-base);
+    color: var(--color-text-primary);
+    font-weight: var(--font-medium);
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .success-metrics-badge {
+        padding: 40px 16px;
+    }
+
+    .metrics-title {
+        font-size: var(--text-xl);
+        margin-bottom: 24px;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .metric-item {
+        padding: 16px;
+    }
+
+    .metric-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .metric-value {
+        font-size: 2rem;
+    }
+
+    .metrics-footer {
+        font-size: var(--text-base);
+    }
+
+    .success-badge-highlight {
+        padding: 16px 20px;
+        gap: 8px;
+    }
+
+    .success-badge-number {
+        font-size: var(--text-xl);
+    }
+
+    .success-badge-text {
+        font-size: var(--text-sm);
+        text-align: center;
+        width: 100%;
+    }
+}

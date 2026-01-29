@@ -1,0 +1,318 @@
+.onboarding-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg-primary);
+    padding: 20px;
+    padding-top: 80px;
+    position: relative;
+}
+
+/* Progress Bar */
+.onboarding-progress-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--color-bg-secondary);
+    z-index: 1000;
+}
+
+.onboarding-progress-fill {
+    height: 100%;
+    background: var(--gradient-primary);
+    transition: width 0.4s ease;
+}
+
+/* Step Indicator */
+.onboarding-step-indicator {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-medium);
+    z-index: 100;
+}
+
+/* Step Container */
+.onboarding-step {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+/* Header */
+.onboarding-header {
+    text-align: center;
+}
+
+.onboarding-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    display: inline-flex;
+    color: var(--color-primary-start);
+}
+
+.onboarding-title {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+    margin: 0 0 12px 0;
+}
+
+.onboarding-subtitle {
+    font-size: var(--text-base);
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.onboarding-question {
+    text-align: center;
+}
+
+.onboarding-question h3 {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+}
+
+/* Persona Grid */
+.persona-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+}
+
+.persona-card {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    padding: 24px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.persona-card:hover {
+    border-color: var(--color-primary-start);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.2);
+}
+
+.persona-card.selected {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%);
+    border-color: var(--color-primary-start);
+    border-width: 3px;
+}
+
+.persona-icon {
+    font-size: 3rem;
+    margin-bottom: 8px;
+}
+
+.persona-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    color: var(--color-text-primary);
+}
+
+.persona-description {
+    font-size: var(--text-sm);
+    color: var(--color-text-tertiary);
+}
+
+/* Band Selector */
+.band-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.band-option {
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    padding: 24px 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.band-option:hover {
+    border-color: var(--color-primary-start);
+    transform: scale(1.05);
+}
+
+.band-option.selected {
+    background: var(--gradient-primary);
+    border-color: transparent;
+}
+
+.band-option.selected .band-value,
+.band-option.selected .band-label {
+    color: #fff;
+}
+
+.band-value {
+    font-size: 2.5rem;
+    font-weight: var(--font-extrabold);
+    color: var(--color-text-primary);
+    line-height: 1;
+    margin-bottom: 4px;
+}
+
+.band-label {
+    font-size: var(--text-xs);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Exam Date Section */
+.exam-date-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.exam-date-input {
+    width: 100%;
+    max-width: 400px;
+    padding: 16px 20px;
+    font-size: var(--text-lg);
+    background: var(--card-bg);
+    border: 2px solid var(--card-border);
+    border-radius: var(--radius-xl);
+    color: var(--color-text-primary);
+    text-align: center;
+    font-weight: var(--font-medium);
+    transition: all 0.3s ease;
+}
+
+.exam-date-input:focus {
+    outline: none;
+    border-color: var(--color-primary-start);
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+}
+
+.urgency-message {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(245, 158, 11, 0.1) 100%);
+    border: 2px solid rgba(251, 191, 36, 0.3);
+    border-radius: var(--radius-full);
+    color: var(--color-warning);
+    font-weight: var(--font-semibold);
+    font-size: var(--text-base);
+}
+
+.skip-date-btn {
+    background: transparent;
+    border: none;
+    color: var(--color-text-tertiary);
+    font-size: var(--text-sm);
+    cursor: pointer;
+    padding: 8px 16px;
+    transition: all 0.2s;
+}
+
+.skip-date-btn:hover {
+    color: var(--color-text-primary);
+    text-decoration: underline;
+}
+
+/* Navigation Buttons */
+.navigation-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.btn-secondary,
+.btn-primary {
+    flex: 1;
+    padding: 14px 24px;
+    border-radius: var(--radius-xl);
+    font-size: var(--text-base);
+    font-weight: var(--font-bold);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 2px solid var(--card-border);
+    color: var(--color-text-primary);
+}
+
+.btn-secondary:hover {
+    border-color: var(--color-border-secondary);
+    background: var(--color-bg-secondary);
+}
+
+.btn-primary {
+    background: var(--gradient-primary);
+    border: none;
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-large {
+    padding: 18px 32px;
+    font-size: var(--text-lg);
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .onboarding-container {
+        padding: 16px;
+        padding-top: 60px;
+    }
+
+    .persona-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .band-selector {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .onboarding-icon {
+        font-size: 3rem;
+    }
+
+    .onboarding-title {
+        font-size: var(--text-2xl);
+    }
+
+    .navigation-buttons {
+        flex-direction: column;
+    }
+}

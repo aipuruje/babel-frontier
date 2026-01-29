@@ -17,3 +17,22 @@ id = "deca7553efce48d288b85c19461f9306"
 # Environment variables
 [vars]
 ENVIRONMENT = "development"
+
+# Cloudflare Pages Configuration
+pages_build_output_dir = "dist"
+
+[pages_build_config]
+compatibility_flags = ["nodejs_compat"]
+compatibility_date = "2024-01-01"
+
+[[pages_functions_bindings]]
+name = "DB"
+type = "d1"
+database_name = "ielts-reading-db"
+database_id = "8e55d606-7d40-4410-9ba9-271a9625ea1b"
+
+[[pages_functions_bindings]]
+name = "SESSIONS"
+type = "kv"
+id = "deca7553efce48d288b85c19461f9306"
+

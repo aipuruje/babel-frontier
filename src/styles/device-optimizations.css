@@ -1,0 +1,72 @@
+/* Device-specific optimizations */
+
+/* Low-end device optimizations */
+.reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+}
+
+.minimal-effects .glassmorphism {
+    backdrop-filter: none;
+    background: var(--surface) !important;
+}
+
+.minimal-effects .shadow-lg,
+.minimal-effects .shadow-xl {
+    box-shadow: none !important;
+}
+
+/* Low quality images for data saving */
+.low-quality-images img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+}
+
+/* Data saver mode */
+.data-saver img:not([data-loaded]) {
+    display: none;
+}
+
+.data-saver video {
+    display: none;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Performance indicators (dev mode) */
+.perf-indicator {
+    position: fixed;
+    bottom: 60px;
+    right: 10px;
+    padding: 4px 8px;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    font-size: 10px;
+    border-radius: 4px;
+    z-index: 9999;
+    font-family: monospace;
+}
+
+.perf-indicator.good {
+    background: rgba(0, 200, 0, 0.8);
+}
+
+.perf-indicator.needs-improvement {
+    background: rgba(255, 165, 0, 0.8);
+}
+
+.perf-indicator.poor {
+    background: rgba(255, 0, 0, 0.8);
+}

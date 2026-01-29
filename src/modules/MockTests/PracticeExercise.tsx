@@ -1,8 +1,10 @@
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, CheckCircle, XCircle, Trophy, ArrowRight, ArrowLeft, Play, RotateCcw } from 'lucide-react';
 import { useModuleStore } from '@/store/moduleStore';
 import { useUserStore } from '@/store/userStore';
+import { useSubmissionStore } from '@/store/submissionStore';
 import { triggerHaptic } from '@/utils/telegram';
 
 // Mock Test Data Structure
@@ -465,8 +467,10 @@ const calculateBandScore = (correctAnswers: number): number => {
 };
 
 export default function PracticeExercise() {
+    const { t } = useTranslation();
     const { updateProgress } = useModuleStore();
     const { updateXP } = useUserStore();
+    const addSubmission = useSubmissionStore((state) => state.addSubmission);
 
     const [selectedTest, setSelectedTest] = useState<MockTest | null>(null);
     const [testStarted, setTestStarted] = useState(false);
@@ -477,6 +481,12 @@ export default function PracticeExercise() {
     const [showResults, setShowResults] = useState(false);
 
     // Timer countdown
+    const handleTimeExpired = () => {
+        triggerHaptic('error');
+        setTestCompleted(true);
+        setShowResults(true);
+    };
+
     useEffect(() => {
         if (!testStarted || testCompleted) return;
 
@@ -493,12 +503,6 @@ export default function PracticeExercise() {
 
         return () => clearInterval(timer);
     }, [testStarted, testCompleted]);
-
-    const handleTimeExpired = () => {
-        triggerHaptic('error');
-        setTestCompleted(true);
-        setShowResults(true);
-    };
 
     const handleSelectTest = (test: MockTest) => {
         triggerHaptic('selection');
@@ -560,6 +564,13 @@ export default function PracticeExercise() {
                 : userAnswer.toLowerCase().trim() === question.correctAnswer.toLowerCase().trim();
 
             if (isCorrect) correctCount++;
+
+            // Track submission in store
+            addSubmission({
+                moduleId: 'mock-tests',
+                isCorrect,
+                timeSpent: Math.floor((3600 - timeRemaining) / allQuestions.length)
+            });
         });
 
         const bandScore = calculateBandScore(correctCount);
@@ -605,10 +616,9 @@ export default function PracticeExercise() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
             >
-                <h3 className="selection-title">Select a Mock Test</h3>
+                <h3 className="selection-title">{t('modules.mockTests.practice.selectTest')}</h3>
                 <p className="selection-subtitle">
-                    Choose from 10 complete IELTS Reading practice tests. Each test contains
-                    3 passages and 40 questions under 60-minute time constraints.
+                    {t('modules.mockTests.theory.desc')}
                 </p>
 
                 <div className="test-grid">
@@ -627,12 +637,12 @@ export default function PracticeExercise() {
                             </div>
                             <h4>{test.title}</h4>
                             <div className="test-meta">
-                                <span>📝 40 Questions</span>
-                                <span>⏱️ 60 Minutes</span>
-                                <span>📄 3 Passages</span>
+                                <span>📝 40 {t('common.questions', { defaultValue: 'Questions' })}</span>
+                                <span>⏱️ 60 {t('common.minutes', { defaultValue: 'Minutes' })}</span>
+                                <span>📄 3 {t('modules.mockTests.practice.title', { defaultValue: 'Passages' }).replace('Mock Tests', 'Passages')}</span>
                             </div>
                             <button className="select-test-btn">
-                                Start Test <ArrowRight size={16} />
+                                {t('modules.mockTests.practice.startTest')} <ArrowRight size={16} />
                             </button>
                         </motion.div>
                     ))}
@@ -670,31 +680,31 @@ export default function PracticeExercise() {
             >
                 <div className="results-header">
                     <Trophy size={48} className="results-trophy" />
-                    <h2>Test Complete!</h2>
+                    <h2>{t('modules.mockTests.practice.testComplete')}</h2>
                     <p className="test-completed-name">{selectedTest.title}</p>
                 </div>
 
                 <div className="results-summary">
                     <div className="result-stat-large">
                         <div className="stat-value gradient-text">{bandScore}</div>
-                        <div className="stat-label">Band Score</div>
+                        <div className="stat-label">{t('modules.mockTests.practice.bandScore')}</div>
                     </div>
                     <div className="result-stat">
                         <div className="stat-value">{correctCount}/40</div>
-                        <div className="stat-label">Correct Answers</div>
+                        <div className="stat-label">{t('modules.mockTests.practice.correctAnswers')}</div>
                     </div>
                     <div className="result-stat">
                         <div className="stat-value">{formatTime(timeSpent)}</div>
-                        <div className="stat-label">Time Spent</div>
+                        <div className="stat-label">{t('modules.mockTests.practice.timeSpent')}</div>
                     </div>
                     <div className="result-stat">
                         <div className="stat-value">{Math.round((correctCount / 40) * 100)}%</div>
-                        <div className="stat-label">Accuracy</div>
+                        <div className="stat-label">{t('modules.mockTests.practice.accuracy')}</div>
                     </div>
                 </div>
 
                 <div className="results-breakdown">
-                    <h3>Detailed Breakdown</h3>
+                    <h3>{t('modules.mockTests.practice.detailedBreakdown')}</h3>
                     {selectedTest.passages.map((passage) => {
                         const passageCorrect = passage.questions.filter((q) => {
                             const userAnswer = userAnswers[q.id];
@@ -708,7 +718,7 @@ export default function PracticeExercise() {
 
                         return (
                             <div key={passage.passageNumber} className="passage-result">
-                                <h4>Passage {passage.passageNumber}: {passage.title}</h4>
+                                <h4>{t('modules.mockTests.practice.passage', { count: passage.passageNumber })}: {passage.title}</h4>
                                 <div className="passage-score">
                                     {passageCorrect}/{passage.questions.length} correct
                                 </div>
@@ -729,16 +739,18 @@ export default function PracticeExercise() {
                                                     {isCorrect ? <CheckCircle size={16} /> : <XCircle size={16} />}
                                                 </div>
                                                 <div className="question-result-content">
-                                                    <p className="question-text">Q{q.id}: {q.question}</p>
+                                                    <p className="question-text">{t('modules.mockTests.practice.questionNum', { id: q.id })}: {q.question}</p>
                                                     <div className="answer-comparison">
                                                         <span className="your-answer">
-                                                            Your answer: {userAnswer || '(No answer)'}
+                                                            {t('modules.mockTests.practice.yourAnswer', { answer: userAnswer || t('modules.mockTests.practice.noAnswer') })}
                                                         </span>
                                                         {!isCorrect && (
                                                             <span className="correct-answer">
-                                                                Correct: {Array.isArray(q.correctAnswer)
-                                                                    ? q.correctAnswer.join(' / ')
-                                                                    : q.correctAnswer}
+                                                                {t('modules.mockTests.practice.correctAnswer', {
+                                                                    answer: Array.isArray(q.correctAnswer)
+                                                                        ? q.correctAnswer.join(' / ')
+                                                                        : q.correctAnswer
+                                                                })}
                                                             </span>
                                                         )}
                                                     </div>
@@ -754,10 +766,10 @@ export default function PracticeExercise() {
 
                 <div className="results-actions">
                     <button className="btn-secondary" onClick={() => setSelectedTest(null)}>
-                        <ArrowLeft size={16} /> Back to Tests
+                        <ArrowLeft size={16} /> {t('modules.mockTests.practice.backToTests')}
                     </button>
                     <button className="btn-primary" onClick={handleResetTest}>
-                        <RotateCcw size={16} /> Retry Test
+                        <RotateCcw size={16} /> {t('modules.mockTests.practice.retryTest')}
                     </button>
                 </div>
             </motion.div>
@@ -774,23 +786,23 @@ export default function PracticeExercise() {
             >
                 <h2>{selectedTest.title}</h2>
                 <div className="intro-card">
-                    <h3>Test Instructions</h3>
+                    <h3>{t('modules.mockTests.practice.instructions')}</h3>
                     <ul className="instruction-list">
-                        <li>You will have <strong>60 minutes</strong> to complete all 3 passages</li>
-                        <li>The test contains <strong>40 questions</strong> across various question types</li>
-                        <li>You can navigate between passages using the navigation buttons</li>
-                        <li>Your timer will start once you begin the test</li>
-                        <li>Treat this like a real exam—no pausing allowed!</li>
-                        <li>Submit your answers before time expires to receive your band score</li>
+                        <li>{t('modules.mockTests.practice.instruction1')}</li>
+                        <li>{t('modules.mockTests.practice.instruction2')}</li>
+                        <li>{t('modules.mockTests.practice.instruction4')}</li>
+                        <li>{t('modules.mockTests.practice.instruction3')}</li>
+                        <li>{t('modules.mockTests.practice.instruction5')}</li>
+                        <li>{t('modules.mockTests.practice.instruction6')}</li>
                     </ul>
 
                     <div className="passage-preview">
-                        <h4>Test Contents:</h4>
+                        <h4>{t('modules.mockTests.practice.testContents')}</h4>
                         {selectedTest.passages.map((passage) => (
                             <div key={passage.passageNumber} className="preview-item">
-                                <strong>Passage {passage.passageNumber}:</strong> {passage.title}
+                                <strong>{t('modules.mockTests.practice.passage', { count: passage.passageNumber })}:</strong> {passage.title}
                                 <span className="preview-meta">
-                                    {passage.wordCount} words • {passage.questions.length} questions
+                                    {t('modules.mockTests.practice.wordsAndQuestions', { words: passage.wordCount, questions: passage.questions.length })}
                                 </span>
                             </div>
                         ))}
@@ -799,10 +811,10 @@ export default function PracticeExercise() {
 
                 <div className="intro-actions">
                     <button className="btn-secondary" onClick={() => setSelectedTest(null)}>
-                        <ArrowLeft size={16} /> Choose Different Test
+                        <ArrowLeft size={16} /> {t('modules.mockTests.practice.chooseDifferentTest')}
                     </button>
                     <button className="btn-primary btn-start" onClick={handleStartTest}>
-                        <Play size={16} /> Start Test
+                        <Play size={16} /> {t('modules.mockTests.practice.begin')}
                     </button>
                 </div>
             </motion.div>
@@ -828,7 +840,7 @@ export default function PracticeExercise() {
                     </span>
                 </div>
                 <div className="progress-display">
-                    <span>{answeredCount}/40 answered</span>
+                    <span>{t('modules.mockTests.practice.answered', { count: answeredCount })}</span>
                     <div className="progress-bar">
                         <div
                             className="progress-fill"
@@ -849,7 +861,7 @@ export default function PracticeExercise() {
                             setCurrentPassage(idx);
                         }}
                     >
-                        Passage {p.passageNumber}
+                        {t('modules.mockTests.practice.passage', { count: p.passageNumber })}
                     </button>
                 ))}
             </div>
@@ -865,10 +877,10 @@ export default function PracticeExercise() {
                     transition={{ duration: 0.3 }}
                 >
                     <div className="passage-header">
-                        <h3>Passage {currentPassageData.passageNumber}</h3>
+                        <h3>{t('modules.mockTests.practice.passage', { count: currentPassageData.passageNumber })}</h3>
                         <h4>{currentPassageData.title}</h4>
                         <p className="passage-meta">
-                            {currentPassageData.topic} • {currentPassageData.wordCount} words
+                            {currentPassageData.topic} • {t('modules.mockTests.practice.wordsCount', { count: currentPassageData.wordCount })}
                         </p>
                     </div>
 
@@ -879,11 +891,11 @@ export default function PracticeExercise() {
                     </div>
 
                     <div className="questions-section">
-                        <h4>Questions {currentPassageData.questions[0].id} - {currentPassageData.questions[currentPassageData.questions.length - 1].id}</h4>
+                        <h4>{t('modules.mockTests.practice.questionsRange', { start: currentPassageData.questions[0].id, end: currentPassageData.questions[currentPassageData.questions.length - 1].id })}</h4>
                         {currentPassageData.questions.map((question) => (
                             <div key={question.id} className="question-item">
                                 <div className="question-header">
-                                    <span className="question-number">Q{question.id}</span>
+                                    <span className="question-number">{t('modules.mockTests.practice.questionNum', { id: question.id })}</span>
                                     <span className="question-type">{question.type}</span>
                                 </div>
                                 <p className="question-text">{question.question}</p>
@@ -906,7 +918,7 @@ export default function PracticeExercise() {
                                     <input
                                         type="text"
                                         className="answer-input"
-                                        placeholder="Type your answer..."
+                                        placeholder={t('modules.mockTests.practice.typeAnswer')}
                                         value={userAnswers[question.id] || ''}
                                         onChange={(e) => handleAnswerChange(question.id, e.target.value)}
                                     />
@@ -924,16 +936,16 @@ export default function PracticeExercise() {
                     onClick={handlePrevPassage}
                     disabled={currentPassage === 0}
                 >
-                    <ArrowLeft size={16} /> Previous Passage
+                    <ArrowLeft size={16} /> {t('modules.mockTests.practice.previousPassage')}
                 </button>
 
                 {currentPassage === selectedTest.passages.length - 1 ? (
                     <button className="btn-primary" onClick={handleSubmitTest}>
-                        Submit Test <CheckCircle size={16} />
+                        {t('modules.mockTests.practice.submitTest')} <CheckCircle size={16} />
                     </button>
                 ) : (
                     <button className="btn-primary" onClick={handleNextPassage}>
-                        Next Passage <ArrowRight size={16} />
+                        {t('modules.mockTests.practice.nextPassage')} <ArrowRight size={16} />
                     </button>
                 )}
             </div>

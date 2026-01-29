@@ -1,80 +1,84 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useUserStore } from '@/store/userStore';
 import { triggerHaptic } from '@/utils/telegram';
+import TestimonialsCarousel from '@/components/TestimonialsCarousel';
+import SuccessMetricsBadge from '@/components/SuccessMetricsBadge';
+import { getRandomTestimonials } from '@/data/testimonials';
 import './Landing.css';
 
-// Story phases for cinematic experience
-const STORY_PHASES = [
-    {
-        id: 1,
-        icon: '⏳',
-        title: 'The Struggle',
-        text: '60 minutes. 40 questions. 2,750 words.',
-        subtext: 'The clock is your enemy.',
-        theme: 'dark',
-        duration: 3000
-    },
-    {
-        id: 2,
-        icon: '🎯',
-        title: 'The Trap',
-        text: 'True? False? Or Not Given?',
-        subtext: 'Your intuition betrays you.',
-        theme: 'danger',
-        duration: 3000
-    },
-    {
-        id: 3,
-        icon: '🧠',
-        title: 'The Science',
-        text: 'It\'s not about reading.',
-        subtext: 'It\'s about cognitive velocity.',
-        theme: 'info',
-        duration: 3000
-    },
-    {
-        id: 4,
-        icon: '🏆',
-        title: 'The Solution',
-        text: 'Train the 9 skills IELTS actually tests.',
-        subtext: 'Master the system.',
-        theme: 'success',
-        duration: 3000
-    },
-    {
-        id: 5,
-        icon: '🚀',
-        title: 'The Invitation',
-        text: 'Your 14-Day Mastery Path Awaits',
-        subtext: 'Are you ready?',
-        theme: 'gradient',
-        duration: 4000,
-        isFinal: true
-    }
-];
-
 export default function Landing() {
+    const { t } = useTranslation();
     const [currentPhase, setCurrentPhase] = useState(0);
     const [hasWatched, setHasWatched] = useState(false);
     const navigate = useNavigate();
     const { isAuthenticated } = useUserStore();
 
+    const storyPhases = useMemo(() => [
+        {
+            id: 1,
+            icon: '⏳',
+            title: t('landing.story.phase1.title'),
+            text: t('landing.story.phase1.text'),
+            subtext: t('landing.story.phase1.subtext'),
+            theme: 'dark',
+            duration: 3000
+        },
+        {
+            id: 2,
+            icon: '🎯',
+            title: t('landing.story.phase2.title'),
+            text: t('landing.story.phase2.text'),
+            subtext: t('landing.story.phase2.subtext'),
+            theme: 'danger',
+            duration: 3000
+        },
+        {
+            id: 3,
+            icon: '🧠',
+            title: t('landing.story.phase3.title'),
+            text: t('landing.story.phase3.text'),
+            subtext: t('landing.story.phase3.subtext'),
+            theme: 'info',
+            duration: 3000
+        },
+        {
+            id: 4,
+            icon: '🏆',
+            title: t('landing.story.phase4.title'),
+            text: t('landing.story.phase4.text'),
+            subtext: t('landing.story.phase4.subtext'),
+            theme: 'success',
+            duration: 3000
+        },
+        {
+            id: 5,
+            icon: '🚀',
+            title: t('landing.story.phase5.title'),
+            text: t('landing.story.phase5.text'),
+            subtext: t('landing.story.phase5.subtext'),
+            theme: 'gradient',
+            duration: 4000,
+            isFinal: true
+        }
+    ], [t]);
+
     useEffect(() => {
         // Auto-advance through story phases
-        if (currentPhase < STORY_PHASES.length - 1) {
+        if (currentPhase < storyPhases.length - 1) {
             const timer = setTimeout(() => {
                 triggerHaptic('light');
                 setCurrentPhase((prev) => prev + 1);
-            }, STORY_PHASES[currentPhase].duration);
+            }, storyPhases[currentPhase].duration);
 
             return () => clearTimeout(timer);
         } else {
             // Reached final phase
             setHasWatched(true);
         }
-    }, [currentPhase]);
+    }, [currentPhase, storyPhases]);
 
     const handleBegin = () => {
         triggerHaptic('success');
@@ -89,12 +93,13 @@ export default function Landing() {
     };
 
     const handleSkip = () => {
-        setCurrentPhase(STORY_PHASES.length - 1);
+        setCurrentPhase(storyPhases.length - 1);
         setHasWatched(true);
         triggerHaptic('selection');
     };
 
-    const phase = STORY_PHASES[currentPhase];
+    const phase = storyPhases[currentPhase];
+    const testimonials = getRandomTestimonials(5); // Get 5 random testimonials
 
     return (
         <div className={`landing-container landing-theme-${phase.theme}`}>
@@ -107,13 +112,13 @@ export default function Landing() {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1 }}
                 >
-                    Skip
+                    {t('landing.skip')}
                 </motion.button>
             )}
 
             {/* Progress indicator */}
             <div className="landing-progress">
-                {STORY_PHASES.map((_, index) => (
+                {storyPhases.map((_, index) => (
                     <div
                         key={index}
                         className={`landing-progress-dot ${index === currentPhase ? 'active' : ''} ${index < currentPhase ? 'completed' : ''
@@ -194,7 +199,7 @@ export default function Landing() {
                                     boxShadow: { delay: 1.5, duration: 2, repeat: Infinity }
                                 }}
                             >
-                                Begin Your Mastery
+                                {t('landing.begin')}
                             </motion.button>
                         )}
 
@@ -211,12 +216,31 @@ export default function Landing() {
                                 animate={{ opacity: 1 }}
                                 transition={{ delay: 1.2 }}
                             >
-                                ↺ Replay Story
+                                {t('landing.replay')}
                             </motion.button>
                         )}
                     </motion.div>
                 </AnimatePresence>
             </div>
+
+            {/* Social Proof Section - Show on final phase after watching */}
+            {phase.isFinal && hasWatched && (
+                <motion.div
+                    className="landing-social-proof"
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 1.5, duration: 0.8 }}
+                >
+                    {/* Success Metrics Badge */}
+                    <SuccessMetricsBadge variant="compact" />
+
+                    {/* Testimonials Carousel */}
+                    <div className="landing-testimonials-section">
+                        <h2 className="section-title">{t('landing.testimonialsTitle')}</h2>
+                        <TestimonialsCarousel testimonials={testimonials} autoPlay interval={6000} />
+                    </div>
+                </motion.div>
+            )}
 
             {/* Background gradient animation */}
             <div className="landing-bg-gradient" />
