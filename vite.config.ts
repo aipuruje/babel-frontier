@@ -90,9 +90,9 @@ export default defineConfig({
         minify: 'terser',
         terserOptions: {
             compress: {
-                drop_console: true, // Remove console.logs
+                // drop_console: true, // Temporarily disabled to allow debugging
                 drop_debugger: true,
-                pure_funcs: ['console.log', 'console.info'], // Remove specific functions
+                // pure_funcs: ['console.log', 'console.info'], // Temporarily disabled
                 passes: 2 // Multiple passes for better compression
             },
             mangle: {

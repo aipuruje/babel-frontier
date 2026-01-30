@@ -79,9 +79,18 @@ export const getTelegramUser = () => {
         };
     }
 
-    // Production mode without Telegram user - return null
+    // Production mode without Telegram - provide demo user for browser testing
+    // This allows the deployed app to be previewed in a regular browser
     if (import.meta.env.PROD && !telegramUser) {
-        console.error('[Telegram] No user data available in production mode');
+        console.warn('[Telegram] Running in browser mode - using demo user');
+        return {
+            id: 999999999,
+            first_name: 'Demo',
+            last_name: 'User',
+            username: 'demo_user',
+            language_code: 'en',
+            is_premium: false
+        };
     }
 
     return null;
