@@ -61,6 +61,8 @@ Copy `.env.example` to `.env` and configure:
 
 This app is designed to be deployed to Cloudflare Pages with Workers integration.
 
-## License
-
 MIT
+
+## Deployment Status
+
+🚀 **Live**: https://ielts-reading-mastery.pages.dev
